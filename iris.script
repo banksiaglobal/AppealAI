@@ -1,4 +1,33 @@
-    zn "USER" 
+    zn "USER"
+    zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
-    zpm "load /home/irisowner/irisdev/ -v"
+    halt
+
+    zn "HSLIB"
+
+    #; Do ##class(HS.HC.FHIRSQL.Utils.Setup).CreateWebApps("HSSYS",1)
+    #; Do ##class(HS.HC.FHIRSQL.Utils.Setup).DefineDocDBs("HSSYS")
+
+    set namespace="FHIRSERVER"
+
+    Set appKey = "/fhir/r4"
+    Set strategyClass = "HS.FHIRServer.Storage.Json.InteractionsStrategy"
+    set metadataPackages = $lb("hl7.fhir.r4.core@4.0.1")
+    set importdir="/opt/irisapp/src"
+
+    Do ##class(HS.Util.Installer.Foundation).Install(namespace)
+
+    zn namespace
+
+    Do ##class(HS.FHIRServer.Installer).InstallNamespace()
+
+    Do ##class(HS.FHIRServer.Installer).InstallInstance(appKey, strategyClass, metadataPackages)
+
+    set strategy = ##class(HS.FHIRServer.API.InteractionsStrategy).GetStrategyForEndpoint(appKey)
+    set config = strategy.GetServiceConfigData()
+    set config.DebugMode = 4
+    do strategy.SaveServiceConfigData(config)
+
+    do $System.OBJ.LoadDir(importdir,"ck",,1)
+
     halt
