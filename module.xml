@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="health-harbour.ZPM">
+  <Document name="appeal-ai.ZPM">
     <Module>
-      <Name>health-harbour</Name>
-      <Version>0.0.2</Version>
+      <Name>appeal-ai</Name>
+      <Version>0.0.1</Version>
       <Description>Application for InterSystems FHIR and Digital Health Interoperability Contest</Description>
       <Keywords>FHIR</Keywords>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <Invokes>
-        <Invoke Class="fhir.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
+        <Invoke Class="FHIR.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
       </Invokes>
-      <Resource Name="fhir.PKG"/>
-      <Resource Name="OpenAi.PKG"/>
+      <Resource Name="FHIR.PKG"/>
     </Module>
   </Document>
 </Export>
