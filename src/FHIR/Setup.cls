@@ -1,7 +1,17 @@
 Class FHIR.Setup Extends %RegisteredObject
 {
+
 ClassMethod SetupFHIRServer(ns) As %Status
 {
+
+    zn "%SYS"
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+    do ##class(Security.Services).Get("%Service_CallIn",.prop)
+    set prop("Enabled")=1
+    set prop("AutheEnabled")=48
+    do ##class(Security.Services).Modify("%Service_CallIn",.prop)
+
+    
     set ns=$g(ns,$namespace)
     set ns="FHIRSERVER"
     
@@ -37,4 +47,5 @@ ClassMethod SetupFHIRServer(ns) As %Status
     #; quit st
     quit 1
 }
+
 }

@@ -12,6 +12,9 @@
         <Invoke Class="FHIR.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
       </Invokes>
       <Resource Name="FHIR.PKG"/>
+      <Resource Name="dc.python.PKG"/>
+      <FileCopy Name="src/python/" Target="${libdir}python/"/>
     </Module>
   </Document>
 </Export>
+
