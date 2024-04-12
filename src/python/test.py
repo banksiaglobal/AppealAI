@@ -13,12 +13,15 @@ def embed_text(text, api_key):
     embeddings = OpenAIEmbeddings(api_key=api_key)
     return embeddings.embed_documents([text])
 
-def hello():
+def start():
     # Create embeddings for the document
     document_text = fetch_document(URL)
     document_vector = embed_text(document_text, OPENAI_API_KEY)
     print(document_vector)
 
+def hello():
+    return "world"
+
 
 if __name__ == "__main__":
-    hello()
+    start()
