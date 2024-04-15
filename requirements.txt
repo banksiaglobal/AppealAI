@@ -1,4 +1,7 @@
 langchain-openai
 sqlalchemy-iris
-beautifulsoup4
 faiss-cpu
+python-docx
+pytesseract
+pillow
+pdfplumber
