@@ -5,17 +5,17 @@
         "iris.script": "objectscript"
       },
     "objectscript.conn" :{
-        "ns": "USER",
-        "active": true,
-        "username": "_SYSTEM",
-        "password": "SYS",
-        "docker-compose": {
-            "service": "iris",
-            "internalPort": 52773
-        },
-        "links": {
-            "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
-        }
+      "ns": "USER",
+      "active": true,
+      "username": "_SYSTEM",
+      "password": "SYS",
+      "docker-compose": {
+        "service": "iris",
+        "internalPort": 52773
+      },
+      "links": {
+        "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
+      }
     },
     "sqltools.connections": [
       {
@@ -35,21 +35,21 @@
     "[javascript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",
         "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": true
+          "source.fixAll.eslint": "explicit"
         },
         "editor.formatOnSave": false
       },
       "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": true
+          "source.fixAll.eslint": "explicit"
         },
         "editor.formatOnSave": true
       },
       "[json]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",
         "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": true
+          "source.fixAll.eslint": "explicit"
         },
         "editor.formatOnSave": false
       },
