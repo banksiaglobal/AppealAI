@@ -5,7 +5,7 @@ Parameter %JSONIGNOREINVALIDFIELD = 1;
 
 Property Path As %String(%JSONFIELDNAME = "path", MAXLEN = "");
 
-Property IdDocument As %Integer(%JSONFIELDNAME = "id");
+Property Name As %String(%JSONFIELDNAME = "name");
 
 Storage Default
 {
@@ -15,7 +15,7 @@ Storage Default
 <Value>Path</Value>
 </Value>
 <Value name="2">
-<Value>IdDocument</Value>
+<Value>Name</Value>
 </Value>
 </Data>
 <DefaultData>RequestDefaultData</DefaultData>

@@ -31,7 +31,6 @@ ClassMethod Create() As %Library.DynamicObject
     Try {
         set Company = ##class(InsurData.Company).%New()
         set Company.Name = data.name
-        set Company.Product = "" 
         set Company.UUIDFHIR = ""
         set sc = Company.%Save()
 

@@ -5,7 +5,7 @@ Parameter %JSONIGNOREINVALIDFIELD = 1;
 
 Property Vector As %String(%JSONFIELDNAME = "vector", MAXLEN = "");
 
-Property IdDocument As %Boolean(%JSONFIELDNAME = "id");
+Property Name As %String(%JSONFIELDNAME = "name");
 
 Storage Default
 {
@@ -15,7 +15,7 @@ Storage Default
 <Value>Vector</Value>
 </Value>
 <Value name="2">
-<Value>IdDocument</Value>
+<Value>Name</Value>
 </Value>
 </Data>
 <DefaultData>ResponseDefaultData</DefaultData>
