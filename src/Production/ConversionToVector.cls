@@ -27,8 +27,8 @@ import os
 </parameters>
 </property>
 </context>
-<sequence xend='601' yend='756' >
-<assign name="get type of doc " property="context.typeOfDoc" value="(request.Path).split('.')[-1]" action="set" languageOverride="python" xpos='200' ypos='250' />
+<sequence xend='200' yend='800' >
+<assign name="get type of doc " property="context.typeOfDoc" value="request.Path.split('.')[-1]" action="set" languageOverride="python" xpos='200' ypos='250' />
 <switch name='what type of doc ' xpos='200' ypos='350' xend='200' yend='600' >
 <case condition='context.typeOfDoc = "pdf"' name='if type is pdf' languageOverride='objectscript' >
 <code name='PDF' languageOverride='python' xpos='335' ypos='500' >
@@ -50,6 +50,7 @@ textOfDocument = '\n'.join([para.text for para in doc.paragraphs])]]>
     textOfDocument = file.read()]]>
 </code>
 </case>
+<default/>
 </switch>
 <code name='get vector' languageOverride='python' xpos='200' ypos='700' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")

@@ -1,7 +1,7 @@
 Class Model.Document Extends (%Library.Persistent, %JSON.Adaptor)
 {
 
-Property Name As %String;
+Property Name As %String(MAXLEN = 300);
 
 Property Path As %String(MAXLEN = 300);
 
