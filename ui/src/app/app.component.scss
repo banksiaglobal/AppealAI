@@ -6,7 +6,11 @@
 }
 
 .app-layout {
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.horizontal-header-var {
+  display: none;
 }
 
 .menu-sidebar {
@@ -58,14 +62,13 @@
 
 nz-header {
   padding: 0;
+  height: 64px;
   width: 100%;
   z-index: 2;
 }
 
 .app-header {
   position: relative;
-  height: 80px;
-  padding: 0;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
@@ -81,9 +84,56 @@ nz-content {
 }
 
 .logo-bg {
-  display: inline-block;
-  margin: auto;
-  height: 80px;
+  height: 50px;
   width: 200px;
+  margin-left: 10px;
   background: url("../assets/logo-bg.svg") 50% no-repeat;
+}
+
+.h2 {
+  font-size: 30px;
+  color: var(--primary-bg-color);
+}
+
+.header-title {
+  margin: auto;
+  gap: 5px;
+}
+
+.description-logo {
+  margin-left: 10px;
+  color: var(--dark-bg-color);
+}
+
+nz-footer {
+  text-align: center;
+}
+
+@media screen and (max-width: 680px) {
+  .menu-sidebar,
+  .description-logo,
+  .logo-bg,
+  .header-trigger,
+  .vertical-header-var {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 681px) {
+  .horizontal-header-var {
+    display: flex;
+  }
+  .logo {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .horizontal-header-var {
+    justify-content: center;
+  }
+
+  .logo {
+    display: none;
+  }
 }

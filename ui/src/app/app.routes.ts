@@ -23,4 +23,8 @@ export const routes: Routes = [
         (m) => m.AboutPageComponent
       ),
   },
+  {
+    path: '**',
+    redirectTo: 'welcome',
+  },
 ];
