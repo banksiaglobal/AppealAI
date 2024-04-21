@@ -5,7 +5,7 @@ Property Name As %String;
 
 Property UUIDFHIR As %String(MAXLEN = 300);
 
-Index IndexName On Name;
+Index IndexName On Name [ Unique ];
 
 Storage Default
 {

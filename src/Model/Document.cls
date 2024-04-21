@@ -11,6 +11,16 @@ Property DateTime As %TimeStamp;
 
 Index IndexName On Name;
 
+ClassMethod GetDocumentByName(name) As Model.Document
+{
+    set Document = ""
+    &SQL(SELECT ID into :id FROM Model.Document WHERE Name=:name)
+    if SQLCODE=0{
+       set Document = ##class(Model.Document).%OpenId(id)
+    }
+    Return Document
+}
+
 Storage Default
 {
 <Data name="DocumentDefaultData">

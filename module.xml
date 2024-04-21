@@ -15,7 +15,7 @@
       <Resource Name="REST.PKG"/>
       <Resource Name="Model.PKG"/>
       <Resource Name="Production.PKG"/>
-      <FileCopy Name="src/python/" Target="${libdir}python/"/>
+      <!-- <FileCopy Name="src/python/" Target="${libdir}python/"/> -->
       <CSPApplication
         Url="/api"
         DispatchClass="REST.Registry"

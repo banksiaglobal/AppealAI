@@ -5,20 +5,11 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
 
-    <Route Url="/_ping" Method="GET" Call="Ping" Cors="true"/>
     <Route Url="/upload" Method="POST" Call="Upload" Cors="true"/>
     <Route Url="/:id" Method="DELETE" Call="Delete" Cors="true"/>
-    <!-- <Route Url="/:id" Method="GET" Call="GetDocument" Cors="true"/> -->
+    <Route Url="/:name" Method="GET" Call="GetDocument" Cors="true"/>
 
 </Routes>
-}
-
-ClassMethod Ping() As %Library.DynamicObject
-{
-    set response = {}
-    s response.pong = 1
-    set responseSC = $$$OK
-    return ..Response(response, responseSC)
 }
 
 ClassMethod Upload() As %Library.DynamicObject
@@ -27,38 +18,50 @@ ClassMethod Upload() As %Library.DynamicObject
     set response = {}
     set responseSC = $$$OK
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
-    set path = "/opt/irisapp/output/"
+    set path = "/opt/irisapp/"
 
-    tstart
-    Try {
-        set doc=##class(%Stream.FileBinary).%New()
-        Set doc.Filename=path_data.FileName
-        set tsc=doc.CopyFrom(data) 
-        set sc=doc.%Save()
+    try {
+        Set stream=##class(%Stream.FileBinary).%New()
+        Set sc=stream.LinkToFile(path_data.FileName)
+        Set sc=stream.CopyFromAndSave(data)
+       
         
-        if 'sc || 'tsc {
+        if 'sc  {
             set response={"error":-500}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
         }
 
-        set Document = ##class(Model.Document).%New()
-        set Document.Name = data.FileName
-        set Document.Path = doc.Filename
-        set Document.DateTime = $ZD($H,3)
-        set sc = Document.%Save()
+        #; set Document = ##class(Model.Document).%New()
+        #; set Document.Name = data.FileName
+        #; set Document.Path = path_data.FileName
+        #; set Document.DateTime = $ZD($H,3)
+        #; set sc = Document.%Save()
+
+        // call  Production.Service.DocumentIn        
+
+        #; set requestDoc = ##class(Production.Message.DocumentRequest).%New()
+        #; set requestDoc.Path = path_data.FileName
+        #; set requestDoc.Name = data.FileName
+        
+        #; set tSC = ##class(Ens.Director).CreateBusinessService("Production.Service.DocumentIn",.tService)
+        #; if ($ISOBJECT(tService)) {
+        #;     set tSC = tService.ProcessInput(requestDoc,.responseDoc)
+        #; }
+        
+        /*
 
         if 'sc {
             set response={"error":-500}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
         }
+        */
 
-        set response.id = Document.%Id()
-        set response.name = Document.Name
+        set response.name = data.FileName
+        set response.path = path_data.FileName
 
-        tcommit
     }
-    Catch ex {
-        trollback
+    catch ex {
+  
         if response.error="" set response.error=-500
         set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
         set responseSC = $System.Status.GetErrorText(ex.AsStatus())
@@ -90,6 +93,30 @@ ClassMethod Delete(id) As %Status
         set responseSC = $System.Status.GetErrorText(ex.AsStatus())
     }
 
+    return ..Response(response, responseSC)
+}
+
+ClassMethod GetDocument(name) As %Status
+{
+    try {
+        set response = {}
+        set responseSC = $$$OK
+        set Document = ##class(Model.Document).GetDocumentByName(name)
+        if '$ISOBJECT(Document){
+            set response={"error":-404}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+        }
+
+        set response.name = Document.Name
+        set response.createDateTime = Document.DateTime
+        
+    }
+    catch ex {
+        if response.error="" set response.error=-404
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    
     return ..Response(response, responseSC)
 }
 

@@ -35,4 +35,10 @@
 
     do $System.OBJ.LoadDir(importdir,"ck",,1)
 
+    // install Installer.cls
+    
+    #; do $SYSTEM.OBJ.Load("/home/irisowner/irisbuild/Installer.cls", "ck") 
+    #; set sc = ##class(App.Installer).setup() 
+
+
     halt
