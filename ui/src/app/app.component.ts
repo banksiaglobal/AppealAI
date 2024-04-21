@@ -4,7 +4,6 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
-import { HeaderMenuComponent } from './components/header-menu/header-menu.component';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
@@ -27,7 +26,6 @@ const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill];
     NzLayoutModule,
     NzMenuModule,
     NzFlexModule,
-    HeaderMenuComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

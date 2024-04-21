@@ -40,7 +40,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class StartPageComponent {
   constructor(private fb: NonNullableFormBuilder, private http: HttpClient) {}
-  packagesList: string[] = ['test', 'test', 'test', 'test'];
+  packagesList: string[] = ['test1', 'test2', 'test3', 'test4'];
   selectedCompany: string | undefined = undefined;
   isLoading = false;
 
@@ -57,11 +57,11 @@ export class StartPageComponent {
   documentsForm: FormGroup<{
     company: FormControl<string>;
     package: FormControl<string>;
-    letter: FormControl<File | null>;
+    letter: FormControl<File | null>; // Corrected FormControl type
   }> = this.fb.group({
     company: ['', [Validators.required]],
     package: ['', [Validators.required]],
-    letter: new FormControl<File | null>(null),
+    letter: new FormControl<File | null>(null, [Validators.required]), // Corrected FormControl initialization
   });
 
   addLetter(event: Event) {

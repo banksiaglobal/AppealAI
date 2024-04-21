@@ -17,39 +17,39 @@
                     </nz-select>
                 </nz-form-item>
                 <nz-form-item class="download" nz-button nzType="primary">
-
                     <label for="inputLetter">
                         <div class="btn-title">Add a letter</div>
                         <input type="file" id="inputLetter" (change)="addLetter($event)" formControlName="letter">
-
                     </label>
-
                 </nz-form-item>
+            </div>
+
+            <div class="list-docs-box" *ngIf="selectedFiles && selectedFiles.length">
+                <h3 nz-typography>The List Docs:</h3>
+                <div class="list-docs-company">
+                    <h4 nz-typography>Company: {{documentsForm.value.company}} </h4>
+                </div>
+                <div class="list-docs-package">
+                    <h4 nz-typography> Insurance package: {{documentsForm.value.package}} </h4>
+                </div>
+                <div class="list-docs-item" id="listDocsItem">
+                    <h4 nz-typography> Letters: {{selectedCompany}} </h4>
+                    <div *ngFor="let file of selectedFiles, let i = index" class="list-docs-letter">{{ i + 1 }}.{{
+                        file.name
+                        }}, size:
+                        {{
+                        file.size
+                        }}, type: {{ file.type }}</div>
+                </div>
 
             </div>
             <div class="btn-box" nz-flex [nzAlign]="'center'">
-                <button class="btn-submit" type="submit" nz-button nzType="primary">
+                <button class="btn-submit" type="submit" nz-button nzType="primary" [disabled]="!documentsForm.valid">
                     Add
                 </button>
             </div>
         </form>
-        <div class="list-docs-box" *ngIf="selectedFiles && selectedFiles.length">
-            <h3 nz-typography>The List Docs:</h3>
-            <div class="list-docs-company">
-                <h4 nz-typography>Company: {{selectedCompany}} </h4>
-            </div>
-            <div class="list-docs-package">
-                <h4 nz-typography> Insurance package: {{selectedCompany}} </h4>
-            </div>
-            <div class="list-docs-item" id="listDocsItem">
-                <h4 nz-typography> Letters: {{selectedCompany}} </h4>
-                <div *ngFor="let file of selectedFiles, let i = index" class="list-docs-letter">{{ i + 1 }}.{{ file.name
-                    }}, size:
-                    {{
-                    file.size
-                    }}, type: {{ file.type }}</div>
-            </div>
-        </div>
+
     </div>
     ...
 </div>
