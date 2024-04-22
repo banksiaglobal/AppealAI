@@ -44,7 +44,7 @@ ClassMethod Create() As %Status
         set response.companyId = Company.%Id()
         set response.id = Package.%Id()
         set response.name = Package.Name
-        set response.UUIDFHIR = Package.Description
+        set response.description = Package.Description
 
 
         tcommit 
