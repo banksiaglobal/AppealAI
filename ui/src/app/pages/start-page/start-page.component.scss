@@ -25,14 +25,7 @@ nz-select {
   width: 270px;
   gap: 10px;
   align-items: center;
-
-  &-btn {
-    padding: 5px;
-    width: 250px;
-    border-radius: 4px;
-    text-align: center;
-    border: 1px solid var(--primary-bg-color);
-  }
+  cursor: pointer;
 }
 
 nz-form-item {
@@ -66,8 +59,8 @@ input[type="file"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ccc;
-  border: 3px dotted #bebebe;
+  background: var(--disabled-color);
+  border: 3px dotted var(--gray-color);
   border-radius: 10px;
 }
 
@@ -84,4 +77,32 @@ label {
 
 .list-docs-box {
   margin-right: auto;
+}
+
+.list-docs-item {
+  display: flex;
+  margin-bottom: 10px;
+  padding: 5px;
+
+  &:hover {
+    background-color: var(--warn-color);
+    border-radius: 3px;
+  }
+}
+
+.list-docs-letter {
+  max-width: 200px;
+  display: inline-block;
+  word-wrap: break-all;
+  overflow: hidden;
+}
+
+.delete-icon {
+  background: url("../../../assets/delete.svg") no-repeat;
+  height: 25px;
+  width: 20px;
+  margin-left: 10px;
+  padding: 3px;
+  border-radius: 2px;
+  cursor: pointer;
 }

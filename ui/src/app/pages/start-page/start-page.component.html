@@ -24,24 +24,35 @@
                 </nz-form-item>
             </div>
 
-            <div class="list-docs-box" *ngIf="selectedFiles && selectedFiles.length">
+            <div class="list-docs-box"
+                *ngIf="documentsForm.value.company || documentsForm.value.package || documentsForm.value.letter">
+                <!-- <div class="list-docs-box"> -->
                 <h3 nz-typography>The List Docs:</h3>
-                <div class="list-docs-company">
-                    <h4 nz-typography>Company: {{documentsForm.value.company}} </h4>
+                <div class="list-docs-item" *ngIf="documentsForm.value.company">
+                    <h4 nz-typography>Company:
+                        <span> {{documentsForm.value.company}}</span>
+                    </h4>
+                    @if (documentsForm.value.company) {
+                    <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
+                    }
                 </div>
-                <div class="list-docs-package">
-                    <h4 nz-typography> Insurance package: {{documentsForm.value.package}} </h4>
+                <div class="list-docs-item" *ngIf="documentsForm.value.package">
+                    <h4 nz-typography> Insurance package:
+                        <span>{{documentsForm.value.package}} </span>
+                    </h4>
+                    @if (documentsForm.value.package) {
+                    <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
+                    }
                 </div>
-                <div class="list-docs-item" id="listDocsItem">
-                    <h4 nz-typography> Letters: {{selectedCompany}} </h4>
-                    <div *ngFor="let file of selectedFiles, let i = index" class="list-docs-letter">{{ i + 1 }}.{{
-                        file.name
-                        }}, size:
-                        {{
-                        file.size
-                        }}, type: {{ file.type }}</div>
+                <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="documentsForm.value.letter">
+                    <h4 nz-typography> Letter: </h4>
+                    <div *ngFor="let file of selectedFiles, let i = index">
+                        <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
+                    </div>
+                    @if (documentsForm.value.letter) {
+                    <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
+                    }
                 </div>
-
             </div>
             <div class="btn-box" nz-flex [nzAlign]="'center'">
                 <button class="btn-submit" type="submit" nz-button nzType="primary" [disabled]="!documentsForm.valid">

@@ -109,4 +109,24 @@ export class StartPageComponent {
   submitForm() {
     console.log(this.documentsForm.value);
   }
+
+  deleteInfoItem(typeInfo: string) {
+    switch (typeInfo) {
+      case 'company':
+        this.documentsForm.patchValue({
+          company: '',
+        });
+
+        break;
+      case 'package':
+        this.documentsForm.patchValue({
+          package: '',
+        });
+        break;
+      default:
+        this.documentsForm.patchValue({
+          letter: null,
+        });
+    }
+  }
 }
