@@ -24,6 +24,14 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'create',
+    loadComponent: () =>
+      import('./pages/create-page/create-page/create-page.component').then(
+        (m) => m.CreatePageComponent
+      ),
+    pathMatch: 'full',
+  },
+  {
     path: '**',
     redirectTo: 'welcome',
   },

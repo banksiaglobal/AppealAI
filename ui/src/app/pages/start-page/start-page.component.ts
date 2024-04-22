@@ -14,10 +14,10 @@ import {
   FormsModule,
   NonNullableFormBuilder,
   Validators,
-  FormBuilder,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-start-page',
@@ -34,6 +34,7 @@ import { HttpClient } from '@angular/common/http';
     NzInputModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterLink,
   ],
   templateUrl: './start-page.component.html',
   styleUrl: './start-page.component.scss',
@@ -44,7 +45,8 @@ export class StartPageComponent {
   selectedCompany: string | undefined = undefined;
   isLoading = false;
 
-  selectedFiles: any;
+  selectedFile: any;
+
   fileUrl: SafeResourceUrl = '';
 
   listInsuranceOrg: string[] = [
@@ -66,24 +68,23 @@ export class StartPageComponent {
 
   addLetter(event: Event) {
     const target = event.target as HTMLInputElement;
-    this.selectedFiles = target.files as FileList;
-    console.log(this.selectedFiles);
+    this.selectedFile = target.files as FileList;
+    console.log(this.selectedFile);
 
     const reader = new FileReader();
 
     reader.onload = (event: ProgressEvent<FileReader>) => {
       if (event.target && reader.result) {
         const blob = new Blob([reader.result], {
-          type: this.selectedFiles[0].type,
+          type: this.selectedFile[0].type,
         });
         console.log(blob);
         var element = document.querySelector('p');
-        var field = document.getElementById('listDocsItem');
 
         if (element) {
-          for (let i = 0; i < this.selectedFiles.length; i++) {
+          for (let i = 0; i < this.selectedFile.length; i++) {
             // Removed the function declaration as it's not needed
-            let f = this.selectedFiles[i]; // Changed 'this.files[i]' to 'this.selectedFiles[i]'
+            let f = this.selectedFile[i]; // Changed 'this.files[i]' to 'this.selectedFiles[i]'
             element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`; // Fixed the concatenation of file details
           }
         }
@@ -92,13 +93,14 @@ export class StartPageComponent {
       }
     };
 
-    reader.readAsArrayBuffer(this.selectedFiles[0]); // Changed 'this.selectedFile' to 'this.selectedFiles[0]'
+    reader.readAsArrayBuffer(this.selectedFile[0]); // Changed 'this.selectedFile' to 'this.selectedFiles[0]'
   }
 
   submitDocs(blob: Blob): void {
-    if (this.selectedFiles) {
+    if (this.selectedFile) {
+      console.log(blob, this.selectedFile);
       const formData = new FormData();
-      formData.append('image', blob, this.selectedFiles.name);
+      formData.append('image', blob, this.selectedFile.name);
       this.http.post('/api/upload', formData).subscribe(
         (response) => console.log(response),
         (error) => console.log(error)
@@ -129,4 +131,6 @@ export class StartPageComponent {
         });
     }
   }
+
+  createNewObj(typeObj: string) {}
 }

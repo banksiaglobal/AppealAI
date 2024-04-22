@@ -9,12 +9,24 @@
                     <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="company">
                         <nz-option *ngFor=" let org of listInsuranceOrg" [nzValue]="org" [nzLabel]="org"></nz-option>
                     </nz-select>
+                    <div class="create-obj-box">
+                        <span>Didn't find the company? </span>
+                        <span class="link-text" [routerLink]="['/create']" [queryParams]="{type: 'company'}">Create a
+                            new
+                            one</span>
+                    </div>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-select nzPlaceHolder="Select insurance packages" nzAllowClear formControlName="package">
                         <nz-option *ngFor="let package of packagesList" [nzValue]="package"
                             [nzLabel]="package"></nz-option>
                     </nz-select>
+                    <div class="create-obj-box">
+                        <span>Didn't find the package? </span>
+                        <a router class="link-text" [routerLink]="['/create']" [queryParams]="{type: 'package'}">Create
+                            a
+                            new one</a>
+                    </div>
                 </nz-form-item>
                 <nz-form-item class="download" nz-button nzType="primary">
                     <label for="inputLetter">
@@ -46,7 +58,7 @@
                 </div>
                 <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="documentsForm.value.letter">
                     <h4 nz-typography> Letter: </h4>
-                    <div *ngFor="let file of selectedFiles, let i = index">
+                    <div *ngFor="let file of selectedFile, let i = index">
                         <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
                     </div>
                     @if (documentsForm.value.letter) {
@@ -62,5 +74,4 @@
         </form>
 
     </div>
-    ...
 </div>

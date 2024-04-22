@@ -7,14 +7,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-// Import what you need. RECOMMENDED. ✔️
-import {
-  AccountBookFill,
-  AlertFill,
-  AlertOutline,
-} from '@ant-design/icons-angular/icons';
-
-const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill];
 @Component({
   selector: 'app-root',
   standalone: true,
