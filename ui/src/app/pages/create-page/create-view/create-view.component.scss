@@ -1,0 +1,34 @@
+nz-form-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+nz-form-label {
+  overflow: visible;
+}
+
+.input-company,
+.input-package {
+  max-width: 250px;
+  margin-right: 10px;
+}
+
+.label-company,
+.label-package {
+  color: var(--primary-color);
+}
+
+.add-icon {
+  display: inline;
+  background: url("../../../../assets/add.svg") no-repeat;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+
+  &:hover {
+    padding: 2px;
+    background-color: var(--primary-color);
+    border-radius: 50px;
+  }
+}

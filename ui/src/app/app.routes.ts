@@ -26,8 +26,8 @@ export const routes: Routes = [
   {
     path: 'create',
     loadComponent: () =>
-      import('./pages/create-page/create-page/create-page.component').then(
-        (m) => m.CreatePageComponent
+      import('./pages/create-page/create/create.component').then(
+        (m) => m.CreateComponent
       ),
     pathMatch: 'full',
   },

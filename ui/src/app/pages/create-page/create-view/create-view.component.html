@@ -1,0 +1,43 @@
+<div class="page">
+    <div class="container-page">
+        @if (typeOfObj === 'company') {
+        <div class="company-box">
+            <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                Adding a new company
+            </nz-page-header-subtitle>
+            <form nz-form>
+                <nz-form-item>
+                    <nz-form-label class="label-company">
+                        Enter company name
+                    </nz-form-label>
+
+                    <input class="input-company" nz-input name="companyName" type="text" id="companyName"
+                        [(ngModel)]="companyName" />
+                    <span class="add-icon" (click)="createCompany()"></span>
+                </nz-form-item>
+            </form>
+        </div>
+        }
+        @if (typeOfObj === 'package' || showPackageForm) {
+        <div class="package-box">
+            <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                Adding a new insurance package
+            </nz-page-header-subtitle>
+            <form nz-form>
+                <nz-form-item>
+                    <nz-form-label class="label-package">
+                        Create new package
+                    </nz-form-label>
+                    <input class="input-package" nz-input name="packageName" type="text" id="packageName"
+                        [(ngModel)]="packageName" />
+                    <span class="add-icon" (click)="createPackage()"></span>
+                </nz-form-item>
+            </form>
+        </div>
+        }
+        <a router nz-button nzType="primary" [routerLink]="['/start']">
+            Start!
+        </a>
+
+    </div>
+</div>
