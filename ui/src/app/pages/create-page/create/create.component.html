@@ -1,1 +1,2 @@
-<app-create-view [typeOfObj]="typeOfObj" />
+<app-create-view [typeOfObj]="typeOfObj" (addNewCompany)="addNewCompany($event)"
+    (addNewPackage)="addNewPackage($event)" />

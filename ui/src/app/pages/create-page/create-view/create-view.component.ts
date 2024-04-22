@@ -48,6 +48,6 @@ export class CreateViewComponent {
   }
 
   createPackage() {
-    this.addNewCompany.emit(this.packageName);
+    this.addNewPackage.emit(this.packageName);
   }
 }
