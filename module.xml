@@ -4,7 +4,7 @@
     <Module>
       <Name>appeal-ai</Name>
       <Version>0.0.1</Version>
-      <Description>Application for InterSystems FHIR and Digital Health Interoperability Contest</Description>
+      <Description>Application AI</Description>
       <Keywords>FHIR</Keywords>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
@@ -12,6 +12,21 @@
         <Invoke Class="FHIR.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
       </Invokes>
       <Resource Name="FHIR.PKG"/>
+      <Resource Name="REST.PKG"/>
+      <Resource Name="Model.PKG"/>
+      <Resource Name="Production.PKG"/>
+      <!-- <FileCopy Name="src/python/" Target="${libdir}python/"/> -->
+      <CSPApplication
+        Url="/api"
+        DispatchClass="REST.Registry"
+        MatchRoles=":{$dbrole}"
+        DelegatedAuthEnabled="0"
+        Recurse="1"
+        UseCookies="2"
+        CookiePath="/api"
+      />
+      <SystemRequirements Interoperability="enabled" />
     </Module>
   </Document>
 </Export>
+

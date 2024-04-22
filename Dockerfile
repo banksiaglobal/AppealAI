@@ -4,6 +4,7 @@ FROM $IMAGE as builder
 WORKDIR /home/irisowner/irisdev
 
 RUN --mount=type=bind,src=.,dst=. \
+    pip3 install -r requirements.txt && \
     iris start IRIS && \
 	iris session IRIS < iris.script && \
     iris stop IRIS quietly

@@ -1,3 +1,10 @@
+    zn "%SYS"
+    do ##class(Security.Users).UnExpireUserPasswords("*")
+    do ##class(Security.Services).Get("%Service_CallIn",.prop)
+    set prop("Enabled")=1
+    set prop("AutheEnabled")=48
+    do ##class(Security.Services).Modify("%Service_CallIn",.prop)
+    
     zn "USER"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
@@ -5,8 +12,6 @@
 
     zn "HSLIB"
 
-    #; Do ##class(HS.HC.FHIRSQL.Utils.Setup).CreateWebApps("HSSYS",1)
-    #; Do ##class(HS.HC.FHIRSQL.Utils.Setup).DefineDocDBs("HSSYS")
 
     set namespace="FHIRSERVER"
 
@@ -29,5 +34,11 @@
     do strategy.SaveServiceConfigData(config)
 
     do $System.OBJ.LoadDir(importdir,"ck",,1)
+
+    // install Installer.cls
+    
+    #; do $SYSTEM.OBJ.Load("/home/irisowner/irisbuild/Installer.cls", "ck") 
+    #; set sc = ##class(App.Installer).setup() 
+
 
     halt
