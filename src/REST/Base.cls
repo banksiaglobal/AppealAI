@@ -19,13 +19,23 @@ ClassMethod Response(pResponse = "", pSC = {$$$OK}) As %Status
         return $$$OK
     }
     if $isobject(pResponse) {
-        if pResponse.%IsA("%DynamicAbstractObject") {
-            set %response.ContentType = "application/json"
-            do pResponse.%ToJSON()
+        if pResponse.%IsA("%Stream.FileBinary"){
+            Set %response.ContentType = "application/pdf"
+            Do %response.SetHeader("Content-Disposition","attachment;filename="_pResponse.Filename)
+            Set %response.NoCharSetConvert=1
+            Set %response.Headers("Access-Control-Allow-Origin")="*"
+            do pResponse.OutputToDevice()
         }
-        else {
-            write pResponse
+        else{
+            if pResponse.%IsA("%DynamicAbstractObject") {
+                set %response.ContentType = "application/json"
+                do pResponse.%ToJSON()
+            }
+            else {
+                write pResponse
+            }
         }
+        
     } else {
         write pResponse
     }
