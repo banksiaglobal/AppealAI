@@ -14,7 +14,8 @@ ClassMethod SetupFHIRServer(ns) As %Status
     
     set ns=$g(ns,$namespace)
     set ns="FHIRSERVER"
-    
+
+
     zn "HSLIB"
 
     Do ##class(HS.HC.FHIRSQL.Utils.Setup).CreateWebApps("HSSYS",1)
@@ -41,11 +42,15 @@ ClassMethod SetupFHIRServer(ns) As %Status
     set config.DebugMode = 4
     do strategy.SaveServiceConfigData(config)
 
-    #; set dir=$System.Util.ManagerDirectory()_"dataFhir"
-    #; set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
-    #; if 'st write $System.Status.GetErrorText(st)
-    #; quit st
-    quit 1
+    set dir=$System.Util.ManagerDirectory()_"dataFhir"
+    set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
+    if 'st write $System.Status.GetErrorText(st)
+
+    zn "USER"
+
+    Do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
+
+    quit st
 }
 
 }

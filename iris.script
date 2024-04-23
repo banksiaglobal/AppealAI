@@ -8,6 +8,7 @@
     zn "USER"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
+    Do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
     halt
 
     zn "HSLIB"
@@ -33,12 +34,8 @@
     set config.DebugMode = 4
     do strategy.SaveServiceConfigData(config)
 
+    zw ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/opt/irisapp/dataFhir/", "FHIRServer", appKey)
+
     do $System.OBJ.LoadDir(importdir,"ck",,1)
-
-    // install Installer.cls
     
-    #; do $SYSTEM.OBJ.Load("/home/irisowner/irisbuild/Installer.cls", "ck") 
-    #; set sc = ##class(App.Installer).setup() 
-
-
     halt

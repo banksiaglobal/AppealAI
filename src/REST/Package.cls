@@ -46,7 +46,6 @@ ClassMethod Create() As %Status
         set response.name = Package.Name
         set response.description = Package.Description
 
-
         tcommit 
     }
     Catch ex {
@@ -109,10 +108,10 @@ ClassMethod GetAllPackages(companyId) As %Status
 					}
 				}
 			}
-            #; else {
-            #;     set response={"error":-404}
-            #;     $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
-            #; }
+            else {
+                set response={"error":-404}
+                $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+            }
 
         set response.packages = packages
         set response.info = tStatus

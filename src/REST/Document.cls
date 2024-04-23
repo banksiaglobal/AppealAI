@@ -19,6 +19,7 @@ ClassMethod Upload() As %Library.DynamicObject
     set response = {}
     set responseSC = $$$OK
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
+    set packageId = %request.Get("package")
     set path = "/opt/irisapp/"
 
     try {
@@ -32,30 +33,30 @@ ClassMethod Upload() As %Library.DynamicObject
             $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
         }
 
-        #; set Document = ##class(Model.Document).%New()
-        #; set Document.Name = data.FileName
-        #; set Document.Path = path_data.FileName
-        #; set Document.DateTime = $ZD($H,3)
-        #; set sc = Document.%Save()
+        set Package = ##class(Model.Package).%OpenId(packageId)
+
+        if '$ISOBJECT(Package) {
+            set response={"error":-404}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Package not found"))
+        }
 
         // call  Production.Service.DocumentIn        
 
-        #; set requestDoc = ##class(Production.Message.DocumentRequest).%New()
-        #; set requestDoc.Path = path_data.FileName
-        #; set requestDoc.Name = data.FileName
+        set requestDoc = ##class(Production.Message.DocumentRequest).%New()
+        set requestDoc.Path = path_data.FileName
+        set requestDoc.Name = data.FileName
+        set requestDoc.Package = packageId
         
-        #; set tSC = ##class(Ens.Director).CreateBusinessService("Production.Service.DocumentIn",.tService)
-        #; if ($ISOBJECT(tService)) {
-        #;     set tSC = tService.ProcessInput(requestDoc,.responseDoc)
-        #; }
+        set tSC = ##class(Ens.Director).CreateBusinessService("DocumentIn",.tService)
         
-        /*
-
-        if 'sc {
+        if ($ISOBJECT(tService)) {
+            set tSC = tService.ProcessInput(requestDoc,.responseDoc)
+        }
+        
+        if 'tSC {
             set response={"error":-500}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
         }
-        */
 
         set response.name = data.FileName
 
@@ -147,6 +148,7 @@ ClassMethod GetDocumentInfo(name) As %Status
         set response.id = Document.%Id()
         set response.name = Document.Name
         set response.createdDateTime = Document.DateTime
+        set response.packageId = Document.Package
         
     }
     catch ex {

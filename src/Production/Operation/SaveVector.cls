@@ -15,6 +15,7 @@ Method OnMessage(pInput As Production.Message.SaveVectorRequest, pOutput As Ens.
     set Document.Path = pInput.Path
     set Document.Vector = pInput.Vector
     set Document.DateTime = $ZDT($H,3)
+    set Document.Package = ##class(Model.Package).%OpenId(pInput.Package)
     set sc = Document.%Save()
     $$$LOGINFO("Onmessage "_"`"_sc)
     Quit sc
