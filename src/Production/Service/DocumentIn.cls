@@ -5,13 +5,14 @@ Method OnProcessInput(pInput As Production.Message.DocumentRequest, Output pOutp
 {
 	try {
 		set request = ##class(Production.Message.DocumentRequest).%New()
-		//set request = pInput
-		set tSC = ..SendRequestAsync("Production.Process.ConversionToVector", pInput)	    
+		set request = pInput
+		set tSC = ..SendRequestAsync("ConversionToVector", request)	    
 	 }
 	catch ex {
 		set tSC = ex.AsStatus()
 	}
-	return $$$OK
+
+	return tSC
 }
 
 }

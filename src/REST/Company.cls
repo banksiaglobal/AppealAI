@@ -24,7 +24,7 @@ ClassMethod Create() As %Library.DynamicObject
     Try {
         set Company = ##class(Model.Company).%New()
         set Company.Name = data.name
-        set Company.UUIDFHIR = "testnumber123456789987654321"
+        set Company.UUIDFHIR = data.uuidfhir
         set sc = Company.%Save()
 
         if 'sc {

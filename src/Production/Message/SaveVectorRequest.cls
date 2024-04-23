@@ -9,6 +9,8 @@ Property Path As %String(%JSONFIELDNAME = "path", MAXLEN = "");
 
 Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = 200);
 
+Property Package As %String(%JSONFIELDNAME = "package");
+
 Storage Default
 {
 <Data name="SaveVectorRequestDefaultData">
@@ -21,6 +23,9 @@ Storage Default
 </Value>
 <Value name="3">
 <Value>Name</Value>
+</Value>
+<Value name="4">
+<Value>Package</Value>
 </Value>
 </Data>
 <DefaultData>SaveVectorRequestDefaultData</DefaultData>
