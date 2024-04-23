@@ -46,6 +46,12 @@ ClassMethod Upload() As %Library.DynamicObject
         set requestDoc.Path = path_data.FileName
         set requestDoc.Name = data.FileName
         set requestDoc.Package = packageId
+
+        set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
+
+        if 'statusProd{
+            Do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
+        }
         
         set tSC = ##class(Ens.Director).CreateBusinessService("DocumentIn",.tService)
         

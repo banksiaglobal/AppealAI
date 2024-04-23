@@ -46,9 +46,6 @@ ClassMethod SetupFHIRServer(ns) As %Status
     set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
     if 'st write $System.Status.GetErrorText(st)
 
-    zn "USER"
-
-    Do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
 
     quit st
 }

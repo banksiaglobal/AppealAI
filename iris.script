@@ -8,7 +8,6 @@
     zn "USER"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
-    Do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
     halt
 
     zn "HSLIB"
