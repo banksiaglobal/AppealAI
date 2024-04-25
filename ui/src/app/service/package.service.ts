@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { ICreatePackage } from '../interface/package.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -27,12 +28,7 @@ export class PackageService {
       );
   }
 
-  addNewPackageForCompany(
-    name: string,
-    description: string,
-    companyId: number
-  ): Observable<any> {
-    const body = { name: name, description: description, companyId: companyId };
+  addNewPackageForCompany(body: ICreatePackage): Observable<any> {
     return this.http.post<void>(
       `${environment.apiUrl}/api/package/create`,
       body

@@ -11,5 +11,78 @@
 }
 
 .title {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.download {
+  display: flex;
+  height: 30px;
+  width: 270px;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.btn-download {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--disabled-color);
+  border: 3px dotted var(--gray-color);
+  border-radius: 10px;
+}
+
+/*adding org & package*/
+.create-obj-box {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.link-text {
+  color: var(--primary-color);
+
+  &:hover {
+    border-bottom: 1px solid var(--primary-color);
+    cursor: pointer;
+  }
+}
+
+/*popup*/
+.cancel-btn {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+  background: url("../assets/close.svg") no-repeat;
+  cursor: pointer;
+}
+
+.dialog-title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 22px;
+  color: var(--dark-bg-color);
+  font-weight: 600;
+}
+
+.dialog-container {
+  background: white;
+  min-width: 300px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  box-shadow: rgba(24, 144, 255, 0.2) 0px 0px 0px 1px inset;
+  border-radius: 5px;
+}
+
+.actions-popup-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }

@@ -11,27 +11,28 @@
                     </nz-select>
                     <div class="create-obj-box">
                         <span>Didn't find the company? </span>
-                        <span class="link-text" [routerLink]="['/create']" [queryParams]="{type: 'company'}">Create a
+                        <span class="link-text" (click)="createCompanyPopup()">Create a
                             new
                             one</span>
                     </div>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-select nzPlaceHolder="Select insurance packages" nzAllowClear formControlName="package">
+                    <nz-select nzPlaceHolder="Select insurance packages" nzAllowClear formControlName="package"
+                        [nzDisabled]="!documentsForm.value.company">
                         <nz-option *ngFor="let package of packagesList" [nzValue]="package"
                             [nzLabel]="package"></nz-option>
                     </nz-select>
                     <div class="create-obj-box">
                         <span>Didn't find the package? </span>
-                        <a router class="link-text" [routerLink]="['/create']" [queryParams]="{type: 'package'}">
+                        <span class="link-text" (click)="createPackagePopup()">
                             Create
                             a
-                            new one</a>
+                            new one</span>
                     </div>
                 </nz-form-item>
                 <nz-form-item class="download" nz-button nzType="primary">
                     <label for="inputLetter">
-                        <div class="btn-title">Add a letter</div>
+                        <div class="btn-download">Add a letter</div>
                         <input type="file" id="inputLetter" (change)="addLetter($event)" formControlName="letter">
                     </label>
                 </nz-form-item>

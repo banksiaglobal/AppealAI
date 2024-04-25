@@ -1,43 +1,78 @@
 <div class="page">
     <div class="container-page">
-        @if (typeOfObj === 'company') {
-        <div class="company-box">
-            <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-                Adding a new company
-            </nz-page-header-subtitle>
-            <form nz-form>
+
+
+        <form nz-form [formGroup]="docsForm">
+            @if (typeOfObj === 'company') {
+            <div class="company-box">
+                <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                    Adding a new company
+                </nz-page-header-subtitle>
+
                 <nz-form-item>
                     <nz-form-label class="label-company">
                         Enter company name
                     </nz-form-label>
 
                     <input class="input-company" nz-input name="companyName" type="text" id="companyName"
-                        [(ngModel)]="companyName" />
-                    <span class="add-icon" (click)="createCompany()"></span>
+                        formControlName="companyName" />
+                    <button nz-button nzType="primary" (click)="createCompany()"
+                        [disabled]="!docsForm.value.companyName">
+                        Save company
+                    </button>
+                    <div class="info-message" *ngIf="newCreatedCompany">The company was added.</div>
                 </nz-form-item>
-            </form>
-        </div>
-        }
-        @if (typeOfObj === 'package' || showPackageForm) {
-        <div class="package-box">
+            </div>
+            }
+            <!-- @if (typeOfObj === 'package' || newCreatedCompany)  -->
             <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-                Adding a new insurance package
+                Choose company:
             </nz-page-header-subtitle>
-            <form nz-form>
+
+            <nz-form-item>
+                <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="companyId"
+                    (ngModelChange)="selectCompany($event)">
+                    <nz-option *ngFor=" let org of listInsuranceOrg" [nzValue]="org" [nzLabel]="org.name"></nz-option>
+                </nz-select>
+            </nz-form-item>
+
+            <!-- @if (typeOfObj === 'package' && packageForm.value.companyId)  -->
+            <div class="package-box">
+                <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                    Adding a new insurance package
+                </nz-page-header-subtitle>
+
                 <nz-form-item>
                     <nz-form-label class="label-package">
-                        Create new package
+                        Package name
                     </nz-form-label>
                     <input class="input-package" nz-input name="packageName" type="text" id="packageName"
-                        [(ngModel)]="packageName" />
-                    <span class="add-icon" (click)="createPackage()"></span>
+                        formControlName="name" />
                 </nz-form-item>
-            </form>
-        </div>
-        }
-        <a router nz-button nzType="primary" [routerLink]="['/start']">
-            Start!
-        </a>
+                <nz-form-item>
+                    <nz-form-label class="label-package-description">
+                        Description
+                    </nz-form-label>
+                    <input class="input-package-description" nz-input name="packageDescription" type="text"
+                        id="packageDescription" formControlName="description" />
 
+                </nz-form-item>
+                <nz-form-item nz-button nzType="primary">
+                    <nz-form-label class="download-label" for="inputLetter">
+                        Add nedded docs:
+                    </nz-form-label>
+                    <input type="file" id="inputLetter" (change)="addListDocs($event)" formControlName="listDocs">
+                    <button nz-button nzType="primary" (click)="createPackage()" [disabled]="!docsForm.valid">
+                        Save package
+                    </button>
+                </nz-form-item>
+            </div>
+        </form>
     </div>
+
+
+
+    <button class="next-btn" router nz-button nzType="primary" [routerLink]="['/start']">
+        Return
+    </button>
 </div>

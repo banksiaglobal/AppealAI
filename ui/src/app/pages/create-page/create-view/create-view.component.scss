@@ -1,7 +1,15 @@
+.company-box,
+.package-box {
+  margin-bottom: 20px;
+}
+
 nz-form-item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 nz-form-label {
@@ -9,26 +17,24 @@ nz-form-label {
 }
 
 .input-company,
-.input-package {
+.input-package,
+.input-package-description {
   max-width: 250px;
   margin-right: 10px;
 }
 
 .label-company,
-.label-package {
+.label-package,
+.label-package-description {
   color: var(--primary-color);
 }
 
-.add-icon {
-  display: inline;
-  background: url("../../../../assets/add.svg") no-repeat;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
+.download-label {
+  position: relative;
+}
 
-  &:hover {
-    padding: 2px;
-    background-color: var(--primary-color);
-    border-radius: 50px;
-  }
+.next-btn {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 }

@@ -1,93 +1,68 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
-  ReactiveFormsModule,
-  FormsModule,
   FormControl,
   FormGroup,
-  Validators,
+  FormsModule,
   NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { RouterLink } from '@angular/router';
-import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { DialogRefDel } from '../create-company/dialog-ref-del';
+import { DIALOG_DATA } from '../create-company/dialog-tokens';
 import { ICompany } from '../../../interface/company.interface';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+
 @Component({
-  selector: 'app-create-view',
+  selector: 'app-create-package',
   standalone: true,
   imports: [
+    NzModalModule,
     CommonModule,
     NzHeaderComponent,
     NzLayoutModule,
     NzFlexModule,
-    NzPageHeaderModule,
-    NzFormModule,
-    FormsModule,
-    ReactiveFormsModule,
     NzInputModule,
-    RouterLink,
+    FormsModule,
     NzButtonModule,
+    NzFormModule,
     NzSelectModule,
+    ReactiveFormsModule,
   ],
-  templateUrl: './create-view.component.html',
-  styleUrl: './create-view.component.scss',
+  templateUrl: './create-package.component.html',
+  styleUrl: './create-package.component.scss',
 })
-export class CreateViewComponent implements OnInit {
-  constructor(private fb: NonNullableFormBuilder) {}
-  ngOnInit(): void {
-    this.listInsuranceOrg = [
-      { UUIDFHIR: '1', name: 'test1', id: '1' },
-      { UUIDFHIR: '2', name: 'test2', id: '2' },
-    ];
-  }
-  @Input() typeOfObj: string | null;
-  @Input() newCreatedCompany!: ICompany | null;
-  @Input() listInsuranceOrg: ICompany[] | null;
-
-  @Output() addNewCompany = new EventEmitter();
-  @Output() addNewPackage = new EventEmitter();
-
+export class CreatePackageComponent {
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private dialogRefDel: DialogRefDel,
+    @Inject(DIALOG_DATA) public data: ICompany[]
+  ) {}
   selectedFiles: any;
-
   docsForm: FormGroup<{
     name: FormControl<string>;
     description: FormControl<string>;
     listDocs: FormControl<File | null>;
     companyId: FormControl<string>;
-    companyName: FormControl<string>;
   }> = this.fb.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
     listDocs: new FormControl<File | null>(null, [Validators.required]),
     companyId: ['', [Validators.required]],
-    companyName: ['', [Validators.required]],
   });
 
-  showPackageForm = false;
-
-  createCompany() {
-    if (this.docsForm.value.companyName) {
-      this.addNewCompany.emit(this.docsForm.value.companyName);
-      this.showPackageForm = true;
-    }
-    if (this.newCreatedCompany) {
-      this.docsForm.controls['companyName'].disable();
-    }
+  close() {
+    this.dialogRefDel.close(undefined);
   }
 
-  createPackage() {
-    console.log(this.docsForm);
-    const newPackage = {
-      name: this.docsForm.value.name,
-      description: this.docsForm.value.description,
-      companyId: this.newCreatedCompany?.id,
-    };
-    this.addNewPackage.emit(newPackage);
+  save() {
+    this.dialogRefDel.close(this.docsForm.value);
   }
 
   addListDocs(event: Event) {
@@ -119,10 +94,9 @@ export class CreateViewComponent implements OnInit {
 
     reader.readAsArrayBuffer(this.selectedFiles[0]); // Changed 'this.selectedFile' to 'this.selectedFiles[0]'
   }
-
-  selectCompany(value: { name: string; id: string; UUIDFHIR: string }): void {
-    if (value) {
-      this.docsForm.controls['companyId'].patchValue(value.id);
+  selectCompany(id: string): void {
+    if (id) {
+      this.docsForm.controls['companyId'].patchValue(id);
     }
   }
 }

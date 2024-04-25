@@ -26,9 +26,13 @@ export class CompanyService {
   }
 
   addNewCompany(companyName: string): Observable<any> {
+    const body = {
+      name: companyName,
+      uuidfhir: '3d10019f-c88e-3de5-9916-6107b9c0263d',
+    };
     return this.http.post<void>(
       `${environment.apiUrl}/api/company/create`,
-      companyName
+      body
     );
   }
 }

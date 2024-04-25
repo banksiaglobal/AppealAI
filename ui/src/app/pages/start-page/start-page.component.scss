@@ -20,15 +20,6 @@ nz-select {
   width: 250px;
 }
 
-.download {
-  display: flex;
-  height: 30px;
-  width: 270px;
-  gap: 10px;
-  align-items: center;
-  cursor: pointer;
-}
-
 nz-form-item {
   display: flex;
   flex-direction: column;
@@ -52,20 +43,6 @@ input[type="file"] {
   top: 0;
   bottom: 0;
   width: 100%;
-}
-
-.btn-title {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--disabled-color);
-  border: 3px dotted var(--gray-color);
-  border-radius: 10px;
 }
 
 label {
@@ -109,19 +86,4 @@ label {
   padding: 3px;
   border-radius: 2px;
   cursor: pointer;
-}
-
-.create-obj-box {
-  margin-top: 5px;
-  text-align: center;
-  font-size: 12px;
-}
-
-.link-text {
-  color: var(--primary-color);
-
-  &:hover {
-    border-bottom: 1px solid var(--primary-color);
-    cursor: pointer;
-  }
 }

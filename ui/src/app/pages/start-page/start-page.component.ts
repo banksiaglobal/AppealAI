@@ -18,6 +18,11 @@ import {
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
+import { CreateCompanyComponent } from '../../components/dialogs/create-company/create-company.component';
+import { DialogDelService } from '../../components/dialogs/create-company/dialog-del.service';
+import { CompanyService } from '../../service/company.service';
+import { map } from 'rxjs';
+import { CreatePackageComponent } from '../../components/dialogs/create-package/create-package.component';
 
 @Component({
   selector: 'app-start-page',
@@ -35,16 +40,22 @@ import { RouterLink } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+    CreateCompanyComponent,
   ],
   templateUrl: './start-page.component.html',
   styleUrl: './start-page.component.scss',
 })
 export class StartPageComponent {
-  constructor(private fb: NonNullableFormBuilder, private http: HttpClient) {}
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private http: HttpClient,
+    private dialog: DialogDelService,
+    private companyService: CompanyService
+  ) {}
   packagesList: string[] = ['test1', 'test2', 'test3', 'test4'];
   selectedCompany: string | undefined = undefined;
   isLoading = false;
-
+  isVisible = false;
   selectedFile: any;
 
   fileUrl: SafeResourceUrl = '';
@@ -59,11 +70,11 @@ export class StartPageComponent {
   documentsForm: FormGroup<{
     company: FormControl<string>;
     package: FormControl<string>;
-    letter: FormControl<File | null>; // Corrected FormControl type
+    letter: FormControl<File | null>;
   }> = this.fb.group({
     company: ['', [Validators.required]],
     package: ['', [Validators.required]],
-    letter: new FormControl<File | null>(null, [Validators.required]), // Corrected FormControl initialization
+    letter: new FormControl<File | null>(null, [Validators.required]),
   });
 
   addLetter(event: Event) {
@@ -132,5 +143,36 @@ export class StartPageComponent {
     }
   }
 
-  createNewObj(typeObj: string) {}
+  createCompanyPopup() {
+    const dialogRef = this.dialog.open(CreateCompanyComponent, {
+      data: this.listInsuranceOrg,
+    });
+    dialogRef.afterClosed().subscribe((value) => {
+      if (value) {
+        this.addNewCompany(value);
+      }
+    });
+  }
+
+  private addNewCompany(companyName: string) {
+    this.companyService
+      .addNewCompany(companyName)
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      )
+      .subscribe();
+  }
+
+  createPackagePopup() {
+    const dialogRef = this.dialog.open(CreatePackageComponent, {
+      data: this.listInsuranceOrg,
+    });
+    dialogRef.afterClosed().subscribe((value) => {
+      if (value) {
+        this.addNewCompany(value);
+      }
+    });
+  }
 }

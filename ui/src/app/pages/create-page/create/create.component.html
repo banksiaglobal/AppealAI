@@ -1,2 +1,3 @@
 <app-create-view [typeOfObj]="typeOfObj" (addNewCompany)="addNewCompany($event)"
-    (addNewPackage)="addNewPackage($event)" />
+    [newCreatedCompany]="newCreatedCompany$ | async" (addNewPackage)="addNewPackage($event)"
+    [listInsuranceOrg]="listInsuranceOrg$ | async" />
