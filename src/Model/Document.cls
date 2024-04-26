@@ -9,6 +9,8 @@ Property Vector As %String(MAXLEN = "");
 
 Property DateTime As %TimeStamp;
 
+Property Package As Model.Package;
+
 Index IndexName On Name;
 
 ClassMethod GetDocumentByName(name) As Model.Document
@@ -44,6 +46,9 @@ Storage Default
 </Value>
 <Value name="7">
 <Value>Company</Value>
+</Value>
+<Value name="8">
+<Value>Package</Value>
 </Value>
 </Data>
 <DataLocation>^Model.DocumentD</DataLocation>
