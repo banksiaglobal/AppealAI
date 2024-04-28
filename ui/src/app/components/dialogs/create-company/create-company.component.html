@@ -1,5 +1,4 @@
 <div class="dialog-container">
-    <div class="cancel-btn" nz-button (click)="close()"></div>
 
     <div class="company-box">
         <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
@@ -10,7 +9,6 @@
         <input class="input-company" nz-input name="companyName" type="text" id="companyName" required
             placeholder="company name" [(ngModel)]="newCompanyName" autoFocus autocomplete="off" />
         <div class="actions-popup-btn ">
-            <button nz-button (click)="close()">Cancel</button>
             <button nz-button nzType="primary" (click)="save()" [disabled]="!newCompanyName">Save</button>
         </div>
 

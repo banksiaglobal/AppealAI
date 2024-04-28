@@ -10,10 +10,13 @@ export class CompanyService {
   constructor(private http: HttpClient) {}
 
   getCompanyList(): Observable<any> {
-    return this.http.get<any>(`${environment.apiUrl}/api/company`).pipe(
-      map((response) => response),
-      catchError(() => of())
-    );
+    // return this.http.get<any>(`${environment.apiUrl}/api/company`).pipe(
+    //   map((response) => response),
+    //   catchError(() => of())
+    // );
+    return of([
+      { name: 'new', id: 50, UUIDFHIR: 'testnumber123456789987654321' },
+    ]);
   }
 
   getCurrentCompanyInfo(companyId: number): Observable<any> {

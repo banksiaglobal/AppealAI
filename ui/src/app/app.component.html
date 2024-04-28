@@ -6,6 +6,7 @@
         <h1>AppealAI</h1>
       </a>
     </div>
+
     <ul nz-menu nzTheme="dark" nzMode="horizontal">
       <ul>
         <li nz-menu-item nzMatchRouter>
@@ -15,11 +16,16 @@
           <a routerLink="/start">Start</a>
         </li>
         <li nz-menu-item nzMatchRouter>
+          <a routerLink="/letter">Loading letter</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
           <a routerLink="/about">About Us</a>
         </li>
       </ul>
     </ul>
+
   </nz-sider>
+  <app-message />
   <nz-layout>
     <nz-header class="vertical-header-var">
       <div class="app-header" nz-flex [nzAlign]="'center'">
@@ -40,6 +46,7 @@
       <ul nz-menu nzTheme="dark" nzMode="horizontal">
         <li nz-menu-item><a routerLink="welcome">Welcome</a></li>
         <li nz-menu-item> <a routerLink="/start">Start</a></li>
+        <li nz-menu-item> <a routerLink="/letter">Loading letter</a></li>
         <li nz-menu-item> <a routerLink="/about">About</a></li>
       </ul>
       <div class="logo">

@@ -4,8 +4,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
-import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { MessagesComponent } from './components/message/message.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +18,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
     NzLayoutModule,
     NzMenuModule,
     NzFlexModule,
+    MessagesComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

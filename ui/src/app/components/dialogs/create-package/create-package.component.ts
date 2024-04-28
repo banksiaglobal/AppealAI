@@ -58,6 +58,7 @@ export class CreatePackageComponent {
   });
 
   close() {
+    console.log(this.data);
     this.dialogRefDel.close(undefined);
   }
 
@@ -94,9 +95,11 @@ export class CreatePackageComponent {
 
     reader.readAsArrayBuffer(this.selectedFiles[0]); // Changed 'this.selectedFile' to 'this.selectedFiles[0]'
   }
-  selectCompany(id: string): void {
+  selectCompany(id: number): void {
+    console.log(id);
     if (id) {
-      this.docsForm.controls['companyId'].patchValue(id);
+      this.docsForm.value.companyId = String(id);
     }
+    console.log(this.docsForm.value);
   }
 }

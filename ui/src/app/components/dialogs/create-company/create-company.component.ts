@@ -1,7 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-import { DialogRefDel } from './dialog-ref-del';
-import { DIALOG_DATA } from './dialog-tokens';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -28,16 +26,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 })
 export class CreateCompanyComponent {
   newCompanyName = '';
-  constructor(
-    private dialogRefDel: DialogRefDel,
-    @Inject(DIALOG_DATA) public data: any
-  ) {}
 
-  close() {
-    this.dialogRefDel.close(undefined);
-  }
+  @Output() createNewCompany = new EventEmitter<string>();
 
   save() {
-    this.dialogRefDel.close(this.newCompanyName.trim());
+    this.createNewCompany.emit(this.newCompanyName);
   }
 }

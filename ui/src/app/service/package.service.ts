@@ -21,14 +21,23 @@ export class PackageService {
 
   getListPackagesForCurrentCompany(companyId: number): Observable<any> {
     return this.http
-      .get<any>(`${environment.apiUrl}/package/all/${companyId}`)
+      .get<any>(`${environment.apiUrl}/api/package/all/${companyId}`)
       .pipe(
         map((response) => response),
         catchError(() => of())
       );
   }
 
-  addNewPackageForCompany(body: ICreatePackage): Observable<any> {
+  addNewPackageForCompany(
+    companyId: string,
+    name: string,
+    description: string
+  ): Observable<any> {
+    const body: ICreatePackage = {
+      companyId: companyId,
+      name: name,
+      description: description,
+    };
     return this.http.post<void>(
       `${environment.apiUrl}/api/package/create`,
       body

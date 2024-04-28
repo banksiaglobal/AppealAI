@@ -12,7 +12,7 @@ export const routes: Routes = [
   {
     path: 'start',
     loadComponent: () =>
-      import('./pages/start-page/start-page.component').then(
+      import('./pages/start-page/start-page/start-page.component').then(
         (m) => m.StartPageComponent
       ),
   },
@@ -24,12 +24,11 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'create',
+    path: 'letter',
     loadComponent: () =>
-      import('./pages/create-page/create/create.component').then(
-        (m) => m.CreateComponent
+      import('./pages/letter-page/letter-page/letter-page.component').then(
+        (m) => m.LetterPageComponent
       ),
-    pathMatch: 'full',
   },
   {
     path: '**',

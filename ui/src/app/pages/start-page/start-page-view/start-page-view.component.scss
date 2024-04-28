@@ -1,0 +1,16 @@
+.steps-box {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.steps-action {
+  position: absolute;
+  bottom: 10px;
+}
+
+.ant-steps {
+  margin-bottom: 30px;
+}

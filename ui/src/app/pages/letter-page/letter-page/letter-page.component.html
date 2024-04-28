@@ -6,14 +6,16 @@
         <form nz-form class="form" [nzLayout]="'vertical'" [formGroup]="documentsForm" (ngSubmit)="submitForm()">
             <div class="form-box" nz-flex [nzAlign]="'center'" [nzJustify]="'center'">
                 <nz-form-item>
-                    <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="company">
-                        <nz-option *ngFor=" let org of listInsuranceOrg" [nzValue]="org" [nzLabel]="org"></nz-option>
+                    <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="company"
+                        (ngModelChange)="onSelectCompany($event)">
+                        <nz-option *ngFor=" let org of listInsuranceOrg" [nzValue]="org.id"
+                            [nzLabel]="org.name"></nz-option>
                     </nz-select>
                     <div class="create-obj-box">
                         <span>Didn't find the company? </span>
-                        <span class="link-text" (click)="createCompanyPopup()">Create a
+                        <a class="link-text" routerLink="/start">Create a
                             new
-                            one</span>
+                            one</a>
                     </div>
                 </nz-form-item>
                 <nz-form-item>
@@ -24,10 +26,10 @@
                     </nz-select>
                     <div class="create-obj-box">
                         <span>Didn't find the package? </span>
-                        <span class="link-text" (click)="createPackagePopup()">
+                        <a class="link-text" routerLink="/start">
                             Create
                             a
-                            new one</span>
+                            new one</a>
                     </div>
                 </nz-form-item>
                 <nz-form-item class="download" nz-button nzType="primary">

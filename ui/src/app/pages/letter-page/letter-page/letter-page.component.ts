@@ -1,31 +1,31 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzFlexModule } from 'ng-zorro-antd/flex';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { NzFormModule } from 'ng-zorro-antd/form';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { SafeResourceUrl } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { NzInputModule } from 'ng-zorro-antd/input';
 import {
-  FormControl,
-  FormGroup,
-  FormsModule,
   NonNullableFormBuilder,
+  FormGroup,
+  FormControl,
   Validators,
+  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { SafeResourceUrl } from '@angular/platform-browser';
+import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { ICompany } from '../../../interface/company.interface';
+import { ICreatePackage } from '../../../interface/package.interface';
+import { CompanyService } from '../../../service/company.service';
+import { PackageService } from '../../../service/package.service';
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CreateCompanyComponent } from '../../components/dialogs/create-company/create-company.component';
-import { DialogDelService } from '../../components/dialogs/create-company/dialog-del.service';
-import { CompanyService } from '../../service/company.service';
-import { map } from 'rxjs';
-import { CreatePackageComponent } from '../../components/dialogs/create-package/create-package.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @Component({
-  selector: 'app-start-page',
+  selector: 'app-letter-page',
   standalone: true,
   imports: [
     NzHeaderComponent,
@@ -40,31 +40,35 @@ import { CreatePackageComponent } from '../../components/dialogs/create-package/
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
-    CreateCompanyComponent,
   ],
-  templateUrl: './start-page.component.html',
-  styleUrl: './start-page.component.scss',
+  templateUrl: './letter-page.component.html',
+  styleUrl: './letter-page.component.scss',
 })
-export class StartPageComponent {
+export class LetterPageComponent {
   constructor(
     private fb: NonNullableFormBuilder,
     private http: HttpClient,
-    private dialog: DialogDelService,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private packageService: PackageService
   ) {}
+  ngOnInit(): void {
+    this.getData();
+  }
   packagesList: string[] = ['test1', 'test2', 'test3', 'test4'];
   selectedCompany: string | undefined = undefined;
   isLoading = false;
   isVisible = false;
   selectedFile: any;
 
-  fileUrl: SafeResourceUrl = '';
+  public isErrorRequest$: Observable<boolean>;
 
-  listInsuranceOrg: string[] = [
-    'test company1',
-    'test company2',
-    'test company3',
-    'test company4',
+  fileUrl: SafeResourceUrl = '';
+  listInsuranceOrg$: Observable<ICompany[]>;
+  packagesList$: Observable<any[]>;
+
+  listInsuranceOrg: ICompany[] = [
+    { name: 'new', id: 50, UUIDFHIR: 'testnumber123456789987654321' },
+    { name: 'new 1', id: 51, UUIDFHIR: 'testnumber123456789987654321' },
   ];
 
   documentsForm: FormGroup<{
@@ -143,36 +147,34 @@ export class StartPageComponent {
     }
   }
 
-  createCompanyPopup() {
-    const dialogRef = this.dialog.open(CreateCompanyComponent, {
-      data: this.listInsuranceOrg,
-    });
-    dialogRef.afterClosed().subscribe((value) => {
-      if (value) {
-        this.addNewCompany(value);
-      }
-    });
-  }
-
-  private addNewCompany(companyName: string) {
-    this.companyService
-      .addNewCompany(companyName)
+  private addNewPackage(body: ICreatePackage) {
+    this.packageService
+      .addNewPackageForCompany(body.companyId, body.name, body.description)
       .pipe(
         map((data) => {
           return data;
+        }),
+        catchError((error: any) => {
+          this.isErrorRequest$ = of(true);
+          return throwError(() => error);
         })
       )
       .subscribe();
+    this.isErrorRequest$ = of(false);
   }
 
-  createPackagePopup() {
-    const dialogRef = this.dialog.open(CreatePackageComponent, {
-      data: this.listInsuranceOrg,
-    });
-    dialogRef.afterClosed().subscribe((value) => {
-      if (value) {
-        this.addNewCompany(value);
-      }
-    });
+  private getData() {
+    this.listInsuranceOrg$ = this.companyService
+      .getCompanyList()
+      .pipe(map((data) => data));
+  }
+
+  onSelectCompany(companyId: number) {
+    if (companyId) {
+      this.packagesList$ = this.packageService
+        .getListPackagesForCurrentCompany(companyId)
+        .pipe();
+    }
+    this.packagesList$.subscribe((data) => console.log(data));
   }
 }
