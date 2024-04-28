@@ -1,1 +1,1 @@
-<app-start-page-view (createNewCompany)="createNewCompany($event)" />
+<app-start-page-view (createNewCompany)="createNewCompany($event)" [newCompany]="newCompany$ | async" />

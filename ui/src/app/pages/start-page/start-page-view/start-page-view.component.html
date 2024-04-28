@@ -9,6 +9,14 @@
             @if (index===1) {
             <div class="steps-content">
                 <app-create-company (createNewCompany)="createNewCompany.emit($event)" />
+                <div class="info-box" *ngIf="newCompany?.id">
+                    <h4 nz-typography>New Company:
+                        <span> {{newCompany?.name}}</span>
+                    </h4>
+                    @if (newCompany) {
+                    <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
+                    }
+                </div>
             </div>
             }
 

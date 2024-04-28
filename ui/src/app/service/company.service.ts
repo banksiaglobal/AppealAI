@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { ICompany } from '../interface/company.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -28,12 +29,12 @@ export class CompanyService {
       );
   }
 
-  addNewCompany(companyName: string): Observable<any> {
+  addNewCompany(companyName: string): Observable<ICompany> {
     const body = {
       name: companyName,
       uuidfhir: '3d10019f-c88e-3de5-9916-6107b9c0263d',
     };
-    return this.http.post<void>(
+    return this.http.post<ICompany>(
       `${environment.apiUrl}/api/company/create`,
       body
     );

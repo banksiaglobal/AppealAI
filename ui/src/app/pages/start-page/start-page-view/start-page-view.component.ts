@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CreateCompanyComponent } from '../../../components/dialogs/create-company/create-company.component';
+import { ICompany } from '../../../interface/company.interface';
 
 @Component({
   selector: 'app-start-page-view',
@@ -20,6 +21,8 @@ import { CreateCompanyComponent } from '../../../components/dialogs/create-compa
 })
 export class StartPageViewComponent {
   @Output() createNewCompany = new EventEmitter<string>();
+
+  @Input() newCompany: ICompany | null;
   current = 0;
 
   index = 1;
@@ -57,6 +60,19 @@ export class StartPageViewComponent {
       default: {
         this.index = 0;
       }
+    }
+  }
+
+  deleteInfoItem(typeInfo: string) {
+    switch (typeInfo) {
+      case 'company':
+        this.newCompany = null;
+        break;
+      case 'package':
+        this.newCompany = null;
+        break;
+      default:
+        this.newCompany = null;
     }
   }
 }

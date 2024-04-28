@@ -4,11 +4,12 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { StartPageViewComponent } from '../start-page-view/start-page-view.component';
-import { map, catchError, throwError, tap } from 'rxjs';
+import { map, catchError, throwError, tap, Observable } from 'rxjs';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { ICompany } from '../../../interface/company.interface';
 
 @Component({
   selector: 'app-start-page',
@@ -31,21 +32,19 @@ export class StartPageComponent {
     private messageSrvice: NzMessageService
   ) {}
 
+  public newCompany$: Observable<ICompany>;
+
   createNewCompany(companyName: string) {
-    this.companyService
-      .addNewCompany(companyName)
-      .pipe(
-        map((data) => {
-          return data;
-        }),
-        tap(() => this.createSuccessMessage('company')),
-        tap(() => this.createSuccessMessage('company')),
-        catchError((error: any) => {
-          this.createErrorMessage('company');
-          return throwError(() => error);
-        })
-      )
-      .subscribe();
+    this.newCompany$ = this.companyService.addNewCompany(companyName).pipe(
+      map((data) => {
+        return data;
+      }),
+      tap(() => this.createSuccessMessage('company')),
+      catchError((error: any) => {
+        this.createErrorMessage('company');
+        return throwError(() => error);
+      })
+    );
   }
 
   createErrorMessage(type: string): void {
