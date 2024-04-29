@@ -97,6 +97,26 @@ html {
   gap: 10px;
 }
 
+/*upload*/
+
+.list-docs-letter {
+  max-width: 200px;
+  display: inline-block;
+  word-wrap: break-all;
+  overflow: hidden;
+}
+
+.letter-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.letter-title {
+  display: flex;
+  align-items: center;
+}
+
 .delete-icon {
   background: url("../assets/close.svg") no-repeat center;
   height: 20px;
@@ -113,6 +133,15 @@ html {
 
 .ant-layout-footer {
   padding: 10px 40px;
+}
+
+input[type="file"] {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 @media screen and (max-width: 620px) {

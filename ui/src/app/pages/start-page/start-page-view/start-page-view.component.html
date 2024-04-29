@@ -20,9 +20,7 @@
                 <div class="company-name-title">{{newPackage?.name}}</div>
                 <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
             </div>
-
             }
-
 
             @if (index===1 ) {
             <div class="steps-content">
@@ -40,11 +38,25 @@
             <div class="steps-content">
                 <div class="download" nz-button nzType="primary">
                     <label for="inputLetter">
-                        <div class="btn-download">Add needed docs</div>
-                        <input type="file" id="inputLetter" (change)="addDocs($event)">
+                        <div class="btn-download">Add docs</div>
+                        <input type="file" id="inputLetter" (change)="addDocs($event)" multiple>
                     </label>
                 </div>
-                <button nz-button nzType="primary" (click)="downloadDocs()" [disabled]="!this.blob">Save</button>
+                <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="selectedFile&& selectedFile.length>0">
+                    <div class="letter-title">
+                        <span nz-typography> List docs: </span>
+
+                        <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
+
+                    </div>
+
+                    <div *ngFor="let file of selectedFile, let i = index">
+                        <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
+
+                    </div>
+                </div>
+                <button nz-button nzType="primary" (click)="downloadDocs()"
+                    [disabled]="!newPackage && selectedFile">Save</button>
             </div>
             }
 

@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CreateCompanyComponent } from '../../../components/dialogs/create-company/create-company.component';
 import { ICompany } from '../../../interface/company.interface';
 import { CreatePackageComponent } from '../../../components/dialogs/create-package/create-package.component';
-import {
-  ICreatePackage,
-  IResponseAddPackage,
-} from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
@@ -63,9 +67,11 @@ export class StartPageViewComponent implements OnInit {
 
   status = 'process';
 
-  selectedFile: any;
+  selectedFile: any = [];
 
   blob: Blob;
+
+  @ViewChild('inputLetter') inputLetter!: ElementRef<HTMLInputElement>;
 
   pre(): void {
     this.current -= 1;
@@ -112,12 +118,26 @@ export class StartPageViewComponent implements OnInit {
         this.localStorage.deletePackage();
         this.newPackage = null;
         break;
+      case 'letter':
+        this.selectedFile = [];
+        this.inputLetter.nativeElement.value = '';
+        break;
     }
   }
 
   addDocs(ev: Event) {
     const target = ev.target as HTMLInputElement;
-    this.selectedFile = target.files as FileList;
+    const files = target.files;
+
+    if (files) {
+      const formData = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        this.selectedFile.push(file);
+        formData.append(file.name, file);
+      }
+    }
 
     const reader = new FileReader();
 
@@ -127,19 +147,17 @@ export class StartPageViewComponent implements OnInit {
           type: this.selectedFile[0].type,
         });
         var element = document.querySelector('p');
-
         if (element) {
           for (let i = 0; i < this.selectedFile.length; i++) {
             let f = this.selectedFile[i];
             element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`;
           }
+          console.log(this.selectedFile);
         }
       } else {
         console.error('File could not be read.');
       }
     };
-
-    reader.readAsArrayBuffer(this.selectedFile[0]);
   }
 
   downloadDocs() {

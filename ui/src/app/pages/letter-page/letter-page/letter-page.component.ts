@@ -6,11 +6,10 @@ import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-
 import { LetterPageViewComponent } from '../../letter-page-view/letter-page-view.component';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { IResponseAddPackage } from '../../../interface/package.interface';
+import { DocsService } from '../../../service/docs.service';
 
 @Component({
   selector: 'app-letter-page',
@@ -24,7 +23,8 @@ export class LetterPageComponent {
     private http: HttpClient,
     private companyService: CompanyService,
     private packageService: PackageService,
-    private localStorage: SessionStorageService
+    private localStorage: SessionStorageService,
+    private docsService: DocsService
   ) {}
   ngOnInit(): void {
     this.localStorage.clean();
@@ -43,46 +43,14 @@ export class LetterPageComponent {
 
   listInsuranceOrg$: Observable<ICompany[]>;
 
-  addLetter(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.selectedFile = target.files as FileList;
-    console.log(this.selectedFile);
+  formData: FormData;
 
-    const reader = new FileReader();
-
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      if (event.target && reader.result) {
-        const blob = new Blob([reader.result], {
-          type: this.selectedFile[0].type,
-        });
-        console.log(blob);
-        var element = document.querySelector('p');
-
-        if (element) {
-          for (let i = 0; i < this.selectedFile.length; i++) {
-            // Removed the function declaration as it's not needed
-            let f = this.selectedFile[i]; // Changed 'this.files[i]' to 'this.selectedFiles[i]'
-            element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`; // Fixed the concatenation of file details
-          }
-        }
-      } else {
-        console.error('File could not be read.');
-      }
-    };
-
-    reader.readAsArrayBuffer(this.selectedFile[0]); // Changed 'this.selectedFile' to 'this.selectedFiles[0]'
+  onUploadInfo(data: any) {
+    this.docsService.submitDocs(this.formData, data).subscribe();
   }
-
-  submitDocs(blob: Blob): void {
-    if (this.selectedFile) {
-      console.log(blob, this.selectedFile);
-      const formData = new FormData();
-      formData.append('image', blob, this.selectedFile.name);
-      this.http.post('/api/upload', formData).subscribe(
-        (response) => console.log(response),
-        (error) => console.log(error)
-      );
-    }
+  addDocs(formData: FormData) {
+    this.formData = formData;
+    console.log(this.formData.get('sinsay-1'));
   }
 
   private getData() {

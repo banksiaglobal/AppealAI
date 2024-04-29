@@ -51,6 +51,10 @@ export class LetterPageViewComponent {
 
   @Output() onSelectPackage = new EventEmitter<string>();
 
+  @Output() onUploadInfo = new EventEmitter<any>();
+
+  @Output() addDocs = new EventEmitter<FormData>();
+
   constructor(
     private fb: NonNullableFormBuilder,
     private localStorage: SessionStorageService
@@ -66,11 +70,11 @@ export class LetterPageViewComponent {
     letter: new FormControl<File | null>(null, [Validators.required]),
   });
 
-  selectedFile: any;
+  selectedFile: any = [];
   blob: Blob;
 
   submitForm() {
-    console.log(this.documentsForm.value);
+    this.onUploadInfo.emit(this.documentsForm.value);
   }
 
   selectCompany(company: ICompany) {
@@ -106,12 +110,20 @@ export class LetterPageViewComponent {
   }
 
   addLetter(ev: any) {
-    console.log(this.documentsForm.value.package);
-    console.log(ev);
     const target = ev.target as HTMLInputElement;
-    this.selectedFile = target.files as FileList;
+    const files = target.files;
 
-    console.log(this.selectedFile);
+    if (files) {
+      const formData = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        console.log(file.name);
+        this.selectedFile.push(file);
+        formData.append(file.name, file);
+      }
+      this.addDocs.emit(formData);
+    }
 
     const reader = new FileReader();
 
@@ -120,7 +132,6 @@ export class LetterPageViewComponent {
         this.blob = new Blob([reader.result], {
           type: this.selectedFile[0].type,
         });
-        console.log(this.blob);
         var element = document.querySelector('p');
 
         if (element) {
@@ -135,6 +146,6 @@ export class LetterPageViewComponent {
       }
     };
 
-    reader.readAsArrayBuffer(this.selectedFile[0]);
+    // reader.readAsArrayBuffer(this.selectedFile[0]);
   }
 }

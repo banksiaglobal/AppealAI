@@ -1,2 +1,3 @@
 <app-letter-page-view [packagesList]="packagesList$ | async" [currentCompany]="currentCompany$ | async"
-    (onSelectCompany)="onSelectCompany($event)" [listInsuranceOrg]="listInsuranceOrg$ | async" />
+    (onSelectCompany)="onSelectCompany($event)" (onUploadInfo)="onUploadInfo($event)" (addDocs)="addDocs($event)"
+    [listInsuranceOrg]="listInsuranceOrg$ | async" />
