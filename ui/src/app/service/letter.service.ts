@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
@@ -27,12 +27,14 @@ export class LetterService {
       );
   }
 
-  //   addnewFile(blob: Blob): void {
-  //     const formData = new FormData();
-  //     formData.append('image', blob);
-  //     return this.http.post('/api/document/upload', formData).pipe(
-  //       map((response) => response),
-  //       catchError(() => of())
-  //     );
-  //   }
+  addnewFile(blob: Blob, selectedFiles: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', blob);
+    console.log(formData);
+    return this.http.post('/api/document/upload', formData).pipe(
+      map((response) => response),
+      tap((response) => console.log(response)),
+      catchError(() => of())
+    );
+  }
 }

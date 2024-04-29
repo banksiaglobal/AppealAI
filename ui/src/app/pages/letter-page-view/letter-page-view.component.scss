@@ -1,0 +1,86 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  &-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: self-start;
+    gap: 20px !important;
+  }
+}
+
+.title {
+  margin-bottom: 20px;
+}
+
+nz-select {
+  width: 250px;
+}
+
+nz-form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px !important;
+}
+
+.btn-box {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-submit {
+  display: flex;
+  justify-content: center;
+}
+
+input[type="file"] {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+label {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  width: 270px;
+}
+
+.btn-title.dragover {
+  background-color: #aaa;
+}
+
+.list-docs-box {
+  margin-right: auto;
+}
+
+.list-docs-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &-name {
+    font-size: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+}
+
+.list-docs-letter {
+  max-width: 200px;
+  display: inline-block;
+  word-wrap: break-all;
+  overflow: hidden;
+}
+
+/**/
+.dialog-contauner {
+  position: absolute;
+  bottom: 100px;
+}

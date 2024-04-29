@@ -16,7 +16,17 @@ export class CompanyService {
     //   catchError(() => of())
     // );
     return of([
-      { name: 'new', id: 50, UUIDFHIR: 'testnumber123456789987654321' },
+      {
+        name: 'test123456',
+        id: 47,
+        UUIDFHIR: '3d10019f-c88e-3de5-9916-6107b9c0263d',
+      },
+      { name: 'new 1', id: 51, UUIDFHIR: 'testnumber123456789987654321' },
+      {
+        UUIDFHIR: '3d10019f-c88e-3de5-9916-6107b9c0263d',
+        id: '77',
+        name: 'test3r',
+      },
     ]);
   }
 

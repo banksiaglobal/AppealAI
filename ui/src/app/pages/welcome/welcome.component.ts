@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { SessionStorageService } from '../../service/localStorage.service';
 
 @Component({
   selector: 'app-welcome',
@@ -9,8 +10,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrls: ['./welcome.component.scss'],
   imports: [NzButtonModule, RouterLink],
 })
-export class WelcomeComponent implements OnInit {
-  constructor() {}
+export class WelcomeComponent {
+  constructor(private localStorage: SessionStorageService) {}
 
-  ngOnInit() {}
+  clearStorageToStart() {
+    this.localStorage.clean();
+  }
 }

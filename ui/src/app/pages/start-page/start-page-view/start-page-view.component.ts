@@ -1,10 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CreateCompanyComponent } from '../../../components/dialogs/create-company/create-company.component';
 import { ICompany } from '../../../interface/company.interface';
+import { CreatePackageComponent } from '../../../components/dialogs/create-package/create-package.component';
+import {
+  ICreatePackage,
+  IResponseAddPackage,
+} from '../../../interface/package.interface';
+import { SessionStorageService } from '../../../service/localStorage.service';
+import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
 
 @Component({
   selector: 'app-start-page-view',
@@ -15,19 +22,50 @@ import { ICompany } from '../../../interface/company.interface';
     NzButtonModule,
     NzLayoutModule,
     CreateCompanyComponent,
+    CreatePackageComponent,
+    NzHeaderComponent,
+    NzLayoutModule,
+    NzFlexModule,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',
 })
-export class StartPageViewComponent {
+export class StartPageViewComponent implements OnInit {
+  constructor(private localStorage: SessionStorageService) {}
+
+  companyName: string | null;
+
+  ngOnInit(): void {
+    this.companyName = this.localStorage.getCompanyName();
+    if (this.companyName || this.currentCompany?.id) {
+      this.current = 1;
+      this.index = 2;
+    }
+  }
   @Output() createNewCompany = new EventEmitter<string>();
 
-  @Input() newCompany: ICompany | null;
+  @Output() createNewPackage = new EventEmitter<{
+    name: string;
+    description: string;
+  }>();
+
+  @Output() sendDocs = new EventEmitter<any>();
+
+  @Input() currentCompany: ICompany | null;
+
+  @Input() packagesList: any | null;
+
+  @Input() newPackage: any | null;
+
   current = 0;
 
   index = 1;
 
   status = 'process';
+
+  selectedFile: any;
+
+  blob: Blob;
 
   pre(): void {
     this.current -= 1;
@@ -66,13 +104,47 @@ export class StartPageViewComponent {
   deleteInfoItem(typeInfo: string) {
     switch (typeInfo) {
       case 'company':
-        this.newCompany = null;
+        this.currentCompany = null;
+        this.companyName = null;
+        this.localStorage.clean();
         break;
       case 'package':
-        this.newCompany = null;
+        this.localStorage.deletePackage();
+        this.newPackage = null;
         break;
-      default:
-        this.newCompany = null;
     }
+  }
+
+  addDocs(ev: Event) {
+    const target = ev.target as HTMLInputElement;
+    this.selectedFile = target.files as FileList;
+
+    const reader = new FileReader();
+
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      if (event.target && reader.result) {
+        this.blob = new Blob([reader.result], {
+          type: this.selectedFile[0].type,
+        });
+        var element = document.querySelector('p');
+
+        if (element) {
+          for (let i = 0; i < this.selectedFile.length; i++) {
+            let f = this.selectedFile[i];
+            element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`;
+          }
+        }
+      } else {
+        console.error('File could not be read.');
+      }
+    };
+
+    reader.readAsArrayBuffer(this.selectedFile[0]);
+  }
+
+  downloadDocs() {
+    const docs = { blob: this.blob, files: this.selectedFile };
+    console.log(docs);
+    this.sendDocs.emit(docs);
   }
 }

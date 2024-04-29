@@ -1,47 +1,28 @@
 <div class="dialog-container">
-    <div class="cancel-btn" nz-button (click)="close()"></div>
     <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-        Adding a new package:
+        Adding a new package
     </nz-page-header-subtitle>
     <form nz-form [formGroup]="docsForm">
-        <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-            Choose company:
-        </nz-page-header-subtitle>
-
-        <nz-form-item>
-            <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="companyId">
-                <nz-option *ngFor=" let org of data" [nzValue]="org.id" [nzLabel]="org.name"
-                    (ngModelChange)="selectCompany(org.id)"></nz-option>
-            </nz-select>
-        </nz-form-item>
 
         <div class="package-box">
-            <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-                Adding a new insurance package:
-            </nz-page-header-subtitle>
-
             <nz-form-item>
                 <nz-form-label class="label-package">
                     Package name
                 </nz-form-label>
-                <input class="input-package" nz-input name="packageName" type="text" id="packageName"
+                <input class="input-package" nz-input name="packageName" type="text" id="packageName" required
                     formControlName="name" />
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label class="label-package-description">
                     Description
                 </nz-form-label>
-                <input class="input-package-description" nz-input name="packageDescription" type="text"
+                <input class="input-package-description" nz-input name="packageDescription" type="text" required
                     id="packageDescription" formControlName="description" />
 
             </nz-form-item>
             <nz-form-item nz-button nzType="primary">
-                <nz-form-label class="download-label" for="inputLetter">
-                    Add nedded docs:
-                </nz-form-label>
-                <input type="file" id="inputLetter" (change)="addListDocs($event)" formControlName="listDocs">
+
                 <div class="actions-popup-btn ">
-                    <button nz-button (click)="close()">Cancel</button>
                     <button nz-button nzType="primary" (click)="save()" [disabled]="docsForm.invalid">Save</button>
                 </div>
             </nz-form-item>

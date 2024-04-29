@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { ICreatePackage } from '../interface/package.interface';
+import {
+  ICreatePackage,
+  IResponseAddPackage,
+} from '../interface/package.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +22,15 @@ export class PackageService {
       );
   }
 
-  getListPackagesForCurrentCompany(companyId: number): Observable<any> {
+  getListPackagesForCurrentCompany(
+    companyId: string
+  ): Observable<IResponseAddPackage[]> {
     return this.http
-      .get<any>(`${environment.apiUrl}/api/package/all/${companyId}`)
+      .get<{ info: string; packages: IResponseAddPackage[] }>(
+        `${environment.apiUrl}/api/package/all/${companyId}`
+      )
       .pipe(
-        map((response) => response),
+        map((response) => response.packages),
         catchError(() => of())
       );
   }

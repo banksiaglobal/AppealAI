@@ -1,1 +1,79 @@
-<p>letter-page-view works!</p>
+<div class="page">
+    <div class="container-page">
+        <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">Load a
+            letter</nz-page-header-subtitle>
+
+        <form nz-form class="form" [nzLayout]="'vertical'" [formGroup]="documentsForm" (ngSubmit)="submitForm()">
+            <div class="form-box" nz-flex [nzAlign]="'center'" [nzJustify]="'center'">
+                <nz-form-item>
+                    <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="company"
+                        (ngModelChange)="selectCompany($event)">
+                        <nz-option *ngFor=" let org of listInsuranceOrg" [nzValue]="org"
+                            [nzLabel]="org.name"></nz-option>
+                    </nz-select>
+                    <div class="create-obj-box">
+                        <span>Didn't find the company? </span>
+                        <a class="link-text" routerLink="/start">
+                            Create a new one</a>
+                    </div>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-select nzPlaceHolder="Select insurance packages" nzAllowClear formControlName="package"
+                        [nzDisabled]="!currentCompany?.id" (ngModelChange)="selectPackage($event)">
+                        <nz-option *ngFor="let package of packagesList" [nzValue]="package"
+                            [nzLabel]="package.name"></nz-option>
+                    </nz-select>
+                    <div class="create-obj-box">
+                        <span>Didn't find the package? </span>
+                        <a class="link-text" routerLink="/start">
+                            Create a new one
+                        </a>
+                    </div>
+                </nz-form-item>
+                <nz-form-item class="download" nz-button nzType="primary">
+                    <label for="inputLetter">
+                        <div class="btn-download">Add a letter</div>
+                        <input type="file" id="inputLetter" (change)="addLetter($event)" formControlName="letter">
+                    </label>
+                </nz-form-item>
+            </div>
+
+            <div class="list-docs-box"
+                *ngIf="currentCompany?.id  || documentsForm.value.package || documentsForm.value.letter">
+                <!-- <div class="list-docs-box"> -->
+                <h3 nz-typography>The List Docs:</h3>
+                <div class="list-docs-item" *ngIf="currentCompany?.id">
+                    <div nz-typography>Company: </div>
+                    <div class="list-docs-item-name"> {{currentCompany?.name}}</div>
+
+                    @if (currentCompany?.id) {
+                    <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
+                    }
+                </div>
+                <div class="list-docs-item" *ngIf="documentsForm.value.package">
+                    <div nz-typography> Insurance package: </div>
+                    <div class="list-docs-item-name">{{documentsForm.value.package}} </div>
+
+                    @if (documentsForm.value.package) {
+                    <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
+                    }
+                </div>
+                <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="documentsForm.value.letter">
+                    <div nz-typography> Letter: </div>
+                    <div *ngFor="let file of selectedFile, let i = index">
+                        <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
+                    </div>
+                    @if (documentsForm.value.letter) {
+                    <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
+                    }
+                </div>
+            </div>
+            <div class="btn-box" nz-flex [nzAlign]="'center'">
+                <button class="btn-submit" type="submit" nz-button nzType="primary" [disabled]="!documentsForm.valid">
+                    Add
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>

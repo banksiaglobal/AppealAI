@@ -1,1 +1,2 @@
-<app-start-page-view (createNewCompany)="createNewCompany($event)" [newCompany]="newCompany$ | async" />
+<app-start-page-view (createNewCompany)="createNewCompany($event)" (createNewPackage)="createNewPackage($event)"
+    (sendDocs)="sendDocs($event)" [currentCompany]="currentCompany$ | async" [newPackage]="newPackage$ | async" />

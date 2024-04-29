@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -10,6 +10,9 @@ import { PackageService } from '../../../service/package.service';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ICompany } from '../../../interface/company.interface';
+import { IResponseAddPackage } from '../../../interface/package.interface';
+import { SessionStorageService } from '../../../service/localStorage.service';
+import { LetterService } from '../../../service/letter.service';
 
 @Component({
   selector: 'app-start-page',
@@ -29,22 +32,47 @@ export class StartPageComponent {
   constructor(
     private companyService: CompanyService,
     private packageService: PackageService,
-    private messageSrvice: NzMessageService
+    private messageSrvice: NzMessageService,
+    private localStorage: SessionStorageService,
+    private docsService: LetterService
   ) {}
 
-  public newCompany$: Observable<ICompany>;
+  public currentCompany$: Observable<ICompany>;
+
+  public newPackage$: Observable<IResponseAddPackage>;
 
   createNewCompany(companyName: string) {
-    this.newCompany$ = this.companyService.addNewCompany(companyName).pipe(
+    this.currentCompany$ = this.companyService.addNewCompany(companyName).pipe(
       map((data) => {
         return data;
       }),
       tap(() => this.createSuccessMessage('company')),
+      tap((data) => this.localStorage.saveCompany(data.id, data.name)),
       catchError((error: any) => {
         this.createErrorMessage('company');
         return throwError(() => error);
       })
     );
+  }
+
+  createNewPackage(packageitem: { name: string; description: string }) {
+    console.log(packageitem);
+    this.newPackage$ = this.packageService
+      .addNewPackageForCompany(
+        this.localStorage.getCompanyId(),
+        packageitem.name,
+        packageitem.description
+      )
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        tap(() => this.createSuccessMessage('package')),
+        catchError((error: any) => {
+          this.createErrorMessage('package');
+          return throwError(() => error);
+        })
+      );
   }
 
   createErrorMessage(type: string): void {
@@ -57,5 +85,13 @@ export class StartPageComponent {
     this.messageSrvice.success(`The ${type} was added.`, {
       nzDuration: 2000,
     });
+  }
+
+  sendDocs(files: { blob: Blob; selectedFiles: any }): void {
+    console.log(files);
+    this.docsService
+      .addnewFile(files.blob, files.selectedFiles)
+      .pipe(tap(() => this.createSuccessMessage('doc')))
+      .subscribe();
   }
 }
