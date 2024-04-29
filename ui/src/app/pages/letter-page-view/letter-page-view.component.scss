@@ -79,6 +79,17 @@ label {
   overflow: hidden;
 }
 
+.letter-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.letter-title {
+  display: flex;
+  align-items: center;
+}
+
 /**/
 .dialog-contauner {
   position: absolute;

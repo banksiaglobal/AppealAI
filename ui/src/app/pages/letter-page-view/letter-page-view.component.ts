@@ -49,7 +49,7 @@ export class LetterPageViewComponent {
 
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
-  @Output() onSelectPackage = new EventEmitter<IResponseAddPackage>();
+  @Output() onSelectPackage = new EventEmitter<string>();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -67,39 +67,74 @@ export class LetterPageViewComponent {
   });
 
   selectedFile: any;
+  blob: Blob;
 
   submitForm() {
     console.log(this.documentsForm.value);
   }
 
   selectCompany(company: ICompany) {
-    this.documentsForm.value.company = company.id;
-    this.onSelectCompany.emit(company);
-    this.currentCompany = company;
+    if (company) {
+      console.log(company);
+      this.documentsForm.value.company = company.id;
+      this.onSelectCompany.emit(company);
+      this.documentsForm.controls['package'].reset();
+      this.documentsForm.controls['letter'].reset();
+    }
   }
 
-  selectPackage(packageItem: IResponseAddPackage) {
-    this.documentsForm.value.package = packageItem.name;
-    this.onSelectPackage.emit(packageItem);
+  selectPackage() {
+    console.log(this.documentsForm.value.package);
+    this.onSelectPackage.emit(this.documentsForm.value.package);
   }
 
   deleteInfoItem(typeInfo: string) {
     switch (typeInfo) {
       case 'company':
-        this.currentCompany = null;
+        this.documentsForm.controls['company'].reset();
         this.localStorage.clean();
         this.documentsForm.reset();
         break;
       case 'package':
-        this.documentsForm.patchValue({
-          package: '',
-        });
+        this.documentsForm.controls['package'].reset();
         this.localStorage.deletePackage();
+        break;
+      case 'letter':
+        this.documentsForm.controls['letter'].reset();
         break;
     }
   }
 
   addLetter(ev: any) {
+    console.log(this.documentsForm.value.package);
     console.log(ev);
+    const target = ev.target as HTMLInputElement;
+    this.selectedFile = target.files as FileList;
+
+    console.log(this.selectedFile);
+
+    const reader = new FileReader();
+
+    reader.onload = (event: ProgressEvent<FileReader>) => {
+      if (event.target && reader.result) {
+        this.blob = new Blob([reader.result], {
+          type: this.selectedFile[0].type,
+        });
+        console.log(this.blob);
+        var element = document.querySelector('p');
+
+        if (element) {
+          for (let i = 0; i < this.selectedFile.length; i++) {
+            let f = this.selectedFile[i];
+            element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`;
+          }
+          console.log(this.selectedFile);
+        }
+      } else {
+        console.error('File could not be read.');
+      }
+    };
+
+    reader.readAsArrayBuffer(this.selectedFile[0]);
   }
 }

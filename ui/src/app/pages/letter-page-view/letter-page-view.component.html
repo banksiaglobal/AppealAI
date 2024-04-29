@@ -19,8 +19,8 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-select nzPlaceHolder="Select insurance packages" nzAllowClear formControlName="package"
-                        [nzDisabled]="!currentCompany?.id" (ngModelChange)="selectPackage($event)">
-                        <nz-option *ngFor="let package of packagesList" [nzValue]="package"
+                        [nzDisabled]="!currentCompany?.id" (change)="selectPackage()">
+                        <nz-option *ngFor="let package of packagesList" [nzValue]="package.name"
                             [nzLabel]="package.name"></nz-option>
                     </nz-select>
                     <div class="create-obj-box">
@@ -33,16 +33,17 @@
                 <nz-form-item class="download" nz-button nzType="primary">
                     <label for="inputLetter">
                         <div class="btn-download">Add a letter</div>
-                        <input type="file" id="inputLetter" (change)="addLetter($event)" formControlName="letter">
+                        <input type="file" id="inputLetter" (change)="addLetter($event)" formControlName="letter"
+                            multiple>
                     </label>
                 </nz-form-item>
             </div>
 
             <div class="list-docs-box"
-                *ngIf="currentCompany?.id  || documentsForm.value.package || documentsForm.value.letter">
+                *ngIf="documentsForm.value.company  || documentsForm.value?.package || documentsForm.value?.letter">
                 <!-- <div class="list-docs-box"> -->
                 <h3 nz-typography>The List Docs:</h3>
-                <div class="list-docs-item" *ngIf="currentCompany?.id">
+                <div class="list-docs-item" *ngIf="documentsForm.value.company">
                     <div nz-typography>Company: </div>
                     <div class="list-docs-item-name"> {{currentCompany?.name}}</div>
 
@@ -54,18 +55,23 @@
                     <div nz-typography> Insurance package: </div>
                     <div class="list-docs-item-name">{{documentsForm.value.package}} </div>
 
-                    @if (documentsForm.value.package) {
                     <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
-                    }
+
                 </div>
                 <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="documentsForm.value.letter">
-                    <div nz-typography> Letter: </div>
+                    <div class="letter-title">
+                        <span nz-typography> Letter: </span>
+                        @if (documentsForm.value.letter) {
+                        <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
+                        }
+                    </div>
+
                     <div *ngFor="let file of selectedFile, let i = index">
                         <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
+
                     </div>
-                    @if (documentsForm.value.letter) {
-                    <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
-                    }
+
+
                 </div>
             </div>
             <div class="btn-box" nz-flex [nzAlign]="'center'">
