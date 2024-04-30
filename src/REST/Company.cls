@@ -7,6 +7,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 
     <Route Url="/create" Method="POST" Call="Create" Cors="true"/>
     <Route Url="/:id" Method="GET" Call="GetCompany" Cors="true"/>
+    <Route Url="/all" Method="GET" Call="GetAllCompany" Cors="true"/>
 
 </Routes>
 }
@@ -66,6 +67,23 @@ ClassMethod GetCompany(id) As %Status
         set response.UUIDFHIR = Company.UUIDFHIR
 
         
+    }
+    catch ex {
+        if response.error="" set response.error=-404
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    
+    return ..Response(response, responseSC)
+}
+
+ClassMethod GetAllCompany() As %Status
+{
+    set response = {}
+    set responseSC = $$$OK
+
+    try {     
+        set response.packages = ##class(Model.Company).GetAll()
     }
     catch ex {
         if response.error="" set response.error=-404

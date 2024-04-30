@@ -11,6 +11,8 @@ Property DateTime As %TimeStamp;
 
 Property Package As Model.Package;
 
+Property TypeOfDocument As %String;
+
 Index IndexName On Name;
 
 ClassMethod GetDocumentByName(name) As Model.Document
@@ -49,6 +51,9 @@ Storage Default
 </Value>
 <Value name="8">
 <Value>Package</Value>
+</Value>
+<Value name="9">
+<Value>TypeOfDocument</Value>
 </Value>
 </Data>
 <DataLocation>^Model.DocumentD</DataLocation>

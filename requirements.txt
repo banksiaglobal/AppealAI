@@ -1,4 +1,5 @@
 langchain-openai
+langchain-text-splitters
 sqlalchemy-iris
 faiss-cpu
 python-docx

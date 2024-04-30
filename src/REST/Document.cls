@@ -20,6 +20,7 @@ ClassMethod Upload() As %Library.DynamicObject
     set responseSC = $$$OK
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
     set packageId = %request.Get("package")
+    set typeOfDoc = %request.Get("type")
     set path = "/opt/irisapp/"
 
     try {
@@ -39,6 +40,8 @@ ClassMethod Upload() As %Library.DynamicObject
             set response={"error":-404}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Package not found"))
         }
+
+        if 
 
         // call  Production.Service.DocumentIn        
 

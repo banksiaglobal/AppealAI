@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "0e9caa04-12b1-404e-a1af-a344c3e2c6c4",
+		"name": "rest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "15194824",
+		"_collection_link": "https://interstellar-firefly-584555.postman.co/workspace/apelai~d64ef248-eabf-4db1-8405-04737c039d1e/collection/15194824-0e9caa04-12b1-404e-a1af-a344c3e2c6c4?action=share&source=collection_link&creator=15194824"
+	},
+	"item": [
+		{
+			"name": "upload doc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/m_nestes/Documents/off-gold-80-hmo-ca-en.pdf"
+						},
+						{
+							"key": "package",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:32783/api/document/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32783",
+					"path": [
+						"api",
+						"document",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "file",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get doc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/document/info/off-gold-80-hmo-ca-en.pdf"
+			},
+			"response": []
+		},
+		{
+			"name": "delete doc",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:32783/api/document/5"
+			},
+			"response": []
+		},
+		{
+			"name": "create company",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:32783/api/company/create"
+			},
+			"response": []
+		},
+		{
+			"name": "get company",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/company/1"
+			},
+			"response": []
+		},
+		{
+			"name": "create package",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"package\",\n    \"description\": \"test\",\n    \"companyId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:32783/api/package/create"
+			},
+			"response": []
+		},
+		{
+			"name": "get package",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/package/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get all packages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/package/all/1"
+			},
+			"response": []
+		}
+	]
+}
