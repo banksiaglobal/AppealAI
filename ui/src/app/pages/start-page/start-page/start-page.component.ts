@@ -56,7 +56,6 @@ export class StartPageComponent {
   }
 
   createNewPackage(packageitem: { name: string; description: string }) {
-    console.log(packageitem);
     this.newPackage$ = this.packageService
       .addNewPackageForCompany(
         this.localStorage.getCompanyId(),
