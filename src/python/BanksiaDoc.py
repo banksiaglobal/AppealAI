@@ -7,7 +7,7 @@ from PIL import Image
 import os
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
-OPENAI_API_KEY: Final = os.getenv("OPENAI_API_KEY", "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")
+OPENAI_API_KEY: Final = os.getenv("OPENAI_API_KEY", "")
 
 class DocumentProcessor:
     def __init__(self, api_key: str) -> None:
