@@ -109,7 +109,8 @@ html {
 .letter-box {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start !important;
+  align-self: flex-start;
 }
 
 .letter-title {
