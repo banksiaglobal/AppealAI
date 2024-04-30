@@ -2,6 +2,11 @@
 Class Production.Process.ConversionToVector Extends Ens.BusinessProcessBPL
 {
 
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
+
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
@@ -27,15 +32,20 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
-<property name='vectorOfDocument' type='%String' instantiate='0' >
+<property name='textChunks' type='%String' collection='list' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+<property name='vectorChunks' type='%String' collection='list' instantiate='0' >
 <parameters>
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
 </context>
-<sequence xend='199' yend='1095' >
+<sequence xend='200' yend='1000' >
 <assign name="get type of doc " property="context.typeOfDoc" value="request.Path.split('.')[-1]" action="set" languageOverride="python" xpos='200' ypos='250' />
-<switch name='what type of doc ' xpos='200' ypos='350' xend='188' yend='607' >
+<switch name='what type of doc ' xpos='200' ypos='350' xend='200' yend='600' >
 <case condition='context.typeOfDoc = "pdf"' name='if type is pdf' languageOverride='objectscript' >
 <code name='PDF' languageOverride='python' xpos='335' ypos='500' >
 <![CDATA[with pdfplumber.open(request.Path) as pdf:
@@ -55,24 +65,25 @@ context.textOfDocument = '\n'.join([para.text for para in doc.paragraphs])]]>
     context.textOfDocument = file.read()]]>
 </code>
 </case>
+<default/>
 </switch>
 <code name='get vector' languageOverride='python' xpos='200' ypos='700' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
-data = embeddings.embed_documents([context.textOfDocument])
-context.vectorOfDocument = json.dumps(data)
-#text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False,)
-#texts = text_splitter.create_documents([context.textOfDocument])
-#for key, text in enumerate(texts):
-#    data = embeddings.embed_documents(text.page_content)
-#    callresponse.vectorOfDocument(key) = json.dumps(data)
+text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False,)
+texts = text_splitter.create_documents([context.textOfDocument])
+for key, text in enumerate(texts):
+    data = embeddings.embed_documents(text.page_content)
+    context.textChunks.Insert(text.page_content)
+    context.vectorChunks.Insert(json.dumps(data[0]))
 ]]>
 </code>
 <call name='save document' target='SaveVector' async='0' xpos='200' ypos='800' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.Path" value="request.Path" action="set" languageOverride="" />
-<assign property="callrequest.Vector" value="context.vectorOfDocument" action="set" languageOverride="" />
+<assign property="callrequest.VectorChunks" value="context.vectorChunks" action="set" languageOverride="" />
+<assign property="callrequest.TextChunks" value="context.textChunks" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
 </request>
 <response type='Ens.Response' />
@@ -80,11 +91,6 @@ context.vectorOfDocument = json.dumps(data)
 <sync calls='save document' type='all' xpos='200' ypos='900' />
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }

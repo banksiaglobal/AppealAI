@@ -3,7 +3,9 @@ Class Production.Message.SaveVectorRequest Extends (Ens.Request, %JSON.Adaptor, 
 
 Parameter %JSONIGNOREINVALIDFIELD = 1;
 
-Property Vector As %String(%JSONFIELDNAME = "vector", MAXLEN = "");
+Property TextChunks As list Of %String(MAXLEN = "");
+
+Property VectorChunks As list Of %String(MAXLEN = "");
 
 Property Path As %String(%JSONFIELDNAME = "path", MAXLEN = "");
 
@@ -26,6 +28,15 @@ Storage Default
 </Value>
 <Value name="4">
 <Value>Package</Value>
+</Value>
+<Value name="5">
+<Value>Chunks</Value>
+</Value>
+<Value name="6">
+<Value>TextChunks</Value>
+</Value>
+<Value name="7">
+<Value>VectorChunks</Value>
 </Value>
 </Data>
 <DefaultData>SaveVectorRequestDefaultData</DefaultData>
