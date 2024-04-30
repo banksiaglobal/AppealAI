@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { SafeResourceUrl } from '@angular/platform-browser';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
@@ -10,21 +8,25 @@ import { LetterPageViewComponent } from '../../letter-page-view/letter-page-view
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { DocsService } from '../../../service/docs.service';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-letter-page',
   standalone: true,
-  imports: [CommonModule, LetterPageViewComponent],
+  imports: [CommonModule, LetterPageViewComponent, NzMessageModule],
   templateUrl: './letter-page.component.html',
   styleUrl: './letter-page.component.scss',
 })
 export class LetterPageComponent {
   constructor(
-    private http: HttpClient,
     private companyService: CompanyService,
     private packageService: PackageService,
     private localStorage: SessionStorageService,
-    private docsService: DocsService
+    private docsService: DocsService,
+    private router: Router,
+    private messageService: NzMessageService
   ) {}
   ngOnInit(): void {
     this.localStorage.clean();
@@ -35,8 +37,6 @@ export class LetterPageComponent {
   isVisible = false;
   selectedFile: any;
 
-  fileUrl: SafeResourceUrl = '';
-
   currentCompany$: Observable<ICompany>;
 
   packagesList$: Observable<IResponseAddPackage[]>;
@@ -45,12 +45,25 @@ export class LetterPageComponent {
 
   formData: FormData;
 
+  answerAI$: Observable<any>;
+
   onUploadInfo(data: any) {
-    this.docsService.submitDocs(this.formData, data).subscribe();
+    this.answerAI$ = this.docsService.submitDocs(this.formData, data).pipe(
+      map((data) => {
+        return data;
+      }),
+      tap(() => this.createSuccessMessage('files')),
+      tap(() => this.goToAIPage()),
+      catchError((error: any) => {
+        tap(() => this.createErrorMessage('files'));
+        return throwError(() => error);
+      })
+    );
   }
+
   addDocs(formData: FormData) {
     this.formData = formData;
-    console.log(this.formData.get('sinsay-1'));
+    console.log(this.formData.get('sinsay-1.pdf'));
   }
 
   private getData() {
@@ -70,5 +83,22 @@ export class LetterPageComponent {
   private saveCurrentCompany(company: ICompany) {
     this.currentCompany$ = of(company);
     this.localStorage.saveCompany(company.id, company.name);
+  }
+
+  goToAIPage() {
+    this.router.navigate(['/AI']);
+  }
+
+  createErrorMessage(type: string): void {
+    console.log(11111);
+    this.messageService.error(`The ${type} weren't added. Try it again`, {
+      nzDuration: 2000,
+    });
+  }
+
+  createSuccessMessage(type: string): void {
+    this.messageService.success(`The ${type} were added.`, {
+      nzDuration: 2000,
+    });
   }
 }

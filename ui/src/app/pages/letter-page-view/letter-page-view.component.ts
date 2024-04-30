@@ -47,6 +47,8 @@ export class LetterPageViewComponent {
 
   @Input() packagesList: IResponseAddPackage[] | null;
 
+  @Input() answerAI: any[] | null;
+
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
   @Output() onSelectPackage = new EventEmitter<string>();
