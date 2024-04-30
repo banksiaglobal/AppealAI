@@ -6,22 +6,27 @@
 }
 
 .app-layout {
-  height: 100vh;
+  min-height: 100vh;
+}
+
+.horizontal-header-var {
+  display: none;
 }
 
 .menu-sidebar {
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  box-shadow: 2px 0 6px rgba(0,21,41,.35);
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
 }
 
 .header-trigger {
+  align-self: center;
   height: 64px;
-  padding: 20px 24px;
+  padding: 0 24px;
   font-size: 20px;
   cursor: pointer;
-  transition: all .3s,padding 0s;
+  transition: all 0.3s, padding 0s;
 }
 
 .trigger:hover {
@@ -35,7 +40,7 @@
   overflow: hidden;
   line-height: 64px;
   background: #001529;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
 .sidebar-logo img {
@@ -51,22 +56,21 @@
   color: #fff;
   font-weight: 600;
   font-size: 14px;
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
   vertical-align: middle;
 }
 
 nz-header {
   padding: 0;
+  height: 64px;
   width: 100%;
   z-index: 2;
 }
 
 .app-header {
   position: relative;
-  height: 64px;
-  padding: 0;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 }
 
 nz-content {
@@ -77,4 +81,59 @@ nz-content {
   padding: 24px;
   background: #fff;
   height: 100%;
+}
+
+.logo-bg {
+  height: 50px;
+  width: 200px;
+  margin-left: 10px;
+  background: url("../assets/logo-bg.svg") 50% no-repeat;
+}
+
+.h2 {
+  font-size: 30px;
+  color: var(--primary-color);
+}
+
+.header-title {
+  margin: auto;
+  gap: 5px;
+}
+
+.description-logo {
+  margin-left: 10px;
+  color: var(--dark-bg-color);
+}
+
+nz-footer {
+  text-align: center;
+}
+
+@media screen and (max-width: 680px) {
+  .menu-sidebar,
+  .description-logo,
+  .logo-bg,
+  .header-trigger,
+  .vertical-header-var {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 681px) {
+  .horizontal-header-var {
+    display: flex;
+  }
+  .logo {
+    margin-right: 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .horizontal-header-var {
+    justify-content: center;
+  }
+
+  .logo {
+    display: none;
+  }
 }
