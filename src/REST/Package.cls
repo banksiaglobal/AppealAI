@@ -91,30 +91,7 @@ ClassMethod GetAllPackages(companyId) As %Status
     set responseSC = $$$OK
 
     try {
-        
-        set packages = []
-        set tStatement = ##class(%SQL.Statement).%New()
-        set tStatus = tStatement.%Prepare("select ID, Name, Description, Company from Model.Package where Company = ?")
-			if ($$$ISOK(tStatus)) { 
-				set tResult = tStatement.%Execute(companyId)
-				if (tResult.%SQLCODE=0) {
-					while tResult.%Next() {
-                        set package = {}
-						set package.name = tResult.Name
-                        set package.description = tResult.Description
-                        set package.id = tResult.ID
-                        set package.companyId = tResult.Company
-						do packages.%Push(package)
-					}
-				}
-			}
-            else {
-                set response={"error":-404}
-                $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
-            }
-
-        set response.packages = packages
-        set response.info = tStatus
+        set response.packages = ##class(Model.Package).GetAllByCompany(companyId)
     }
     catch ex {
         if response.error="" set response.error=-404

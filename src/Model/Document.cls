@@ -5,8 +5,6 @@ Property Name As %String(MAXLEN = 300);
 
 Property Path As %String(MAXLEN = 300);
 
-Property Vector As %String(MAXLEN = "");
-
 Property DateTime As %TimeStamp;
 
 Property Package As Model.Package;
@@ -38,21 +36,12 @@ Storage Default
 <Value>Path</Value>
 </Value>
 <Value name="4">
-<Value>Vector</Value>
-</Value>
-<Value name="5">
 <Value>DateTime</Value>
 </Value>
-<Value name="6">
-<Value>InsurCatalog</Value>
-</Value>
-<Value name="7">
-<Value>Company</Value>
-</Value>
-<Value name="8">
+<Value name="5">
 <Value>Package</Value>
 </Value>
-<Value name="9">
+<Value name="6">
 <Value>TypeOfDocument</Value>
 </Value>
 </Data>

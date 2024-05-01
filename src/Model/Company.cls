@@ -10,24 +10,23 @@ Index IndexName On Name [ Unique ];
 ClassMethod GetAll() As %Library.DynamicArray
 {
     
-    set packages = []
+    set companies = []
     set tStatement = ##class(%SQL.Statement).%New()
     set tStatus = tStatement.%Prepare("select ID, Name, UUIDFHIR from Model.Company")
         if ($$$ISOK(tStatus)) { 
             set tResult = tStatement.%Execute()
             if (tResult.%SQLCODE=0) {
                 while tResult.%Next() {
-                    set package = {}
-                    set package.name = tResult.Name
-                    set package.description = tResult.Description
-                    set package.id = tResult.ID
-                    set package.companyId = tResult.Company
-                    do packages.%Push(package)
+                    set company = {}
+                    set company.name = tResult.Name
+                    set company.id = tResult.ID
+                    set company.uuidfhir = tResult.UUIDFHIR
+                    do companies.%Push(company)
                 }
             }
         }
 
-    return packages
+    return companies
 }
 
 Storage Default

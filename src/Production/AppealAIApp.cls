@@ -12,6 +12,12 @@ XData ProductionDefinition
   </Item>
   <Item Name="ConversionToVector" Category="" ClassName="Production.Process.ConversionToVector" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="GetText" Category="" ClassName="Production.Process.GetText" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="VectorSearch" Category="" ClassName="Production.Process.VectorSearch" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="AppealIn" Category="" ClassName="Production.Service.AppealIn" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 

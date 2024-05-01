@@ -43,42 +43,30 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 </parameters>
 </property>
 </context>
-<sequence xend='200' yend='1000' >
-<assign name="get type of doc " property="context.typeOfDoc" value="request.Path.split('.')[-1]" action="set" languageOverride="python" xpos='200' ypos='250' />
-<switch name='what type of doc ' xpos='200' ypos='350' xend='200' yend='600' >
-<case condition='context.typeOfDoc = "pdf"' name='if type is pdf' languageOverride='objectscript' >
-<code name='PDF' languageOverride='python' xpos='335' ypos='500' >
-<![CDATA[with pdfplumber.open(request.Path) as pdf:
-    for page in pdf.pages:
-        context.textOfDocument += page.extract_text() or '']]>
-</code>
-</case>
-<case condition='context.typeOfDoc = "docx"' name='if type is docx' languageOverride='objectscript' >
-<code name='DOCX' languageOverride='python' xpos='605' ypos='500' >
-<![CDATA[doc = docx.Document(request.Path)
-context.textOfDocument = '\n'.join([para.text for para in doc.paragraphs])]]>
-</code>
-</case>
-<case condition='context.typeOfDoc = "txt"' name='if type is txt' languageOverride='objectscript' >
-<code name='TXT' languageOverride='python' xpos='875' ypos='500' >
-<![CDATA[with open(request.Path, 'r', encoding='utf-8') as file:
-    context.textOfDocument = file.read()]]>
-</code>
-</case>
-<default/>
-</switch>
-<code name='get vector' languageOverride='python' xpos='200' ypos='700' >
+<sequence xend='200' yend='750' >
+<call name='Get text of file' target='GetText' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
+<request type='Production.Message.GetTextRequest' >
+<assign property="callrequest.Path" value="request.Path" action="set" languageOverride="" />
+</request>
+<response type='Production.Message.GetTextResponse' >
+<assign property="context.textOfDocument" value="callresponse.Text" action="set" languageOverride="" />
+</response>
+</call>
+<sync name='Waiting to receive text' calls='Get text of file' type='all' xpos='200' ypos='350' />
+<code name='Get vectors of file' languageOverride='python' xpos='200' ypos='450' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
-text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False,)
+text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False, chunk_size=8000,chunk_overlap=1000,)
 texts = text_splitter.create_documents([context.textOfDocument])
 for key, text in enumerate(texts):
+    if key == 7: 
+        break
     data = embeddings.embed_documents(text.page_content)
     context.textChunks.Insert(text.page_content)
-    context.vectorChunks.Insert(json.dumps(data[0]))
+    context.vectorChunks.Insert(json.dumps(data[key]))
 ]]>
 </code>
-<call name='save document' target='SaveVector' async='0' xpos='200' ypos='800' >
+<call name='Save data' target='SaveVector' async='0' xpos='200' ypos='550' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.Path" value="request.Path" action="set" languageOverride="" />
@@ -88,7 +76,7 @@ for key, text in enumerate(texts):
 </request>
 <response type='Ens.Response' />
 </call>
-<sync calls='save document' type='all' xpos='200' ypos='900' />
+<sync name='Waiting for data to be saved' calls='Save data' type='all' xpos='200' ypos='650' />
 </sequence>
 </process>
 }

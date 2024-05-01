@@ -1,7 +1,7 @@
 Class Model.DocumentChunk Extends (%Library.Persistent, %JSON.Adaptor)
 {
 
-Property Document As Document;
+Property Document As Model.Document;
 
 Property Vector As %Vector;
 

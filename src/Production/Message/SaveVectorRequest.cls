@@ -13,30 +13,29 @@ Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = 200);
 
 Property Package As %String(%JSONFIELDNAME = "package");
 
+Property TypeOfDoc As %String;
+
 Storage Default
 {
 <Data name="SaveVectorRequestDefaultData">
 <Subscript>"SaveVectorRequest"</Subscript>
 <Value name="1">
-<Value>Vector</Value>
-</Value>
-<Value name="2">
-<Value>Path</Value>
-</Value>
-<Value name="3">
-<Value>Name</Value>
-</Value>
-<Value name="4">
-<Value>Package</Value>
-</Value>
-<Value name="5">
-<Value>Chunks</Value>
-</Value>
-<Value name="6">
 <Value>TextChunks</Value>
 </Value>
-<Value name="7">
+<Value name="2">
 <Value>VectorChunks</Value>
+</Value>
+<Value name="3">
+<Value>Path</Value>
+</Value>
+<Value name="4">
+<Value>Name</Value>
+</Value>
+<Value name="5">
+<Value>Package</Value>
+</Value>
+<Value name="6">
+<Value>TypeOfDoc</Value>
 </Value>
 </Data>
 <DefaultData>SaveVectorRequestDefaultData</DefaultData>

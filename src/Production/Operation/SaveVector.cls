@@ -15,6 +15,7 @@ Method OnMessage(pInput As Production.Message.SaveVectorRequest, pOutput As Ens.
     set Document.Path = pInput.Path
     set Document.DateTime = $ZDT($H,3)
     set Document.Package = ##class(Model.Package).%OpenId(pInput.Package)
+    set Document.TypeOfDocument = pInput.TypeOfDoc
     set sc = Document.%Save()
     for i=1:1:pInput.VectorChunks.Count() {
         set sc1=##class(Model.DocumentChunk).AddChunk(Document.%Id(),pInput.TextChunks.GetAt(i),[].%FromJSON(pInput.VectorChunks.GetAt(i)))

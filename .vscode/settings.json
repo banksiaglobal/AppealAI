@@ -15,7 +15,8 @@
       },
       "links": {
         "FHIR server test": "http://localhost:${port}/fhir/r4/metadata"
-      }
+      },
+      "server": "appealai"
     },
     "sqltools.connections": [
       {
