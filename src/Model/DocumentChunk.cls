@@ -3,7 +3,7 @@ Class Model.DocumentChunk Extends (%Library.Persistent, %JSON.Adaptor)
 
 Property Document As Model.Document;
 
-Property Vector As %Vector;
+Property Vector As %Vector(LEN = 200);
 
 Property Text As %String(MAXLEN = "");
 
