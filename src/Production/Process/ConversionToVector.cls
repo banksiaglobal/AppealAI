@@ -54,7 +54,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 </call>
 <code name='Get vectors of file' languageOverride='python' xpos='200' ypos='350' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY, dimensions=100)
+embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
 text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False, chunk_size=8000,chunk_overlap=1000,)
 texts = text_splitter.create_documents([context.textOfDocument])
 for key, text in enumerate(texts):
@@ -62,7 +62,7 @@ for key, text in enumerate(texts):
         break
     data = embeddings.embed_documents(text.page_content)
     context.textChunks.Insert(text.page_content)
-    context.vectorChunks.Insert(json.dumps(data[key]))
+    context.vectorChunks.Insert(json.dumps(data[key][:200]))
 ]]>
 </code>
 <call name='Save data' target='SaveVector' async='0' xpos='200' ypos='450' >

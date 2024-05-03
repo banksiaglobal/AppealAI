@@ -36,8 +36,37 @@ Storage Default
 </Data>
 <DataLocation>^Model.DocumentChunkD</DataLocation>
 <DefaultData>DocumentChunkDefaultData</DefaultData>
+<ExtentSize>7</ExtentSize>
 <IdLocation>^Model.DocumentChunkD</IdLocation>
 <IndexLocation>^Model.DocumentChunkI</IndexLocation>
+<Property name="%%CLASSNAME">
+<AverageFieldSize>2</AverageFieldSize>
+<OutlierSelectivity>.999999:</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="%%ID">
+<AverageFieldSize>3</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<Property name="Document">
+<AverageFieldSize>3</AverageFieldSize>
+<OutlierSelectivity>.999999:6</OutlierSelectivity>
+<Selectivity>0.0001%</Selectivity>
+</Property>
+<Property name="Text">
+<AverageFieldSize>15921.43</AverageFieldSize>
+<Selectivity>14.2857%</Selectivity>
+</Property>
+<Property name="Vector">
+<AverageFieldSize>8516</AverageFieldSize>
+<Selectivity>1</Selectivity>
+</Property>
+<SQLMap name="IDKEY">
+<BlockCount>-96</BlockCount>
+</SQLMap>
+<SQLMap name="IndexDocument">
+<BlockCount>-4</BlockCount>
+</SQLMap>
 <StreamLocation>^Model.DocumentChunkS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }

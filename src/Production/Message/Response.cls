@@ -3,7 +3,7 @@ Class Production.Message.Response Extends (Ens.Response, %JSON.Adaptor, %XML.Ada
 
 Parameter %JSONIGNOREINVALIDFIELD = 1;
 
-Property Result As %String(%JSONFIELDNAME = "result");
+Property Result As %String(%JSONFIELDNAME = "result", MAXLEN = "");
 
 Storage Default
 {

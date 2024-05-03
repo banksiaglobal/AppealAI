@@ -18,6 +18,12 @@ XData ProductionDefinition
   </Item>
   <Item Name="AppealIn" Category="" ClassName="Production.Service.AppealIn" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="SaveDocument" Category="" ClassName="Production.Operation.SaveDocument" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="OpenAiOut" Category="" ClassName="Banksia.OpenAi.Operation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="SSLConfig">pm.community.intersystems.com</Setting>
+    <Setting Target="Adapter" Name="Credentials">user</Setting>
+  </Item>
 </Production>
 }
 
