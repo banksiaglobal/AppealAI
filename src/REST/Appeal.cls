@@ -30,21 +30,21 @@ ClassMethod Create() As %Status
             set response={"error":-500}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
         }
-        set Document = ##class(Model.Document).%OpenId(documentId)
 
-        if $ISOBJECT(Document) {
+        set Document = ##class(Model.Document).%OpenId(documentId)
+        if '$ISOBJECT(Document){
             set response={"error":-404}
-            $$$ThrowOnError($$$ERROR($$$GeneralError, "Document not found"))
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
         }
     
-        // call  Production.Service.DocumentIn        
+         // call  Production.Service.AppealIn        
 
         set requestDoc = ##class(Production.Message.AppealRequest).%New()
         set requestDoc.Path = path_data.FileName
         set requestDoc.Name = data.FileName
-        set requestDoc.DocumentId = Document.%Id()
+        set requestDoc.DocumentId = documentId
         set requestDoc.PackageId = Document.Package.%Id()
-        set requestDoc.TypeOfDoc = "appeal"
+        set requestDoc.VisitId = visitId
 
         set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
 
@@ -54,6 +54,8 @@ ClassMethod Create() As %Status
         
         set tSC = ##class(Ens.Director).CreateBusinessService("AppealIn",.tService)
         
+        set response.info = tSC
+
         if ($ISOBJECT(tService)) {
             set tSC = tService.ProcessInput(requestDoc,.responseDoc)
         }

@@ -43,7 +43,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 </parameters>
 </property>
 </context>
-<sequence xend='200' yend='750' >
+<sequence xend='200' yend='550' >
 <call name='Get text of file' target='GetText' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
 <request type='Production.Message.GetTextRequest' >
 <assign property="callrequest.Path" value="request.Path" action="set" languageOverride="" />
@@ -52,10 +52,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 <assign property="context.textOfDocument" value="callresponse.Text" action="set" languageOverride="" />
 </response>
 </call>
-<sync name='Waiting to receive text' calls='Get text of file' type='all' xpos='200' ypos='350' />
-<code name='Get vectors of file' languageOverride='python' xpos='200' ypos='450' >
+<code name='Get vectors of file' languageOverride='python' xpos='200' ypos='350' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
-embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
+embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY, dimensions=100)
 text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False, chunk_size=8000,chunk_overlap=1000,)
 texts = text_splitter.create_documents([context.textOfDocument])
 for key, text in enumerate(texts):
@@ -66,7 +65,7 @@ for key, text in enumerate(texts):
     context.vectorChunks.Insert(json.dumps(data[key]))
 ]]>
 </code>
-<call name='Save data' target='SaveVector' async='0' xpos='200' ypos='550' >
+<call name='Save data' target='SaveVector' async='0' xpos='200' ypos='450' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.Path" value="request.Path" action="set" languageOverride="" />
@@ -76,7 +75,6 @@ for key, text in enumerate(texts):
 </request>
 <response type='Ens.Response' />
 </call>
-<sync name='Waiting for data to be saved' calls='Save data' type='all' xpos='200' ypos='650' />
 </sequence>
 </process>
 }

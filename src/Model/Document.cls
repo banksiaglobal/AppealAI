@@ -23,6 +23,27 @@ ClassMethod GetDocumentByName(name) As Model.Document
     Return Document
 }
 
+ClassMethod SaveDocumentPDF(text, path) [ Language = python ]
+{
+    from reportlab.lib.pagesizes import A4
+    from reportlab.pdfgen import canvas
+
+    c = canvas.Canvas(path, pagesize=A4)
+    width, height = letter
+
+    c.drawString(100, height-100, text)
+    c.save()
+}
+
+ClassMethod SaveDocumentDOCX(text, path) [ Language = python ]
+{
+    from docx import Document
+
+    doc = Document()
+    doc.add_paragraph(text)
+    doc.save(path)
+}
+
 Storage Default
 {
 <Data name="DocumentDefaultData">
