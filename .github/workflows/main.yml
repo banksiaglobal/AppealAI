@@ -1,0 +1,32 @@
+name: docker
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Build and publish a Docker image for ${{ github.repository }}
+        uses: macbre/push-to-ghcr@master
+        with:
+          image_name: ${{ github.repository }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and publish a Docker image for UI
+        uses: macbre/push-to-ghcr@master
+        with:
+          image_name: ${{ github.repository }}-ui
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          context: ui
+          dockerfile: ui/Dockerfile
+      - name: Pull and Up docker image on cloud server
+        uses: appleboy/ssh-action@master
+        with:
+          host: appealai.cloud.banksia.global
+          username: ec2-user
+          key: ${{ secrets.KEY }}
+          script: |
+            docker login ghcr.io -u USERNAME -p ${{ secrets.GITHUB_TOKEN }};
+            docker-compose pull;
+            docker-compose up -d;
+            docker system prune -f
