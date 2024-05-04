@@ -10,8 +10,27 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/:name" Method="GET" Call="GetDocument" Cors="true"/>
     <Route Url="/info/:name" Method="GET" Call="GetDocumentInfo" Cors="true"/>
     <Route Url="/appeal" Method="POST" Call="CreateAppeal" Cors="true"/>
+    <Route Url="/all/:packageId" Method="GET" Call="GetAllDocumentOfPackage" Cors="true"/>
 
 </Routes>
+}
+
+ClassMethod GetAllDocumentOfPackage(packageId) As %Status
+{
+    set response = {}
+    set responseSC = $$$OK
+    
+    try {
+
+        set response.documents = ##class(Model.Document).GetAllByPackage(packageId)
+    }
+    catch ex {
+        if response.error="" set response.error=-404
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    
+    return ..Response(response, responseSC)
 }
 
 ClassMethod CreateAppeal() As %Status

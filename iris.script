@@ -8,7 +8,6 @@
     zn "USER"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
-    zpm "install bg-openai"
     halt
 
     zn "HSLIB"
@@ -37,5 +36,8 @@
     zw ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/opt/irisapp/dataFhir/", "FHIRServer", appKey)
 
     do $System.OBJ.LoadDir(importdir,"ck",,1)
+
+    zn "USER"
+    do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
     
     halt

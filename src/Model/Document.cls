@@ -23,6 +23,31 @@ ClassMethod GetDocumentByName(name) As Model.Document
     Return Document
 }
 
+ClassMethod GetAllByPackage(packageId) As %Library.DynamicArray
+{
+    set documents = []
+    set tStatement = ##class(%SQL.Statement).%New()
+    set tStatus = tStatement.%Prepare("select * from Model.Document where Package->ID = ?")
+			if ($$$ISOK(tStatus)) { 
+				set tResult = tStatement.%Execute(packageId)
+				if (tResult.%SQLCODE=0) {
+					while tResult.%Next() {
+                        set document = {}
+						set document.name = tResult.Name
+                        set document.createdDateTime = tResult.DateTime
+                        set document.id = tResult.ID
+                        set document.packageId = packageId
+                        set document.typeOfDocument = tResult.TypeOfDocument
+						do documents.%Push(document)
+					}
+				}
+			}
+            else {
+                $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+            }
+    return documents
+}
+
 ClassMethod SaveDocumentPDF(text, path) [ Language = python ]
 {
     from reportlab.lib.pagesizes import A4

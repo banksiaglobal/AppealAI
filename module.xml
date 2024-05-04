@@ -26,6 +26,12 @@
         CookiePath="/api"
       />
       <SystemRequirements Interoperability="enabled" />
+      <Dependencies>
+        <ModuleReference>
+          <Name>bg-openai</Name>
+          <Version>1.1.3</Version>
+        </ModuleReference>
+      </Dependencies>
     </Module>
   </Document>
 </Export>
