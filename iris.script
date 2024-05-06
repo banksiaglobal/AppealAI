@@ -9,7 +9,6 @@
     zn "USER"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
-    set prop("EnsembleAutoStart")=1
     halt
 
     zn "HSLIB"

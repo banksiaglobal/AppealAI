@@ -4,7 +4,7 @@ Class Production.Operation.SaveVector Extends Ens.BusinessOperation
 Parameter ADAPTER = "EnsLib.SQL.OutboundAdapter";
 
 Property Adapter As EnsLib.SQL.OutboundAdapter;
- 
+
 Parameter INVOCATION = "Queue";
 
 Method OnMessage(pInput As Production.Message.SaveVectorRequest, Output pOutput As Production.Message.Response) As %Status

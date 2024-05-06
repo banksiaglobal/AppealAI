@@ -25,7 +25,6 @@ ClassMethod Create() As %Library.DynamicObject
     Try {
         set Company = ##class(Model.Company).%New()
         set Company.Name = data.name
-        set Company.UUIDFHIR = data.uuidfhir
         set sc = Company.%Save()
 
         if 'sc {
@@ -35,8 +34,6 @@ ClassMethod Create() As %Library.DynamicObject
         
         set response.id = Company.%Id()
         set response.name = Company.Name
-        set response.uuidfhir = Company.UUIDFHIR
-
 
         tcommit 
     }
@@ -64,8 +61,6 @@ ClassMethod GetCompany(id) As %Status
 
         set response.id = Company.%Id()
         set response.name = Company.Name
-        set response.UUIDFHIR = Company.UUIDFHIR
-
         
     }
     catch ex {

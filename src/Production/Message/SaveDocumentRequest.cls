@@ -11,6 +11,8 @@ Property Package As %String(%JSONFIELDNAME = "package");
 
 Property TypeOfDoc As %String(%JSONFIELDNAME = "type");
 
+Property Data As %CSP.BinaryStream;
+
 Storage Default
 {
 <Data name="SaveDocumentRequestDefaultData">
@@ -26,6 +28,9 @@ Storage Default
 </Value>
 <Value name="4">
 <Value>TypeOfDoc</Value>
+</Value>
+<Value name="5">
+<Value>Data</Value>
 </Value>
 </Data>
 <DefaultData>SaveDocumentRequestDefaultData</DefaultData>

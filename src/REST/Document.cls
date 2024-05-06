@@ -9,7 +9,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/:id" Method="DELETE" Call="Delete" Cors="true"/>
     <Route Url="/:name" Method="GET" Call="GetDocument" Cors="true"/>
     <Route Url="/info/:name" Method="GET" Call="GetDocumentInfo" Cors="true"/>
-    <Route Url="/appeal" Method="POST" Call="CreateAppeal" Cors="true"/>
+    <Route Url="/appeal" Method="POST" Call="UploadRejection" Cors="true"/>
     <Route Url="/all/:packageId" Method="GET" Call="GetAllDocumentOfPackage" Cors="true"/>
 
 </Routes>
@@ -33,7 +33,7 @@ ClassMethod GetAllDocumentOfPackage(packageId) As %Status
     return ..Response(response, responseSC)
 }
 
-ClassMethod CreateAppeal() As %Status
+ClassMethod UploadRejection() As %Status
 {
     #dim %request As %CSP.Request
     set response = {}
@@ -41,33 +41,25 @@ ClassMethod CreateAppeal() As %Status
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
     set documentId = %request.Get("document")
     set visitId = %request.Get("visit")
-    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")
 
     try {
-        Set stream=##class(%Stream.FileBinary).%New()
-        Set sc=stream.LinkToFile(path_data.FileName)
-        Set sc=stream.CopyFromAndSave(data)
-       
-        
-        if 'sc  {
+        if ('$IsObject(data)){
             set response={"error":-500}
-            $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
+            $$$ThrowOnError($$$ERROR($$$GeneralError,"No file"))
         }
 
         set Document = ##class(Model.Document).%OpenId(documentId)
         if '$ISOBJECT(Document){
             set response={"error":-404}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
-        }
-    
-         // call  Production.Service.AppealIn        
+        }    
 
         set requestDoc = ##class(Production.Message.AppealRequest).%New()
-        set requestDoc.Path = path_data.FileName
         set requestDoc.Name = data.FileName
         set requestDoc.DocumentId = documentId
         set requestDoc.PackageId = Document.Package.%Id()
         set requestDoc.VisitId = visitId
+        set requestDoc.Data = data
 
         set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
 
@@ -105,19 +97,14 @@ ClassMethod Upload() As %Library.DynamicObject
     set responseSC = $$$OK
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
     set packageId = %request.Get("package")
-    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")
 
     try {
-        Set stream=##class(%Stream.FileBinary).%New()
-        Set sc=stream.LinkToFile(path_data.FileName)
-        Set sc=stream.CopyFromAndSave(data)
-       
-        
-        if 'sc  {
-            set response={"error":-500}
-            $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
-        }
 
+        if ('$IsObject(data)){
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError,"No file"))
+        }
+        
         set Package = ##class(Model.Package).%OpenId(packageId)
 
         if '$ISOBJECT(Package) {
@@ -125,13 +112,11 @@ ClassMethod Upload() As %Library.DynamicObject
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Package not found"))
         }
 
-        // call  Production.Service.DocumentIn        
-
         set requestDoc = ##class(Production.Message.DocumentRequest).%New()
-        set requestDoc.Path = path_data.FileName
         set requestDoc.Name = data.FileName
         set requestDoc.Package = packageId
-        
+        set requestDoc.Data = data
+
         set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
 
         if 'statusProd{

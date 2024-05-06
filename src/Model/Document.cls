@@ -56,17 +56,16 @@ ClassMethod SaveDocumentPDF(text, path) [ Language = python ]
     c = canvas.Canvas(path, pagesize=A4)
     width, height = A4
 
-    c.drawString(100, height-100, text)
+    # Split text into lines
+    lines = text.split('\n')
+
+    # Write each line to the PDF
+    y = height - 50  # Starting position from the top
+    for line in lines:
+        c.drawString(50, y, line)
+        y -= 15  # Move to the next line
+
     c.save()
-}
-
-ClassMethod SaveDocumentDOCX(text, path) [ Language = python ]
-{
-    from docx import Document
-
-    doc = Document()
-    doc.add_paragraph(text)
-    doc.save(path)
 }
 
 Storage Default

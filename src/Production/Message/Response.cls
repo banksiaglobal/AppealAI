@@ -12,6 +12,9 @@ Storage Default
 <Value name="1">
 <Value>Result</Value>
 </Value>
+<Value name="2">
+<Value>Path</Value>
+</Value>
 </Data>
 <DefaultData>ResponseDefaultData</DefaultData>
 <Type>%Storage.Persistent</Type>

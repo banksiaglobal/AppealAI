@@ -3,8 +3,6 @@ Class Production.Message.AppealRequest Extends (Ens.Request, %JSON.Adaptor, %XML
 
 Parameter %JSONIGNOREINVALIDFIELD = 1;
 
-Property Path As %String(%JSONFIELDNAME = "path", MAXLEN = "");
-
 Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = 200);
 
 Property DocumentId As %String(%JSONFIELDNAME = "document");
@@ -12,6 +10,8 @@ Property DocumentId As %String(%JSONFIELDNAME = "document");
 Property PackageId As %String(%JSONFIELDNAME = "document");
 
 Property VisitId As %String(%JSONFIELDNAME = "visit");
+
+Property Data As %CSP.BinaryStream;
 
 Storage Default
 {
@@ -34,6 +34,9 @@ Storage Default
 </Value>
 <Value name="6">
 <Value>PackageId</Value>
+</Value>
+<Value name="7">
+<Value>Data</Value>
 </Value>
 </Data>
 <DefaultData>AppealRequestDefaultData</DefaultData>
