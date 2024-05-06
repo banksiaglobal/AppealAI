@@ -10,7 +10,7 @@ Parameter INVOCATION = "Queue";
 Method OnMessage(pInput As Production.Message.SaveDocumentRequest, pOutput As Production.Message.Response) As %Status
 {
     
-    set path = "/opt/irisapp/"
+    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")
     do ##class(Model.Document).SaveDocumentPDF(pInput.Text, path_pInput.Name)
     set Document = ##class(Model.Document).%New()
     set Document.Name = pInput.Name

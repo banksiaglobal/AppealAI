@@ -9,6 +9,7 @@ ClassMethod SetupFHIRServer(ns) As %Status
     do ##class(Security.Services).Get("%Service_CallIn",.prop)
     set prop("Enabled")=1
     set prop("AutheEnabled")=48
+    set prop("EnsembleAutoStart")=1
     do ##class(Security.Services).Modify("%Service_CallIn",.prop)
 
     

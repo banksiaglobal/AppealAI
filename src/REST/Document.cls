@@ -41,7 +41,7 @@ ClassMethod CreateAppeal() As %Status
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
     set documentId = %request.Get("document")
     set visitId = %request.Get("visit")
-    set path = "/opt/irisapp/"
+    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")
 
     try {
         Set stream=##class(%Stream.FileBinary).%New()
@@ -76,8 +76,6 @@ ClassMethod CreateAppeal() As %Status
         }
         
         set tSC = ##class(Ens.Director).CreateBusinessService("AppealIn",.tService)
-        
-        set response.info = tSC
 
         if ($ISOBJECT(tService)) {
             set tSC = tService.ProcessInput(requestDoc,.responseDoc)
@@ -107,7 +105,7 @@ ClassMethod Upload() As %Library.DynamicObject
     set responseSC = $$$OK
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
     set packageId = %request.Get("package")
-    set path = "/opt/irisapp/"
+    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")
 
     try {
         Set stream=##class(%Stream.FileBinary).%New()

@@ -6,7 +6,7 @@
       },
     "objectscript.conn" :{
       "ns": "USER",
-      "active": true,
+      "active": false,
       "username": "_SYSTEM",
       "password": "SYS",
       "docker-compose": {

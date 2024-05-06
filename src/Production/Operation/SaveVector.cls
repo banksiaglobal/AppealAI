@@ -4,10 +4,10 @@ Class Production.Operation.SaveVector Extends Ens.BusinessOperation
 Parameter ADAPTER = "EnsLib.SQL.OutboundAdapter";
 
 Property Adapter As EnsLib.SQL.OutboundAdapter;
-
+ 
 Parameter INVOCATION = "Queue";
 
-Method OnMessage(pInput As Production.Message.SaveVectorRequest, pOutput As Ens.Response) As %Status
+Method OnMessage(pInput As Production.Message.SaveVectorRequest, Output pOutput As Production.Message.Response) As %Status
 {
 
     set Document = ##class(Model.Document).%New()
@@ -21,6 +21,10 @@ Method OnMessage(pInput As Production.Message.SaveVectorRequest, pOutput As Ens.
         set sc1=##class(Model.DocumentChunk).AddChunk(Document.%Id(),pInput.TextChunks.GetAt(i),[].%FromJSON(pInput.VectorChunks.GetAt(i)))
         set sc=$$$ADDSC(sc1,sc)
     }
+    set pOutput = ##class(Production.Message.Response).%New() 
+    set pOutput.Result = "Save error"
+    if sc set pOutput.Result = "File saved"
+
     Quit sc
 }
 

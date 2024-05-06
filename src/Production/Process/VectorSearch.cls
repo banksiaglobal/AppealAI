@@ -83,12 +83,12 @@ context.vector = json.dumps(data[0])]]>
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />
 </request>
-<response type='Ens.Response' />
+<response type='Production.Message.Response' />
 </call>
 <sql name='Vector search' xpos='200' ypos='550' >
 <![CDATA[SELECT TOP 1 Text INTO :context.resultSearch FROM Model.DocumentChunk
 WHERE Document->ID = :request.DocumentId
-ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200))
+ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DESC
 ]]>
 </sql>
 <if name='The search turned up a match' condition='context.resultSearch &apos;=""' languageOverride="objectscript" xpos='200' ypos='650' xend='200' yend='1550' >

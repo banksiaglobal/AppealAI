@@ -3,11 +3,13 @@
     do ##class(Security.Services).Get("%Service_CallIn",.prop)
     set prop("Enabled")=1
     set prop("AutheEnabled")=48
+    
     do ##class(Security.Services).Modify("%Service_CallIn",.prop)
     
     zn "USER"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
+    set prop("EnsembleAutoStart")=1
     halt
 
     zn "HSLIB"
