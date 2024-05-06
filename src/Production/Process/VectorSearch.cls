@@ -61,11 +61,6 @@ import os
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
-<property name='appealFilename' type='%String' instantiate='0' >
-<parameters>
-<parameter name='MAXLEN'  value='' />
-</parameters>
-</property>
 </context>
 <sequence xend='200' yend='2350' >
 <call name='Save file' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
@@ -137,7 +132,6 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 </request>
 <response type='Banksia.OpenAi.Msg.SimplePrompt.Response' >
 <assign property="context.textAppeal" value="callresponse.Content" action="set" languageOverride="" />
-<assign property="context.appealFilename" value="&quot;Appeal-&quot;request.Name" action="set" languageOverride="" />
 </response>
 </call>
 <sync name='Wait call' calls='Call ai for appeal' type='all' xpos='1010' ypos='1500' />
@@ -146,7 +140,7 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <assign property="callrequest.TypeOfDoc" value="&quot;appeal&quot;" action="set" languageOverride="" />
 <assign property="callrequest.Text" value="context.textAppeal" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />
-<assign property="callrequest.Name" value="context.appealFilename" action="set" languageOverride="" />
+<assign property="callrequest.Name" value="&quot;test.pdf&quot;" action="set" languageOverride="" />
 </request>
 <response type='Production.Message.Response' >
 <assign property="response.Result" value="&quot;Letter created&quot;" action="set" languageOverride="" />
@@ -157,8 +151,8 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <call name='Save data appeal' target='SaveVector' async='0' languageOverride="objectscript" xpos='1280' ypos='1850' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
-<assign property="callrequest.Name" value="&quot;test.pdf&quot;" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />
+<assign property="callrequest.Name" value="&quot;test.pdf&quot;" action="set" languageOverride="" />
 <assign property="callrequest.TypeOfDoc" value="&quot;appeal&quot;" action="set" languageOverride="" />
 </request>
 <response type='Production.Message.Response' >
