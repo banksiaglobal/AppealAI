@@ -2,12 +2,16 @@
 Class Production.Process.ConversionToVector Extends Ens.BusinessProcessBPL
 {
 
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
+
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
 <process language='python' request='Production.Message.DocumentRequest' response='Ens.Response' height='2000' width='2000' >
 <pyFromImport>
-from typing import List, Tuple, Final
 from langchain_openai import OpenAIEmbeddings
 import pdfplumber
 import docx
@@ -15,6 +19,7 @@ import json
 import pytesseract
 from PIL import Image
 import os
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 </pyFromImport>
 <context>
 <property name='typeOfDoc' type='%String' instantiate='0' >
@@ -27,59 +32,71 @@ import os
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
-<property name='vectorOfDocument' type='%String' instantiate='0' >
+<property name='textChunks' type='%String' collection='list' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+<property name='vectorChunks' type='%String' collection='list' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+<property name='filePath' type='%String' instantiate='0' >
 <parameters>
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
 </context>
-<sequence xend='199' yend='1071' >
-<assign name="get type of doc " property="context.typeOfDoc" value="request.Path.split('.')[-1]" action="set" languageOverride="python" xpos='200' ypos='250' />
-<switch name='what type of doc ' xpos='200' ypos='350' xend='200' yend='600' >
-<case condition='context.typeOfDoc = "pdf"' name='if type is pdf' languageOverride='objectscript' >
-<code name='PDF' languageOverride='python' xpos='335' ypos='500' >
-<![CDATA[with pdfplumber.open(request.Path) as pdf:
-    for page in pdf.pages:
-        context.textOfDocument += page.extract_text() or '']]>
-</code>
-</case>
-<case condition='context.typeOfDoc = "docx"' name='if type is docx' languageOverride='objectscript' >
-<code name='DOCX' languageOverride='python' xpos='605' ypos='500' >
-<![CDATA[doc = docx.Document(request.Path)
-context.textOfDocument = '\n'.join([para.text for para in doc.paragraphs])]]>
-</code>
-</case>
-<case condition='context.typeOfDoc = "txt"' name='if type is txt' languageOverride='objectscript' >
-<code name='TXT' languageOverride='python' xpos='875' ypos='500' >
-<![CDATA[with open(request.Path, 'r', encoding='utf-8') as file:
-    context.textOfDocument = file.read()]]>
-</code>
-</case>
-<default/>
-</switch>
-<code name='get vector' languageOverride='python' xpos='200' ypos='711' >
+<sequence xend='200' yend='900' >
+<call name='Save file' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
+<request type='Production.Message.SaveDocumentRequest' >
+<assign property="callrequest.Data" value="request.Data" action="set" languageOverride="" />
+<assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
+<assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
+<assign property="callrequest.TypeOfDoc" value="&quot;document&quot;" action="set" languageOverride="" />
+</request>
+<response type='Production.Message.Response' >
+<assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
+</response>
+</call>
+<if name='The file was successfully saved' condition='context.filePath &apos;= ""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='800' >
+<true>
+<call name='Get text of file' target='GetText' async='0' languageOverride="objectscript" xpos='335' ypos='500' >
+<request type='Production.Message.GetTextRequest' >
+<assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
+</request>
+<response type='Production.Message.GetTextResponse' >
+<assign property="context.textOfDocument" value="callresponse.Text" action="set" languageOverride="" />
+</response>
+</call>
+<code name='Get vectors of file' languageOverride='python' xpos='335' ypos='600' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
-data = embeddings.embed_documents([context.textOfDocument])
-context.vectorOfDocument = json.dumps(data)
+text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False, chunk_size=8000,chunk_overlap=1000,)
+texts = text_splitter.create_documents([context.textOfDocument])
+for key, text in enumerate(texts):
+    if key == 7: 
+        break
+    data = embeddings.embed_documents(text.page_content)
+    context.textChunks.Insert(text.page_content)
+    context.vectorChunks.Insert(json.dumps(data[key][:200]))
 ]]>
 </code>
-<call name='save document' target='SaveVector' async='0' xpos='208' ypos='825' >
+<call name='Save data' target='SaveVector' async='0' xpos='335' ypos='700' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
-<assign property="callrequest.Path" value="request.Path" action="set" languageOverride="" />
-<assign property="callrequest.Vector" value="context.vectorOfDocument" action="set" languageOverride="" />
+<assign property="callrequest.VectorChunks" value="context.vectorChunks" action="set" languageOverride="" />
+<assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
+<assign property="callrequest.TextChunks" value="context.textChunks" action="set" languageOverride="" />
+<assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
 </request>
 <response type='Ens.Response' />
 </call>
-<sync calls='save document' type='all' xpos='214' ypos='930' />
+</true>
+</if>
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }

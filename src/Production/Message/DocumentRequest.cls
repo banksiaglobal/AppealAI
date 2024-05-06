@@ -3,11 +3,11 @@ Class Production.Message.DocumentRequest Extends (Ens.Request, %JSON.Adaptor, %X
 
 Parameter %JSONIGNOREINVALIDFIELD = 1;
 
-Property Path As %String(%JSONFIELDNAME = "path", MAXLEN = "");
-
 Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = 200);
 
 Property Package As %String(%JSONFIELDNAME = "package");
+
+Property Data As %CSP.BinaryStream;
 
 Storage Default
 {
@@ -21,6 +21,9 @@ Storage Default
 </Value>
 <Value name="3">
 <Value>Package</Value>
+</Value>
+<Value name="4">
+<Value>Data</Value>
 </Value>
 </Data>
 <DefaultData>DocumentRequestDefaultData</DefaultData>

@@ -9,8 +9,85 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/:id" Method="DELETE" Call="Delete" Cors="true"/>
     <Route Url="/:name" Method="GET" Call="GetDocument" Cors="true"/>
     <Route Url="/info/:name" Method="GET" Call="GetDocumentInfo" Cors="true"/>
+    <Route Url="/appeal" Method="POST" Call="UploadRejection" Cors="true"/>
+    <Route Url="/all/:packageId" Method="GET" Call="GetAllDocumentOfPackage" Cors="true"/>
 
 </Routes>
+}
+
+ClassMethod GetAllDocumentOfPackage(packageId) As %Status
+{
+    set response = {}
+    set responseSC = $$$OK
+    
+    try {
+
+        set response.documents = ##class(Model.Document).GetAllByPackage(packageId)
+    }
+    catch ex {
+        if response.error="" set response.error=-404
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    
+    return ..Response(response, responseSC)
+}
+
+ClassMethod UploadRejection() As %Status
+{
+    #dim %request As %CSP.Request
+    set response = {}
+    set responseSC = $$$OK
+    set data = %request.GetMimeData("file") // %CSP.BinaryStream
+    set documentId = %request.Get("document")
+    set visitId = %request.Get("visit")
+
+    try {
+        if ('$IsObject(data)){
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError,"No file"))
+        }
+
+        set Document = ##class(Model.Document).%OpenId(documentId)
+        if '$ISOBJECT(Document){
+            set response={"error":-404}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+        }    
+
+        set requestDoc = ##class(Production.Message.AppealRequest).%New()
+        set requestDoc.Name = data.FileName
+        set requestDoc.DocumentId = documentId
+        set requestDoc.PackageId = Document.Package.%Id()
+        set requestDoc.VisitId = visitId
+        set requestDoc.Data = data
+
+        set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
+
+        if 'statusProd{
+            do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
+        }
+        
+        set tSC = ##class(Ens.Director).CreateBusinessService("AppealIn",.tService)
+
+        if ($ISOBJECT(tService)) {
+            set tSC = tService.ProcessInput(requestDoc,.responseDoc)
+        }
+        
+        if 'tSC {
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
+        }
+
+        set response.name = data.FileName
+
+    }
+    catch ex {
+  
+        if response.error="" set response.error=-500
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    return ..Response(response, responseSC)
 }
 
 ClassMethod Upload() As %Library.DynamicObject
@@ -20,19 +97,14 @@ ClassMethod Upload() As %Library.DynamicObject
     set responseSC = $$$OK
     set data = %request.GetMimeData("file") // %CSP.BinaryStream
     set packageId = %request.Get("package")
-    set path = "/opt/irisapp/"
 
     try {
-        Set stream=##class(%Stream.FileBinary).%New()
-        Set sc=stream.LinkToFile(path_data.FileName)
-        Set sc=stream.CopyFromAndSave(data)
-       
-        
-        if 'sc  {
-            set response={"error":-500}
-            $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be saved"))
-        }
 
+        if ('$IsObject(data)){
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError,"No file"))
+        }
+        
         set Package = ##class(Model.Package).%OpenId(packageId)
 
         if '$ISOBJECT(Package) {
@@ -40,17 +112,15 @@ ClassMethod Upload() As %Library.DynamicObject
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Package not found"))
         }
 
-        // call  Production.Service.DocumentIn        
-
         set requestDoc = ##class(Production.Message.DocumentRequest).%New()
-        set requestDoc.Path = path_data.FileName
         set requestDoc.Name = data.FileName
         set requestDoc.Package = packageId
+        set requestDoc.Data = data
 
         set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
 
         if 'statusProd{
-            Do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
+            do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
         }
         
         set tSC = ##class(Ens.Director).CreateBusinessService("DocumentIn",.tService)
@@ -154,7 +224,7 @@ ClassMethod GetDocumentInfo(name) As %Status
         set response.id = Document.%Id()
         set response.name = Document.Name
         set response.createdDateTime = Document.DateTime
-        set response.packageId = Document.Package
+        set response.packageId = Document.Package.%Id()
         
     }
     catch ex {
