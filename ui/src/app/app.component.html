@@ -1,0 +1,70 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'md'">
+    <div class="sidebar-logo">
+      <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>AppealAI</h1>
+      </a>
+    </div>
+
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <ul>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="welcome">Welcome</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/start">Start</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/letter">Loading letter</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/AI">AI</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/about">About Us</a>
+        </li>
+      </ul>
+    </ul>
+
+  </nz-sider>
+  <app-message />
+  <nz-layout>
+    <nz-header class="vertical-header-var">
+      <div class="app-header" nz-flex [nzAlign]="'center'">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
+        </span>
+        <div class="header-title" nz-flex>
+          <h2 nz-typography class="h2">APPEAL<b><em>AI</em> </b></h2>
+          <div class="description-logo">
+            by
+          </div>
+          <div class="logo-bg"></div>
+        </div>
+      </div>
+    </nz-header>
+    <nz-header class="horizontal-header-var" nz-flex nzJustify="space-between">
+
+      <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <li nz-menu-item><a routerLink="welcome">Welcome</a></li>
+        <li nz-menu-item> <a routerLink="/start">Start</a></li>
+        <li nz-menu-item> <a routerLink="/letter">Loading letter</a></li>
+        <li nz-menu-item nzMatchRouter>
+          <a routerLink="/AI">AI</a>
+        </li>
+        <li nz-menu-item> <a routerLink="/about">About</a></li>
+      </ul>
+      <div class="logo">
+        <span class="h2">APPEAL<b><em>AI</em> </b></span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer nz-flex nzJustify="center">© 2024 Banksia Global. This site does not use trackers or cookies.</nz-footer>
+  </nz-layout>
+
+</nz-layout>

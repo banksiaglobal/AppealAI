@@ -1,0 +1,40 @@
+.steps-box {
+  position: relative;
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.steps-action {
+  position: absolute;
+  bottom: 10px;
+}
+
+.ant-steps {
+  margin-bottom: 30px;
+}
+
+.info-box {
+  display: flex;
+  margin-bottom: 10px;
+  padding: 5px;
+
+  &:hover {
+    background-color: var(--warn-color);
+    border-radius: 3px;
+  }
+}
+
+.company-name-header-box {
+  display: flex;
+}
+
+.company-name-title {
+  margin-left: 10px;
+  color: var(--primary-color);
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.download {
+  margin-bottom: 20px;
+}

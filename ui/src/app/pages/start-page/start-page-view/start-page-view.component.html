@@ -1,0 +1,78 @@
+<div class="page">
+    <div class="container-page">
+        <div class="steps-box">
+            <nz-steps [nzSize]="'default'" [nzCurrent]="current">
+                <nz-step nzTitle="Add company"></nz-step>
+                <nz-step nzTitle="Add package" nzDisabled="!newCompany"></nz-step>
+                <nz-step nzTitle="Finish" [nzDisabled]="!currentCompany && !newPackage"></nz-step>
+            </nz-steps>
+
+            @if(currentCompany?.name || companyName){
+            <div class="company-name-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                <div>The Insurance Company:</div>
+                <div class="company-name-title">{{currentCompany?.name || companyName}}</div>
+                <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
+            </div>
+            }
+            @if(newPackage?.name){
+            <div class="company-package-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                <div>New Package:</div>
+                <div class="company-name-title">{{newPackage?.name}}</div>
+                <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
+            </div>
+            }
+
+            @if (index===1 ) {
+            <div class="steps-content">
+                <app-create-company (createNewCompany)="createNewCompany.emit($event)" />
+            </div>
+            }
+
+            @if (index===2) {
+            <div class="steps-content">
+                <app-create-package (createNewPackage)="createNewPackage.emit($event)" />
+            </div>
+            }
+
+            @if (index===3) {
+            <div class="steps-content">
+                <div class="download" nz-button nzType="primary">
+                    <label for="inputLetter">
+                        <div class="btn-download">Add docs</div>
+                        <input type="file" id="inputLetter" (change)="addDocs($event)" multiple>
+                    </label>
+                </div>
+                <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="selectedFile&& selectedFile.length>0">
+                    <div class="letter-title">
+                        <span nz-typography> List docs: </span>
+
+                        <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
+
+                    </div>
+
+                    <div *ngFor="let file of selectedFile, let i = index">
+                        <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
+
+                    </div>
+                </div>
+                <button nz-button nzType="primary" (click)="downloadDocs()"
+                    [disabled]="!newPackage && selectedFile">Save</button>
+            </div>
+            }
+
+            <div class="steps-action">
+                <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+                    <span>Previous</span>
+                </button>
+                <button nz-button nzType="default" (click)="next()" *ngIf="current < 2"
+                    [disabled]="!companyName && !currentCompany?.id">
+                    <span>Next</span>
+                </button>
+                <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
+                    <span>Done</span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
