@@ -176,7 +176,7 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 </if>
 </true>
 <false>
-<assign name="Set result" property="response.Result " value="&quot;Save file error&quot;" action="set" languageOverride="objectscript" xpos='200' ypos='500' />
+<assign name="Set result" property="response.Result" value="&quot;Save file error&quot;" action="set" languageOverride="objectscript" xpos='200' ypos='500' />
 </false>
 </if>
 </sequence>
