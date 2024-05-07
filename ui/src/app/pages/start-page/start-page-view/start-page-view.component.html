@@ -40,12 +40,12 @@
                 <div class="load-box">
                     <label for="inputLetter">
                         <div class="btn-download">Add Doc </div>
-                        <input class="download-input" type="file" id="inputLetter" (change)="addLetter($event)">
+                        <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)">
                     </label>
                 </div>
 
                 <div class="list-docs-item" id="listDocsItem" *ngIf="filename">
-                    <div class="letter-title">
+                    <div class="doc-title">
                         <div nz-typography> Doc: </div>
                         <div class="item-name-title">{{ filename }}</div>
                         <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
@@ -65,9 +65,7 @@
                     [disabled]="!companyName && !currentCompany?.id">
                     <span>Next</span>
                 </button>
-                <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
-                    <span>Done</span>
-                </button>
+
             </div>
         </div>
     </div>

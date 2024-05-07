@@ -36,6 +36,16 @@ export class SessionStorageService {
     return null;
   }
 
+  public getPackageId(): string | null {
+    const item = sessionStorage.getItem(DATA.PACKAGE);
+
+    if (item) {
+      return JSON.parse(item);
+    }
+
+    return null;
+  }
+
   getCompanyName(): string | null {
     const companName = sessionStorage.getItem(DATA.COMPANY_NAME);
     if (companName) {

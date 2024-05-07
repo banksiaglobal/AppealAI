@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class LetterService {
+export class DocsService {
   constructor(private http: HttpClient) {}
 
   getCurrentPackageInfo(packageId: number): Observable<any> {
@@ -29,9 +29,8 @@ export class LetterService {
 
   addnewFile(data: any): Observable<any> {
     console.log(data);
-    const formData = new FormData();
-    console.log(formData);
-    return this.http.post('/document/upload', formData).pipe(
+
+    return this.http.post(`${environment.apiUrl}/document/upload`, data).pipe(
       map((response) => response),
       tap((response) => console.log(response)),
       catchError(() => of())

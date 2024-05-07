@@ -37,22 +37,6 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 export class StartPageViewComponent implements OnInit {
   constructor(private localStorage: SessionStorageService) {}
 
-  companyName: string | null = null;
-  packageName: string | null = null;
-
-  ngOnInit(): void {
-    this.companyName = this.localStorage.getCompanyName();
-    if (this.companyName || this.currentCompany?.id) {
-      this.current = 1;
-      this.index = 2;
-    }
-
-    this.packageName = this.localStorage.getPackageName();
-    if (this.packageName !== null || this.newPackage) {
-      this.current = 2;
-      this.index = 3;
-    }
-  }
   @Output() createNewCompany = new EventEmitter<string>();
 
   @Output() createNewPackage = new EventEmitter<{
@@ -68,6 +52,9 @@ export class StartPageViewComponent implements OnInit {
 
   @Input() newPackage: any | null;
 
+  companyName: string | null = null;
+  packageName: string | null = null;
+
   current = 0;
 
   index = 1;
@@ -75,6 +62,22 @@ export class StartPageViewComponent implements OnInit {
   status = 'process';
 
   filename: string | null;
+
+  formData = new FormData();
+
+  ngOnInit(): void {
+    this.companyName = this.localStorage.getCompanyName();
+    if (this.companyName || this.currentCompany?.id) {
+      this.current = 1;
+      this.index = 2;
+    }
+
+    this.packageName = this.localStorage.getPackageName();
+    if (this.packageName !== null || this.newPackage) {
+      this.current = 2;
+      this.index = 3;
+    }
+  }
 
   @ViewChild('inputLetter') inputLetter!: ElementRef<HTMLInputElement>;
 
@@ -86,10 +89,6 @@ export class StartPageViewComponent implements OnInit {
   next(): void {
     this.current += 1;
     this.changeContent();
-  }
-
-  done(): void {
-    console.log('done');
   }
 
   changeContent(): void {
@@ -129,37 +128,20 @@ export class StartPageViewComponent implements OnInit {
     }
   }
 
-  // addDocs(ev: any) {
-  //   const file = ev.target.files[0];
-  //   const formData = new FormData();
-  //   formData.append('file', file);
-
-  //   const fileEntry = formData.get('file');
-
-  //   if (fileEntry instanceof File) {
-  //     this.fileName = fileEntry.name;
-  //   } else {
-  //     console.error('Invalid file entry');
-  //   }
-  // }
-  public addLetter(ev: any) {
+  public addPackageDoc(ev: any) {
     const file = ev.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
 
-    const fileEntry = formData.get('file');
-
-    if (fileEntry instanceof File) {
-      this.filename = fileEntry.name;
+    if (file) {
+      this.formData = new FormData();
+      this.formData.append('file', file, file.name);
+      this.filename = file.name;
     } else {
-      console.error('Invalid file entry');
+      console.error('No file selected');
     }
-    this.sendDocs.emit(formData);
   }
 
   downloadDocs() {
-    console.log(this.filename);
-    // this.sendDocs.emit(this.fileName);
+    this.sendDocs.emit(this.formData);
   }
 
   private clearPackageInfo() {

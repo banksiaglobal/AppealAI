@@ -12,7 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ICompany } from '../../../interface/company.interface';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
-import { LetterService } from '../../../service/letter.service';
+import { DocsService } from '../../../service/letter.service';
 
 @Component({
   selector: 'app-start-page',
@@ -34,7 +34,7 @@ export class StartPageComponent implements OnInit {
     private packageService: PackageService,
     private messageSrvice: NzMessageService,
     private localStorage: SessionStorageService,
-    private docsService: LetterService
+    private docsService: DocsService
   ) {}
   ngOnInit(): void {
     const currentPackage = this.localStorage.getPackageName();
@@ -98,10 +98,11 @@ export class StartPageComponent implements OnInit {
     });
   }
 
-  sendDocs(files: { blob: Blob; selectedFiles: any }): void {
-    console.log(files);
+  sendDocs(formData: any): void {
+    const packageId = this.localStorage.getPackageId();
+    formData.append('package', packageId);
     this.docsService
-      .addnewFile(files.selectedFiles)
+      .addnewFile(formData)
       .pipe(tap(() => this.createSuccessMessage('doc')))
       .subscribe();
   }
