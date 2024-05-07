@@ -126,8 +126,8 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <true>
 <call name='Call ai for appeal' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='1010' ypos='1400' >
 <request type='Banksia.OpenAi.Msg.SimplePrompt.Request' >
-<assign property="callrequest.UserInput" value="&quot;The text of the denial letter: &quot;_context.text" action="set" languageOverride="" />
-<assign property="callrequest.Prompt" value="&quot;Create an example of an appeal letter to an insurance company's decision based on the text of the denial letter. Text only in response. &quot;" action="set" languageOverride="" />
+<assign property="callrequest.UserInput" value="&quot;You have received the following insurance claim denial letter: &quot;_context.text_&quot;   Please write an appeal letter on behalf of treating hospital. Send just the text of the letter.&quot;" action="set" languageOverride="" />
+<assign property="callrequest.Prompt" value="&quot;You are a helpful, smart, kind, and efficient insurance claim appeal attorney. You always fulfill the user's requests to the best of your ability. &quot;" action="set" languageOverride="" />
 <assign property="callrequest.Model" value="&quot;gpt-4-turbo&quot;" action="set" languageOverride="" />
 </request>
 <response type='Banksia.OpenAi.Msg.SimplePrompt.Response' >
