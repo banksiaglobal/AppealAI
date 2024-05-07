@@ -140,10 +140,11 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <assign property="callrequest.TypeOfDoc" value="&quot;appeal&quot;" action="set" languageOverride="" />
 <assign property="callrequest.Text" value="context.textAppeal" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />
-<assign property="callrequest.Name" value="&quot;test.pdf&quot;" action="set" languageOverride="" />
+<assign property="callrequest.Name" value="&quot;Appeal-&quot;_request.Name" action="set" languageOverride="" />
 </request>
 <response type='Production.Message.Response' >
 <assign property="response.Result" value="&quot;Letter created&quot;" action="set" languageOverride="" />
+<assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
 </response>
 </call>
 <if name='The file was successfully saved' condition='context.filePath &apos;=""' languageOverride="objectscript" xpos='1010' ypos='1700' xend='1010' yend='1950' >
@@ -152,8 +153,8 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />
-<assign property="callrequest.Name" value="&quot;test.pdf&quot;" action="set" languageOverride="" />
 <assign property="callrequest.TypeOfDoc" value="&quot;appeal&quot;" action="set" languageOverride="" />
+<assign property="callrequest.Name" value="&quot;Appeal-&quot;_request.Name" action="set" languageOverride="" />
 </request>
 <response type='Production.Message.Response' >
 <assign property="response.Result" value="callresponse.Result" action="set" languageOverride="" />
