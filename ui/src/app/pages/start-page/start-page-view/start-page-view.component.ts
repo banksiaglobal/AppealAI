@@ -37,13 +37,20 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 export class StartPageViewComponent implements OnInit {
   constructor(private localStorage: SessionStorageService) {}
 
-  companyName: string | null;
+  companyName: string | null = null;
+  packageName: string | null = null;
 
   ngOnInit(): void {
     this.companyName = this.localStorage.getCompanyName();
     if (this.companyName || this.currentCompany?.id) {
       this.current = 1;
       this.index = 2;
+    }
+
+    this.packageName = this.localStorage.getPackageName();
+    if (this.packageName !== null || this.newPackage) {
+      this.current = 2;
+      this.index = 3;
     }
   }
   @Output() createNewCompany = new EventEmitter<string>();
@@ -67,9 +74,7 @@ export class StartPageViewComponent implements OnInit {
 
   status = 'process';
 
-  selectedFile: any = [];
-
-  blob: Blob;
+  filename: string | null;
 
   @ViewChild('inputLetter') inputLetter!: ElementRef<HTMLInputElement>;
 
@@ -113,56 +118,54 @@ export class StartPageViewComponent implements OnInit {
         this.currentCompany = null;
         this.companyName = null;
         this.localStorage.clean();
+        this.clearPackageInfo();
         break;
       case 'package':
-        this.localStorage.deletePackage();
-        this.newPackage = null;
+        this.clearPackageInfo();
         break;
       case 'letter':
-        this.selectedFile = [];
-        this.inputLetter.nativeElement.value = '';
+        this.filename = null;
         break;
     }
   }
 
-  addDocs(ev: Event) {
-    const target = ev.target as HTMLInputElement;
-    const files = target.files;
+  // addDocs(ev: any) {
+  //   const file = ev.target.files[0];
+  //   const formData = new FormData();
+  //   formData.append('file', file);
 
-    if (files) {
-      const formData = new FormData();
+  //   const fileEntry = formData.get('file');
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        this.selectedFile.push(file);
-        formData.append(file.name, file);
-      }
+  //   if (fileEntry instanceof File) {
+  //     this.fileName = fileEntry.name;
+  //   } else {
+  //     console.error('Invalid file entry');
+  //   }
+  // }
+  public addLetter(ev: any) {
+    const file = ev.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const fileEntry = formData.get('file');
+
+    if (fileEntry instanceof File) {
+      this.filename = fileEntry.name;
+    } else {
+      console.error('Invalid file entry');
     }
-
-    const reader = new FileReader();
-
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      if (event.target && reader.result) {
-        this.blob = new Blob([reader.result], {
-          type: this.selectedFile[0].type,
-        });
-        var element = document.querySelector('p');
-        if (element) {
-          for (let i = 0; i < this.selectedFile.length; i++) {
-            let f = this.selectedFile[i];
-            element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`;
-          }
-          console.log(this.selectedFile);
-        }
-      } else {
-        console.error('File could not be read.');
-      }
-    };
+    this.sendDocs.emit(formData);
   }
 
   downloadDocs() {
-    const docs = { blob: this.blob, files: this.selectedFile };
-    console.log(docs);
-    this.sendDocs.emit(docs);
+    console.log(this.filename);
+    // this.sendDocs.emit(this.fileName);
+  }
+
+  private clearPackageInfo() {
+    this.localStorage.deletePackage();
+    this.newPackage = null;
+    this.packageName = null;
+    this.filename = null;
   }
 }

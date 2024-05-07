@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IResponseAddPackage } from '../interface/package.interface';
 
 enum DATA {
-  PACKAGE = 'package',
+  PACKAGE = 'package_id',
+  PACKAGE_NAME = 'package_name',
   COMPANY = 'company_id',
   COMPANY_NAME = 'company_name',
 }
@@ -16,46 +16,46 @@ export class SessionStorageService {
   }
 
   public saveCompany(id: string, name: string): void {
-    console.log(id);
     this.clean();
     sessionStorage.setItem(DATA.COMPANY, JSON.stringify(String(id)));
     sessionStorage.setItem(DATA.COMPANY_NAME, JSON.stringify(name));
   }
 
-  public savePackage(info: IResponseAddPackage): void {
-    sessionStorage.removeItem(DATA.PACKAGE);
-    sessionStorage.setItem(DATA.PACKAGE, JSON.stringify(info));
+  public savePackage(id: string, name: string): void {
+    sessionStorage.setItem(DATA.PACKAGE, JSON.stringify(id));
+    sessionStorage.setItem(DATA.PACKAGE_NAME, JSON.stringify(name));
   }
 
-  public getPackage(): string {
-    const item = sessionStorage.getItem(DATA.PACKAGE);
+  public getPackageName(): string | null {
+    const item = sessionStorage.getItem(DATA.PACKAGE_NAME);
 
-    if (item && item != 'undefined') {
+    if (item) {
       return JSON.parse(item);
     }
 
-    return '';
+    return null;
   }
 
-  getCompanyName() {
+  getCompanyName(): string | null {
     const companName = sessionStorage.getItem(DATA.COMPANY_NAME);
     if (companName) {
       return JSON.parse(companName);
     }
 
-    return '';
+    return null;
   }
 
-  public getCompanyId(): string {
+  public getCompanyId(): string | null {
     const companyId = sessionStorage.getItem(DATA.COMPANY);
     if (companyId) {
       return JSON.parse(companyId);
     }
 
-    return '';
+    return null;
   }
 
   deletePackage() {
+    sessionStorage.removeItem(DATA.PACKAGE_NAME);
     sessionStorage.removeItem(DATA.PACKAGE);
   }
 }

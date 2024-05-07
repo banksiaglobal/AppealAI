@@ -15,7 +15,7 @@ export class PackageService {
 
   getCurrentPackageInfo(packageId: number): Observable<any> {
     return this.http
-      .get<any>(`${environment.apiUrl}/api/package/${packageId}`)
+      .get<any>(`${environment.apiUrl}/package/${packageId}`)
       .pipe(
         map((response) => response),
         catchError(() => of())
@@ -26,8 +26,8 @@ export class PackageService {
     companyId: string
   ): Observable<IResponseAddPackage[]> {
     return this.http
-      .get<{ info: string; packages: IResponseAddPackage[] }>(
-        `${environment.apiUrl}/api/package/all/${companyId}`
+      .get<{ packages: IResponseAddPackage[] }>(
+        `${environment.apiUrl}/package/all/${companyId}`
       )
       .pipe(
         map((response) => response.packages),
@@ -45,9 +45,6 @@ export class PackageService {
       name: name,
       description: description,
     };
-    return this.http.post<void>(
-      `${environment.apiUrl}/api/package/create`,
-      body
-    );
+    return this.http.post<void>(`${environment.apiUrl}/package/create`, body);
   }
 }

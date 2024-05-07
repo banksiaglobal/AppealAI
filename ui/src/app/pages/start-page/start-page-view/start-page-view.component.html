@@ -8,55 +8,52 @@
             </nz-steps>
 
             @if(currentCompany?.name || companyName){
-            <div class="company-name-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+            <div class="item-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
                 <div>The Insurance Company:</div>
-                <div class="company-name-title">{{currentCompany?.name || companyName}}</div>
+                <div class="item-name-title">{{currentCompany?.name || companyName}}</div>
                 <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
             </div>
             }
-            @if(newPackage?.name){
-            <div class="company-package-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-                <div>New Package:</div>
-                <div class="company-name-title">{{newPackage?.name}}</div>
+            @if(newPackage?.name || packageName){
+            <div class="item-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                <div>The Insurance Package:</div>
+                <div class="item-name-title">{{newPackage?.name || packageName}}</div>
                 <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
             </div>
             }
 
             @if (index===1 ) {
             <div class="steps-content">
-                <app-create-company (createNewCompany)="createNewCompany.emit($event)" />
+                <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
             </div>
             }
 
             @if (index===2) {
             <div class="steps-content">
-                <app-create-package (createNewPackage)="createNewPackage.emit($event)" />
+                <app-create-package (createNewPackage)="createNewPackage.emit($event)" [packageName]="packageName" />
             </div>
             }
 
             @if (index===3) {
             <div class="steps-content">
-                <div class="download" nz-button nzType="primary">
+
+                <div class="load-box">
                     <label for="inputLetter">
-                        <div class="btn-download">Add docs</div>
-                        <input type="file" id="inputLetter" (change)="addDocs($event)" multiple>
+                        <div class="btn-download">Add Doc </div>
+                        <input class="download-input" type="file" id="inputLetter" (change)="addLetter($event)">
                     </label>
                 </div>
-                <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="selectedFile&& selectedFile.length>0">
+
+                <div class="list-docs-item" id="listDocsItem" *ngIf="filename">
                     <div class="letter-title">
-                        <span nz-typography> List docs: </span>
-
+                        <div nz-typography> Doc: </div>
+                        <div class="item-name-title">{{ filename }}</div>
                         <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
-
-                    </div>
-
-                    <div *ngFor="let file of selectedFile, let i = index">
-                        <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
-
                     </div>
                 </div>
-                <button nz-button nzType="primary" (click)="downloadDocs()"
-                    [disabled]="!newPackage && selectedFile">Save</button>
+
+                <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
+                    [disabled]="!newPackage && !filename">Upload</button>
             </div>
             }
 
@@ -73,6 +70,5 @@
                 </button>
             </div>
         </div>
-
     </div>
 </div>

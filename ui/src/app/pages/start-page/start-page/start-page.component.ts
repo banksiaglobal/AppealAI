@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -28,7 +28,7 @@ import { LetterService } from '../../../service/letter.service';
   templateUrl: './start-page.component.html',
   styleUrl: './start-page.component.scss',
 })
-export class StartPageComponent {
+export class StartPageComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private packageService: PackageService,
@@ -36,6 +36,11 @@ export class StartPageComponent {
     private localStorage: SessionStorageService,
     private docsService: LetterService
   ) {}
+  ngOnInit(): void {
+    const currentPackage = this.localStorage.getPackageName();
+    if (currentPackage) {
+    }
+  }
 
   public currentCompany$: Observable<ICompany>;
 
@@ -56,22 +61,29 @@ export class StartPageComponent {
   }
 
   createNewPackage(packageitem: { name: string; description: string }) {
-    this.newPackage$ = this.packageService
-      .addNewPackageForCompany(
-        this.localStorage.getCompanyId(),
-        packageitem.name,
-        packageitem.description
-      )
-      .pipe(
-        map((data) => {
-          return data;
-        }),
-        tap(() => this.createSuccessMessage('package')),
-        catchError((error: any) => {
-          this.createErrorMessage('package');
-          return throwError(() => error);
-        })
-      );
+    const companyId = this.localStorage.getCompanyId();
+    if (companyId)
+      this.newPackage$ = this.packageService
+        .addNewPackageForCompany(
+          companyId,
+          packageitem.name,
+          packageitem.description
+        )
+        .pipe(
+          map((data) => {
+            return data;
+          }),
+          tap(
+            (data) => {
+              this.createSuccessMessage('package');
+              this.localStorage.savePackage(data.id, data.name);
+            },
+            catchError((error: any) => {
+              this.createErrorMessage('package');
+              return throwError(() => error);
+            })
+          )
+        );
   }
 
   createErrorMessage(type: string): void {
@@ -89,7 +101,7 @@ export class StartPageComponent {
   sendDocs(files: { blob: Blob; selectedFiles: any }): void {
     console.log(files);
     this.docsService
-      .addnewFile(files.blob, files.selectedFiles)
+      .addnewFile(files.selectedFiles)
       .pipe(tap(() => this.createSuccessMessage('doc')))
       .subscribe();
   }

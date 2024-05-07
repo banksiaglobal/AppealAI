@@ -27,11 +27,11 @@ export class LetterService {
       );
   }
 
-  addnewFile(blob: Blob, selectedFiles: any): Observable<any> {
+  addnewFile(data: any): Observable<any> {
+    console.log(data);
     const formData = new FormData();
-    formData.append('image', blob);
     console.log(formData);
-    return this.http.post('/api/document/upload', formData).pipe(
+    return this.http.post('/document/upload', formData).pipe(
       map((response) => response),
       tap((response) => console.log(response)),
       catchError(() => of())

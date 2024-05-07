@@ -10,29 +10,18 @@ import { ICompany } from '../interface/company.interface';
 export class CompanyService {
   constructor(private http: HttpClient) {}
 
-  getCompanyList(): Observable<any> {
-    // return this.http.get<any>(`${environment.apiUrl}/api/company`).pipe(
-    //   map((response) => response),
-    //   catchError(() => of())
-    // );
-    return of([
-      {
-        name: 'test123456',
-        id: 47,
-        UUIDFHIR: '3d10019f-c88e-3de5-9916-6107b9c0263d',
-      },
-      { name: 'new 1', id: 51, UUIDFHIR: 'testnumber123456789987654321' },
-      {
-        UUIDFHIR: '3d10019f-c88e-3de5-9916-6107b9c0263d',
-        id: '77',
-        name: 'test3r',
-      },
-    ]);
+  getCompanyList(): Observable<ICompany[]> {
+    return this.http
+      .get<{ companies: ICompany[] }>(`${environment.apiUrl}/company/`)
+      .pipe(
+        map((response) => response.companies),
+        catchError(() => of())
+      );
   }
 
   getCurrentCompanyInfo(companyId: number): Observable<any> {
     return this.http
-      .get<any>(`${environment.apiUrl}/api/company/${companyId} `)
+      .get<any>(`${environment.apiUrl}/company/${companyId} `)
       .pipe(
         map((response) => response),
         catchError(() => of())
@@ -42,10 +31,9 @@ export class CompanyService {
   addNewCompany(companyName: string): Observable<ICompany> {
     const body = {
       name: companyName,
-      uuidfhir: '3d10019f-c88e-3de5-9916-6107b9c0263d',
     };
     return this.http.post<ICompany>(
-      `${environment.apiUrl}/api/company/create`,
+      `${environment.apiUrl}/company/create`,
       body
     );
   }

@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormGroup,
   FormsModule,
@@ -14,10 +21,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-interface FormValues {
-  name: string;
-  description: string;
-}
+
 @Component({
   selector: 'app-create-package',
   standalone: true,
@@ -37,24 +41,34 @@ interface FormValues {
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss',
 })
-export class CreatePackageComponent {
+export class CreatePackageComponent implements OnChanges {
   constructor(private fb: NonNullableFormBuilder) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['packageName'].currentValue) {
+      const isPackage = changes['packageName'].currentValue !== null;
+      if (isPackage == true || this.docsForm.controls['name']) {
+        this.docsForm.controls['name'].disable();
+        this.docsForm.controls['description'].disable();
+      }
+    } else {
+      this.docsForm.controls['name'].enable();
+      this.docsForm.controls['description'].enable();
+    }
+  }
+
+  @Input() packageName: string | null;
 
   @Output() createNewPackage = new EventEmitter<{
     name: string;
     description: string;
   }>();
 
-  selectedFiles: FileList;
   docsForm: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
-    description: ['', [Validators.required]],
+    description: [''],
   });
 
-  formValues: FormValues = {
-    name: '',
-    description: '',
-  };
   save() {
     const { name } = this.docsForm.value;
     if (name !== undefined) {

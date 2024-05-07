@@ -8,9 +8,9 @@ import { environment } from '../environments/environment';
 export class DocsService {
   constructor(private http: HttpClient) {}
 
-  submitDocs(formData: FormData, packageName: any) {
+  submitDocs(formData: FormData) {
     return this.http
-      .post(`${environment.apiUrl}/api/document/upload `, formData)
+      .post(`${environment.apiUrl}/document/upload `, formData)
       .pipe(
         map((response) => response),
         catchError(() => of())
