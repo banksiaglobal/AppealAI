@@ -38,6 +38,7 @@
             <div class="steps-content">
 
                 <div class="load-box">
+
                     <label for="inputLetter">
                         <div class="btn-download">Add Doc </div>
                         <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)">
@@ -45,16 +46,23 @@
                 </div>
 
                 <div class="list-docs-item" id="listDocsItem" *ngIf="filename">
-                    <div class="doc-title">
+                    <div class="doc-title item-header-box">
                         <div nz-typography> Doc: </div>
                         <div class="item-name-title">{{ filename }}</div>
                         <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                     </div>
+
+
                 </div>
 
                 <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
                     [disabled]="!newPackage && !filename">Upload</button>
             </div>
+            <ng-container *ngIf="isUploadDoc">
+                <div class="error-box-notification">
+                    <app-upload-doc-message></app-upload-doc-message>
+                </div>
+            </ng-container>
             }
 
             <div class="steps-action">

@@ -4,8 +4,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -16,6 +18,9 @@ import { CreatePackageComponent } from '../../../components/dialogs/create-packa
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { UploadDocMessageComponent } from '../../../components/upload-doc-message/upload-doc-message.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-start-page-view',
@@ -30,12 +35,22 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     NzHeaderComponent,
     NzLayoutModule,
     NzFlexModule,
+    UploadDocMessageComponent,
+    NzUploadModule,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',
 })
-export class StartPageViewComponent implements OnInit {
-  constructor(private localStorage: SessionStorageService) {}
+export class StartPageViewComponent implements OnInit, OnChanges {
+  constructor(
+    private localStorage: SessionStorageService,
+    private msg: NzMessageService
+  ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isUploadDoc']?.currentValue) {
+      this.isUploadDoc = changes['isUploadDoc'].currentValue;
+    }
+  }
 
   @Output() createNewCompany = new EventEmitter<string>();
 
@@ -51,6 +66,8 @@ export class StartPageViewComponent implements OnInit {
   @Input() packagesList: any | null;
 
   @Input() newPackage: any | null;
+
+  @Input() isUploadDoc: boolean | null;
 
   companyName: string | null = null;
   packageName: string | null = null;
@@ -124,17 +141,21 @@ export class StartPageViewComponent implements OnInit {
         break;
       case 'letter':
         this.filename = null;
+        this.formData.delete('file');
+        this.isUploadDoc = false;
         break;
     }
   }
 
   public addPackageDoc(ev: any) {
+    this.isUploadDoc = false;
     const file = ev.target.files[0];
 
     if (file) {
       this.formData = new FormData();
       this.formData.append('file', file, file.name);
       this.filename = file.name;
+      console.log(this.filename);
     } else {
       console.error('No file selected');
     }
@@ -149,5 +170,7 @@ export class StartPageViewComponent implements OnInit {
     this.newPackage = null;
     this.packageName = null;
     this.filename = null;
+    this.formData.delete('file');
+    this.isUploadDoc = false;
   }
 }

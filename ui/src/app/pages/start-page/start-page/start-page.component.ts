@@ -4,7 +4,15 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { StartPageViewComponent } from '../start-page-view/start-page-view.component';
-import { map, catchError, throwError, tap, Observable } from 'rxjs';
+import {
+  map,
+  catchError,
+  throwError,
+  tap,
+  Observable,
+  of,
+  timeInterval,
+} from 'rxjs';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -45,6 +53,8 @@ export class StartPageComponent implements OnInit {
   public currentCompany$: Observable<ICompany>;
 
   public newPackage$: Observable<IResponseAddPackage>;
+
+  public isUploadDoc$: Observable<boolean>;
 
   createNewCompany(companyName: string) {
     this.currentCompany$ = this.companyService.addNewCompany(companyName).pipe(
@@ -87,6 +97,7 @@ export class StartPageComponent implements OnInit {
   }
 
   createErrorMessage(type: string): void {
+    console.log('err');
     this.messageSrvice.error(`The ${type} wasn't added. Try it again`, {
       nzDuration: 2000,
     });
@@ -103,7 +114,17 @@ export class StartPageComponent implements OnInit {
     formData.append('package', packageId);
     this.docsService
       .addnewFile(formData)
-      .pipe(tap(() => this.createSuccessMessage('doc')))
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document');
+          this.isUploadDoc$ = of(true);
+        }),
+        catchError((error: any) => {
+          this.isUploadDoc$ = of(false);
+          this.createErrorMessage('document');
+          return throwError(() => error);
+        })
+      )
       .subscribe();
   }
 }
