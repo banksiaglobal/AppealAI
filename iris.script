@@ -6,7 +6,7 @@
     
     do ##class(Security.Services).Modify("%Service_CallIn",.prop)
     
-    zn "USER"
+    zn "APPEALAI"
     zpm "load /home/irisowner/irisdev/ -v":1:1
     zpm "install fhir-portal"
     halt
