@@ -76,8 +76,6 @@ embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
 text_splitter = RecursiveCharacterTextSplitter(length_function=len, is_separator_regex=False, chunk_size=8000,chunk_overlap=1000,)
 texts = text_splitter.create_documents([context.textOfDocument])
 for key, text in enumerate(texts):
-    if key == 7: 
-        break
     data = embeddings.embed_documents(text.page_content)
     context.textChunks.Insert(text.page_content)
     context.vectorChunks.Insert(json.dumps(data[key][:200]))
