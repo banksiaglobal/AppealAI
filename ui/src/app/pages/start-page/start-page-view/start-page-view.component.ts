@@ -20,7 +20,6 @@ import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { UploadDocMessageComponent } from '../../../components/upload-doc-message/upload-doc-message.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-start-page-view',
@@ -42,10 +41,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
   styleUrl: './start-page-view.component.scss',
 })
 export class StartPageViewComponent implements OnInit, OnChanges {
-  constructor(
-    private localStorage: SessionStorageService,
-    private msg: NzMessageService
-  ) {}
+  constructor(private localStorage: SessionStorageService) {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['isUploadDoc']?.currentValue) {
       this.isUploadDoc = changes['isUploadDoc'].currentValue;
