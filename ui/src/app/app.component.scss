@@ -117,9 +117,6 @@ nz-footer {
   .vertical-header-var {
     display: none;
   }
-}
-
-@media screen and (max-width: 681px) {
   .horizontal-header-var {
     display: flex;
   }
@@ -128,12 +125,18 @@ nz-footer {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 580px) {
   .horizontal-header-var {
     justify-content: center;
   }
 
   .logo {
     display: none;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .horizontal-header-var .ant-menu-item {
+    padding: 0 10px;
   }
 }

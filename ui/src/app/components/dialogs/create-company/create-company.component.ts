@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -7,6 +7,7 @@ import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { ICompany } from '../../../interface/company.interface';
 
 @Component({
   selector: 'app-create-company',
@@ -25,11 +26,15 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrl: './create-company.component.scss',
 })
 export class CreateCompanyComponent {
-  newCompanyName = '';
+  @Input() companyName: string | null;
+
+  newCompanyName: string | null;
 
   @Output() createNewCompany = new EventEmitter<string>();
 
   save() {
-    this.createNewCompany.emit(this.newCompanyName);
+    if (this.newCompanyName) {
+      this.createNewCompany.emit(this.newCompanyName);
+    }
   }
 }

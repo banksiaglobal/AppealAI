@@ -4,8 +4,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -16,6 +18,8 @@ import { CreatePackageComponent } from '../../../components/dialogs/create-packa
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { UploadDocMessageComponent } from '../../../components/upload-doc-message/upload-doc-message.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-start-page-view',
@@ -30,22 +34,20 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
     NzHeaderComponent,
     NzLayoutModule,
     NzFlexModule,
+    UploadDocMessageComponent,
+    NzUploadModule,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',
 })
-export class StartPageViewComponent implements OnInit {
+export class StartPageViewComponent implements OnInit, OnChanges {
   constructor(private localStorage: SessionStorageService) {}
-
-  companyName: string | null;
-
-  ngOnInit(): void {
-    this.companyName = this.localStorage.getCompanyName();
-    if (this.companyName || this.currentCompany?.id) {
-      this.current = 1;
-      this.index = 2;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isUploadDoc']?.currentValue) {
+      this.isUploadDoc = changes['isUploadDoc'].currentValue;
     }
   }
+
   @Output() createNewCompany = new EventEmitter<string>();
 
   @Output() createNewPackage = new EventEmitter<{
@@ -61,15 +63,34 @@ export class StartPageViewComponent implements OnInit {
 
   @Input() newPackage: any | null;
 
+  @Input() isUploadDoc: boolean | null;
+
+  companyName: string | null = null;
+  packageName: string | null = null;
+
   current = 0;
 
   index = 1;
 
   status = 'process';
 
-  selectedFile: any = [];
+  filename: string | null;
 
-  blob: Blob;
+  formData = new FormData();
+
+  ngOnInit(): void {
+    this.companyName = this.localStorage.getCompanyName();
+    if (this.companyName || this.currentCompany?.id) {
+      this.current = 1;
+      this.index = 2;
+    }
+
+    this.packageName = this.localStorage.getPackageName();
+    if (this.packageName !== null || this.newPackage) {
+      this.current = 2;
+      this.index = 3;
+    }
+  }
 
   @ViewChild('inputLetter') inputLetter!: ElementRef<HTMLInputElement>;
 
@@ -81,10 +102,6 @@ export class StartPageViewComponent implements OnInit {
   next(): void {
     this.current += 1;
     this.changeContent();
-  }
-
-  done(): void {
-    console.log('done');
   }
 
   changeContent(): void {
@@ -113,56 +130,43 @@ export class StartPageViewComponent implements OnInit {
         this.currentCompany = null;
         this.companyName = null;
         this.localStorage.clean();
+        this.clearPackageInfo();
         break;
       case 'package':
-        this.localStorage.deletePackage();
-        this.newPackage = null;
+        this.clearPackageInfo();
         break;
       case 'letter':
-        this.selectedFile = [];
-        this.inputLetter.nativeElement.value = '';
+        this.filename = null;
+        this.formData.delete('file');
+        this.isUploadDoc = false;
         break;
     }
   }
 
-  addDocs(ev: Event) {
-    const target = ev.target as HTMLInputElement;
-    const files = target.files;
+  public addPackageDoc(ev: any) {
+    this.isUploadDoc = false;
+    const file = ev.target.files[0];
 
-    if (files) {
-      const formData = new FormData();
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        this.selectedFile.push(file);
-        formData.append(file.name, file);
-      }
+    if (file) {
+      this.formData = new FormData();
+      this.formData.append('file', file, file.name);
+      this.filename = file.name;
+      console.log(this.filename);
+    } else {
+      console.error('No file selected');
     }
-
-    const reader = new FileReader();
-
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      if (event.target && reader.result) {
-        this.blob = new Blob([reader.result], {
-          type: this.selectedFile[0].type,
-        });
-        var element = document.querySelector('p');
-        if (element) {
-          for (let i = 0; i < this.selectedFile.length; i++) {
-            let f = this.selectedFile[i];
-            element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`;
-          }
-          console.log(this.selectedFile);
-        }
-      } else {
-        console.error('File could not be read.');
-      }
-    };
   }
 
   downloadDocs() {
-    const docs = { blob: this.blob, files: this.selectedFile };
-    console.log(docs);
-    this.sendDocs.emit(docs);
+    this.sendDocs.emit(this.formData);
+  }
+
+  private clearPackageInfo() {
+    this.localStorage.deletePackage();
+    this.newPackage = null;
+    this.packageName = null;
+    this.filename = null;
+    this.formData.delete('file');
+    this.isUploadDoc = false;
   }
 }

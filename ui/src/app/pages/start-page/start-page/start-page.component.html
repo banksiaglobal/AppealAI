@@ -1,2 +1,3 @@
 <app-start-page-view (createNewCompany)="createNewCompany($event)" (createNewPackage)="createNewPackage($event)"
-    (sendDocs)="sendDocs($event)" [currentCompany]="currentCompany$ | async" [newPackage]="newPackage$ | async" />
+    (sendDocs)="sendDocs($event)" [currentCompany]="currentCompany$ | async" [newPackage]="newPackage$ | async"
+    [isUploadDoc]="isUploadDoc$ | async" />

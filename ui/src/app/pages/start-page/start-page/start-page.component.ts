@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { StartPageViewComponent } from '../start-page-view/start-page-view.component';
-import { map, catchError, throwError, tap, Observable } from 'rxjs';
+import {
+  map,
+  catchError,
+  throwError,
+  tap,
+  Observable,
+  of,
+  timeInterval,
+} from 'rxjs';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -12,7 +20,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ICompany } from '../../../interface/company.interface';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
-import { LetterService } from '../../../service/letter.service';
+import { DocsService } from '../../../service/letter.service';
 
 @Component({
   selector: 'app-start-page',
@@ -28,18 +36,25 @@ import { LetterService } from '../../../service/letter.service';
   templateUrl: './start-page.component.html',
   styleUrl: './start-page.component.scss',
 })
-export class StartPageComponent {
+export class StartPageComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private packageService: PackageService,
     private messageSrvice: NzMessageService,
     private localStorage: SessionStorageService,
-    private docsService: LetterService
+    private docsService: DocsService
   ) {}
+  ngOnInit(): void {
+    const currentPackage = this.localStorage.getPackageName();
+    if (currentPackage) {
+    }
+  }
 
   public currentCompany$: Observable<ICompany>;
 
   public newPackage$: Observable<IResponseAddPackage>;
+
+  public isUploadDoc$: Observable<boolean>;
 
   createNewCompany(companyName: string) {
     this.currentCompany$ = this.companyService.addNewCompany(companyName).pipe(
@@ -56,25 +71,33 @@ export class StartPageComponent {
   }
 
   createNewPackage(packageitem: { name: string; description: string }) {
-    this.newPackage$ = this.packageService
-      .addNewPackageForCompany(
-        this.localStorage.getCompanyId(),
-        packageitem.name,
-        packageitem.description
-      )
-      .pipe(
-        map((data) => {
-          return data;
-        }),
-        tap(() => this.createSuccessMessage('package')),
-        catchError((error: any) => {
-          this.createErrorMessage('package');
-          return throwError(() => error);
-        })
-      );
+    const companyId = this.localStorage.getCompanyId();
+    if (companyId)
+      this.newPackage$ = this.packageService
+        .addNewPackageForCompany(
+          companyId,
+          packageitem.name,
+          packageitem.description
+        )
+        .pipe(
+          map((data) => {
+            return data;
+          }),
+          tap(
+            (data) => {
+              this.createSuccessMessage('package');
+              this.localStorage.savePackage(data.id, data.name);
+            },
+            catchError((error: any) => {
+              this.createErrorMessage('package');
+              return throwError(() => error);
+            })
+          )
+        );
   }
 
   createErrorMessage(type: string): void {
+    console.log('err');
     this.messageSrvice.error(`The ${type} wasn't added. Try it again`, {
       nzDuration: 2000,
     });
@@ -86,11 +109,22 @@ export class StartPageComponent {
     });
   }
 
-  sendDocs(files: { blob: Blob; selectedFiles: any }): void {
-    console.log(files);
+  sendDocs(formData: any): void {
+    const packageId = this.localStorage.getPackageId();
+    formData.append('package', packageId);
     this.docsService
-      .addnewFile(files.blob, files.selectedFiles)
-      .pipe(tap(() => this.createSuccessMessage('doc')))
+      .addnewFile(formData)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document');
+          this.isUploadDoc$ = of(true);
+        }),
+        catchError((error: any) => {
+          this.isUploadDoc$ = of(false);
+          this.createErrorMessage('document');
+          return throwError(() => error);
+        })
+      )
       .subscribe();
   }
 }

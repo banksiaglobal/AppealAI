@@ -3,7 +3,7 @@
         <nz-page-header-subtitle class="title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">Load a
             letter</nz-page-header-subtitle>
 
-        <form nz-form class="form" [nzLayout]="'vertical'" [formGroup]="documentsForm" (ngSubmit)="submitForm()">
+        <form nz-form class="form" [nzLayout]="'vertical'" [formGroup]="documentsForm">
             <div class="form-box" nz-flex [nzAlign]="'center'" [nzJustify]="'center'">
                 <nz-form-item>
                     <nz-select nzPlaceHolder="Select an insurance company" nzAllowClear formControlName="company"
@@ -19,7 +19,7 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-select nzPlaceHolder="Select insurance packages" nzAllowClear formControlName="package"
-                        [nzDisabled]="!currentCompany?.id" (change)="selectPackage()">
+                        [nzDisabled]="!currentCompany?.id" (nzOpenChange)="selectPackage($event)">
                         <nz-option *ngFor="let package of packagesList" [nzValue]="package.name"
                             [nzLabel]="package.name"></nz-option>
                     </nz-select>
@@ -32,24 +32,19 @@
                 </nz-form-item>
                 <nz-form-item class="download" nz-button nzType="primary">
                     <label for="inputLetter">
-                        <div class="btn-download">Add a letter</div>
-                        <input type="file" id="inputLetter" (change)="addLetter($event)" formControlName="letter"
-                            multiple>
+                        <div class="btn-download">Add a denial letter</div>
+                        <input type="file" id="inputLetter" (change)="addLetter($event)">
                     </label>
                 </nz-form-item>
             </div>
 
-            <div class="list-docs-box"
-                *ngIf="documentsForm.value.company  || documentsForm.value?.package || documentsForm.value?.letter">
+            <div class="list-docs-box" *ngIf="documentsForm.value.company  || documentsForm.value?.package || filename">
                 <!-- <div class="list-docs-box"> -->
                 <h3 nz-typography>The List Docs:</h3>
                 <div class="list-docs-item" *ngIf="documentsForm.value.company">
                     <div nz-typography>Company: </div>
                     <div class="list-docs-item-name"> {{currentCompany?.name}}</div>
-
-                    @if (currentCompany?.id) {
                     <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
-                    }
                 </div>
                 <div class="list-docs-item" *ngIf="documentsForm.value.package">
                     <div nz-typography> Insurance package: </div>
@@ -58,28 +53,18 @@
                     <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
 
                 </div>
-                <div class="list-docs-item letter-box" id="listDocsItem" *ngIf="documentsForm.value.letter">
-                    <div class="letter-title">
-                        <span nz-typography> Letter: </span>
-                        @if (documentsForm.value.letter) {
-                        <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
-                        }
-                    </div>
-
-                    <div *ngFor="let file of selectedFile, let i = index">
-                        <span class="list-docs-letter"> {{ i + 1 }}.{{ file.name }}</span>
-
-                    </div>
-
-
+                <div class="list-docs-item" *ngIf="filename !== null">
+                    <div nz-typography> Letter: </div>
+                    <div class="list-docs-item-name"> {{filename }}</div>
+                    <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
             </div>
             <div class="btn-box" nz-flex [nzAlign]="'center'">
-                <button class="btn-submit" type="submit" nz-button nzType="primary" [disabled]="!documentsForm.valid">
+                <button class="btn-submit" type="submit" nz-button nzType="primary"
+                    [disabled]="!documentsForm.valid || !filename" (click)="submitForm()">
                     Add
                 </button>
             </div>
         </form>
-
     </div>
 </div>

@@ -6,35 +6,26 @@ import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class LetterService {
+export class DocsService {
   constructor(private http: HttpClient) {}
 
   getCurrentPackageInfo(packageId: number): Observable<any> {
     return this.http
       .get<any>(`${environment.apiUrl}/api/package/${packageId}`)
-      .pipe(
-        map((response) => response),
-        catchError(() => of())
-      );
+      .pipe(map((response) => response));
   }
 
   getListPackagesForCurrentCompany(companyId: number): Observable<any> {
     return this.http
       .get<any>(`${environment.apiUrl}/package/all/${companyId}`)
-      .pipe(
-        map((response) => response),
-        catchError(() => of())
-      );
+      .pipe(map((response) => response));
   }
 
-  addnewFile(blob: Blob, selectedFiles: any): Observable<any> {
-    const formData = new FormData();
-    formData.append('image', blob);
-    console.log(formData);
-    return this.http.post('/api/document/upload', formData).pipe(
-      map((response) => response),
-      tap((response) => console.log(response)),
-      catchError(() => of())
-    );
+  addnewFile(data: any): Observable<any> {
+    console.log(data);
+
+    return this.http
+      .post<any>(`${environment.apiUrl}/document/upload`, data)
+      .pipe(map((response) => response));
   }
 }

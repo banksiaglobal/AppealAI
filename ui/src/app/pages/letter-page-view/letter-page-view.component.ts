@@ -51,11 +51,9 @@ export class LetterPageViewComponent {
 
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
-  @Output() onSelectPackage = new EventEmitter<string>();
+  @Output() onSelectPackage = new EventEmitter<any>();
 
-  @Output() onUploadInfo = new EventEmitter<any>();
-
-  @Output() addDocs = new EventEmitter<FormData>();
+  @Output() onUploadDenialLetter = new EventEmitter<any>();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -65,89 +63,62 @@ export class LetterPageViewComponent {
   documentsForm: FormGroup<{
     company: FormControl<string>;
     package: FormControl<string>;
-    letter: FormControl<File | null>;
   }> = this.fb.group({
     company: ['', [Validators.required]],
     package: ['', [Validators.required]],
-    letter: new FormControl<File | null>(null, [Validators.required]),
   });
 
-  selectedFile: any = [];
-  blob: Blob;
+  filename: string | null;
 
   submitForm() {
-    this.onUploadInfo.emit(this.documentsForm.value);
+    // this.onUploadInfo.emit(this.documentsForm.value);
   }
 
-  selectCompany(company: ICompany) {
+  public selectCompany(company: ICompany) {
     if (company) {
-      console.log(company);
       this.documentsForm.value.company = company.id;
       this.onSelectCompany.emit(company);
       this.documentsForm.controls['package'].reset();
-      this.documentsForm.controls['letter'].reset();
+      this.deleteInfoItem('letter');
     }
   }
 
-  selectPackage() {
-    console.log(this.documentsForm.value.package);
+  public selectPackage(e: any) {
     this.onSelectPackage.emit(this.documentsForm.value.package);
+    this.deleteInfoItem('letter');
   }
 
-  deleteInfoItem(typeInfo: string) {
+  public addLetter(ev: any) {
+    const file = ev.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const fileEntry = formData.get('file');
+
+    if (fileEntry instanceof File) {
+      this.filename = fileEntry.name;
+    } else {
+      console.error('Invalid file entry');
+    }
+    this.onUploadDenialLetter.emit(formData);
+  }
+
+  public deleteInfoItem(typeInfo: string) {
     switch (typeInfo) {
       case 'company':
         this.documentsForm.controls['company'].reset();
         this.localStorage.clean();
         this.documentsForm.reset();
+        this.filename = null;
         break;
       case 'package':
         this.documentsForm.controls['package'].reset();
         this.localStorage.deletePackage();
+        this.filename = null;
         break;
       case 'letter':
-        this.documentsForm.controls['letter'].reset();
+        this.filename = null;
         break;
     }
-  }
-
-  addLetter(ev: any) {
-    const target = ev.target as HTMLInputElement;
-    const files = target.files;
-
-    if (files) {
-      const formData = new FormData();
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        console.log(file.name);
-        this.selectedFile.push(file);
-        formData.append(file.name, file);
-      }
-      this.addDocs.emit(formData);
-    }
-
-    const reader = new FileReader();
-
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      if (event.target && reader.result) {
-        this.blob = new Blob([reader.result], {
-          type: this.selectedFile[0].type,
-        });
-        var element = document.querySelector('p');
-
-        if (element) {
-          for (let i = 0; i < this.selectedFile.length; i++) {
-            let f = this.selectedFile[i];
-            element.innerHTML = `${element.innerHTML} ${f.name} ${f.size} ${f.type}`;
-          }
-          console.log(this.selectedFile);
-        }
-      } else {
-        console.error('File could not be read.');
-      }
-    };
-
-    // reader.readAsArrayBuffer(this.selectedFile[0]);
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { Observable, catchError, filter, map, of, tap, throwError } from 'rxjs';
 import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
@@ -47,8 +47,10 @@ export class LetterPageComponent {
 
   answerAI$: Observable<any>;
 
-  onUploadInfo(data: any) {
-    this.answerAI$ = this.docsService.submitDocs(this.formData, data).pipe(
+  onUploadDenialLetter(data: any) {
+    const formdata: FormData = new FormData();
+
+    this.answerAI$ = this.docsService.submitDocs(this.formData).pipe(
       map((data) => {
         return data;
       }),
@@ -80,6 +82,19 @@ export class LetterPageComponent {
     }
   }
 
+  onSelectPackage(packageName: string) {
+    this.packagesList$
+      .pipe(
+        tap((data) => {
+          const filteredData = data.filter((el) => el.name === packageName);
+          filteredData.forEach((el) =>
+            this.localStorage.savePackage(el.id, el.name)
+          );
+        })
+      )
+      .subscribe();
+  }
+
   private saveCurrentCompany(company: ICompany) {
     this.currentCompany$ = of(company);
     this.localStorage.saveCompany(company.id, company.name);
@@ -90,7 +105,6 @@ export class LetterPageComponent {
   }
 
   createErrorMessage(type: string): void {
-    console.log(11111);
     this.messageService.error(`The ${type} weren't added. Try it again`, {
       nzDuration: 2000,
     });
