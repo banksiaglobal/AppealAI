@@ -1,0 +1,23 @@
+nz-list {
+  max-width: 85%;
+  margin: 0 auto;
+}
+
+.list-docs-item {
+  display: flex;
+
+  &__idx {
+    margin-right: 5px;
+  }
+}
+
+.delete-icon {
+  margin-left: 5px;
+  background: url("../../../assets/del.svg") no-repeat center;
+}
+
+@media screen and (max-width: 580px) {
+  nz-list {
+    min-width: 100%;
+  }
+}

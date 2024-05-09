@@ -39,21 +39,21 @@
             </div>
 
             <div class="list-docs-box" *ngIf="documentsForm.value.company  || documentsForm.value?.package || filename">
-                <!-- <div class="list-docs-box"> -->
-                <h3 nz-typography>The List Docs:</h3>
-                <div class="list-docs-item" *ngIf="documentsForm.value.company">
+                <div class="list-info-item" *ngIf="documentsForm.value.company">
                     <div nz-typography>Company: </div>
-                    <div class="list-docs-item-name"> {{currentCompany?.name}}</div>
+                    <div class="list-info-item-name"> {{currentCompany?.name}}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
                 </div>
-                <div class="list-docs-item" *ngIf="documentsForm.value.package">
-                    <div nz-typography> Insurance package: </div>
-                    <div class="list-docs-item-name">{{documentsForm.value.package}} </div>
-
+                <div class="list-info-item" *ngIf="documentsForm.value.package">
+                    <div nz-typography> Package: </div>
+                    <div class="list-info-item-name">{{documentsForm.value.package}} </div>
                     <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
-
                 </div>
-                <div class="list-docs-item" *ngIf="filename !== null">
+                <div *ngIf="documentsForm.value.package">
+                    <app-list-documents [listDocsForPackage]="listDocsForPackage"
+                        (deleteDocument)="deleteDocument.emit($event)" />
+                </div>
+                <div class="list-info-item" *ngIf="filename !== null">
                     <div nz-typography> Letter: </div>
                     <div class="list-docs-item-name"> {{filename }}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>

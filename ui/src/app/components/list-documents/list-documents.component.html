@@ -1,0 +1,20 @@
+<nz-list nzItemLayout="horizontal">
+    <nz-list nzBordered nzSize="small">
+        <nz-list-header>List of documents:</nz-list-header>
+        @for (item of listDocsForPackage; track item; let i = $index) {
+        <nz-list-item>
+            <div class="list-docs-item">
+                <div nz-typography class="list-docs-item">{{i+1}}</div>
+                <div nz-typography>{{ item.name }}</div>
+            </div>
+            <div class="list-docs-item">
+                <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
+                <div class="delete-icon" (click)="deleteInfoItem(item)"></div>
+            </div>
+
+        </nz-list-item>
+        }
+        @if (listDocsForPackage?.length === 0) {
+        <nz-list-empty />
+        }
+    </nz-list>

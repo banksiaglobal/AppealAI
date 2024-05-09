@@ -4,15 +4,7 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { StartPageViewComponent } from '../start-page-view/start-page-view.component';
-import {
-  map,
-  catchError,
-  throwError,
-  tap,
-  Observable,
-  of,
-  timeInterval,
-} from 'rxjs';
+import { map, catchError, throwError, tap, Observable, of } from 'rxjs';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -20,7 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { ICompany } from '../../../interface/company.interface';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
-import { DocsService } from '../../../service/letter.service';
+import { DocsService } from '../../../service/docs.service';
 
 @Component({
   selector: 'app-start-page',
@@ -83,21 +75,18 @@ export class StartPageComponent implements OnInit {
           map((data) => {
             return data;
           }),
-          tap(
-            (data) => {
-              this.createSuccessMessage('package');
-              this.localStorage.savePackage(data.id, data.name);
-            },
-            catchError((error: any) => {
-              this.createErrorMessage('package');
-              return throwError(() => error);
-            })
-          )
+          tap((data) => {
+            this.createSuccessMessage('package');
+            this.localStorage.savePackage(data.id, data.name);
+          }),
+          catchError((error: any) => {
+            this.createErrorMessage('package');
+            return throwError(() => error);
+          })
         );
   }
 
   createErrorMessage(type: string): void {
-    console.log('err');
     this.messageSrvice.error(`The ${type} wasn't added. Try it again`, {
       nzDuration: 2000,
     });
@@ -113,7 +102,7 @@ export class StartPageComponent implements OnInit {
     const packageId = this.localStorage.getPackageId();
     formData.append('package', packageId);
     this.docsService
-      .addnewFile(formData)
+      .addDocumentForPackage(formData)
       .pipe(
         tap(() => {
           this.createSuccessMessage('document');

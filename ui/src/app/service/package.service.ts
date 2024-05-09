@@ -13,15 +13,6 @@ import {
 export class PackageService {
   constructor(private http: HttpClient) {}
 
-  getCurrentPackageInfo(packageId: number): Observable<any> {
-    return this.http
-      .get<any>(`${environment.apiUrl}/package/${packageId}`)
-      .pipe(
-        map((response) => response),
-        catchError(() => of())
-      );
-  }
-
   getListPackagesForCurrentCompany(
     companyId: string
   ): Observable<IResponseAddPackage[]> {
