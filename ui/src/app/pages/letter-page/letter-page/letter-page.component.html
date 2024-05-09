@@ -1,5 +1,5 @@
 <app-letter-page-view [packagesList]="packagesList$ | async" [currentCompany]="currentCompany$ | async"
     (onSelectCompany)="onSelectCompany($event)" (onSelectPackage)="onSelectPackage($event)"
     (onUploadDenialLetter)="onUploadDenialLetter($event)" [listInsuranceOrg]="listInsuranceOrg$ | async"
-    (deleteDocument)="deleteDocument($event)" [answerAI]="answerAI$ |async"
+    (deleteDocument)="deleteDocument($event)" (saveDocument)="saveDocument($event)" [answerAI]="answerAI$ |async"
     [listDocsForPackage]="listDocsForPackage$ | async" />

@@ -29,7 +29,13 @@ export class DocsService {
       );
   }
 
-  deleteDocumentForCurrentPackage(filename: string) {
-    return this.http.delete(`${environment.apiUrl}/document/${filename}`);
+  /*download file from server */
+
+  downloadDocument(fileId: string) {
+    return this.http.get<any>(`${environment.apiUrl}/document/${fileId}`);
+  }
+
+  deleteDocumentForCurrentPackage(fileId: string) {
+    return this.http.delete(`${environment.apiUrl}/document/${fileId}`);
   }
 }

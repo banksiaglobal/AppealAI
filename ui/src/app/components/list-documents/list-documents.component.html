@@ -9,6 +9,7 @@
             </div>
             <div class="list-docs-item">
                 <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
+                <div class="download-icon" (click)="downloadItem(item)"></div>
                 <div class="delete-icon" (click)="deleteInfoItem(item)"></div>
             </div>
 
