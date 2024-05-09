@@ -33,12 +33,14 @@ export const routes: Routes = [
         (m) => m.LetterPageComponent
       ),
     title: 'Docs',
+    pathMatch: 'full',
   },
   {
-    path: 'AI',
+    path: 'answer',
     loadComponent: () =>
       import('./pages/ai-page/ai/ai.component').then((m) => m.AiComponent),
     title: 'AI',
+    pathMatch: 'full',
   },
   {
     path: '**',

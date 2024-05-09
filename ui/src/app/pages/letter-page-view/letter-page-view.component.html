@@ -30,12 +30,7 @@
                         </a>
                     </div>
                 </nz-form-item>
-                <nz-form-item class="download" nz-button nzType="primary">
-                    <label for="inputLetter">
-                        <div class="btn-download">Add a denial letter</div>
-                        <input type="file" id="inputLetter" (change)="addLetter($event)">
-                    </label>
-                </nz-form-item>
+
             </div>
 
             <div class="list-docs-box" *ngIf="documentsForm.value.company  || documentsForm.value?.package || filename">
@@ -55,10 +50,16 @@
                 </div>
                 <div class="list-info-item" *ngIf="filename !== null">
                     <div nz-typography> Letter: </div>
-                    <div class="list-docs-item-name"> {{filename }}</div>
+                    <div class="list-info-item-name"> {{filename }}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
             </div>
+            <nz-form-item class="download" nz-button nzType="primary">
+                <label for="inputLetter">
+                    <div class="btn-download">Add a denial letter</div>
+                    <input type="file" id="inputLetter" (change)="addLetter($event)">
+                </label>
+            </nz-form-item>
             <div class="btn-box" nz-flex [nzAlign]="'center'">
                 <button class="btn-submit" type="submit" nz-button nzType="primary"
                     [disabled]="!documentsForm.valid || !filename" (click)="submitForm()">

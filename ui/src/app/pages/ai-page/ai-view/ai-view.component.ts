@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { ActivatedRoute } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ai-view',
   standalone: true,
-  imports: [],
+  imports: [NzResultModule, NzButtonModule, RouterLink],
   templateUrl: './ai-view.component.html',
-  styleUrl: './ai-view.component.scss'
+  styleUrl: './ai-view.component.scss',
 })
-export class AiViewComponent {
-
-}
+export class AiViewComponent {}

@@ -31,8 +31,11 @@ export class DocsService {
 
   /*download file from server */
 
-  downloadDocument(fileId: string) {
-    return this.http.get<any>(`${environment.apiUrl}/document/${fileId}`);
+  downloadDocument(fileName: string) {
+    return this.http.get<any>(`${environment.apiUrl}/document/${fileName}`, {
+      observe: 'response',
+      responseType: 'blob' as 'json',
+    });
   }
 
   deleteDocumentForCurrentPackage(fileId: string) {
