@@ -10,7 +10,7 @@
 
 .steps-action {
   position: absolute;
-  bottom: 10px;
+  bottom: 0px;
 }
 
 .ant-steps {
@@ -20,9 +20,10 @@
 .item-header-box {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  margin: 5px auto;
   padding: 5px;
   border-radius: 5px;
+  max-width: 70%;
   border: 1px solid rgba(24, 144, 255, 0.2);
   background-color: rgba(24, 144, 255, 0.2);
   box-shadow: -3px 1px 28px -17px rgba(155, 23, 80, 1);
@@ -32,15 +33,15 @@
   }
 }
 
+.delete-icon {
+  margin-left: auto;
+}
+
 .item-name-title {
   margin-left: 10px;
   color: var(--primary-color);
   font-size: 18px;
   text-transform: capitalize;
-}
-
-.doc-title {
-  margin-bottom: 20px;
 }
 
 .download-input {
@@ -59,4 +60,10 @@
 
 .item-header-box .ant-card-body {
   padding: 10px !important;
+}
+
+@media screen and (max-width: 580px) {
+  .item-header-box {
+    min-width: 100%;
+  }
 }
