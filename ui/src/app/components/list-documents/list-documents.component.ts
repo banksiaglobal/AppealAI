@@ -15,7 +15,13 @@ export class ListDocumentsComponent {
 
   @Output() deleteDocument = new EventEmitter<any>();
 
+  @Output() saveDocument = new EventEmitter<any>();
+
   deleteInfoItem(infoFile: IDoc) {
     this.deleteDocument.emit(infoFile);
+  }
+
+  downloadItem(infoFile: IDoc) {
+    this.saveDocument.emit(infoFile);
   }
 }

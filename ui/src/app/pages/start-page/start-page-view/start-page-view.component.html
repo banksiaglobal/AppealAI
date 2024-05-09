@@ -45,15 +45,14 @@
                     </label>
                 </div>
 
-                <div class="list-docs-item" id="listDocsItem" *ngIf="filename">
-                    <div class="list-info-item">
-                        <div nz-typography> Doc: </div>
-                        <div class="item-name-title">{{ filename }}</div>
-                        <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
-                    </div>
-
-
+                <div class="list-info-item" *ngIf="filename">
+                    <div nz-typography> Doc: </div>
+                    <div class="item-name-title">{{ filename }}</div>
+                    <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
+
+
+
 
                 <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
                     [disabled]="!newPackage && !filename">Upload</button>

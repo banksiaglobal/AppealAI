@@ -12,8 +12,46 @@ nz-list {
 }
 
 .delete-icon {
-  margin-left: 5px;
+  position: relative;
+  margin-left: 8px;
+  padding: 3px;
   background: url("../../../assets/del.svg") no-repeat center;
+}
+
+.download-icon {
+  position: relative;
+  padding: 3px;
+  margin-left: 8px;
+  width: 20px;
+  height: 20px;
+  background: url("../../../assets/download.svg") no-repeat center;
+  cursor: pointer;
+}
+
+.download-icon-tooltiptext,
+.delete-icon-tooltiptext {
+  position: absolute;
+  visibility: hidden;
+  padding: 3px;
+  bottom: 30px;
+  right: 10px;
+  min-width: 100px;
+  z-index: 4;
+  color: #000;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 9px;
+}
+
+.download-icon:hover {
+  box-shadow: rgba(83, 85, 86, 0.2) 3px 0px 0px 1px inset;
+}
+.download-icon:hover .download-icon-tooltiptext {
+  visibility: visible;
+}
+
+.delete-icon:hover .delete-icon-tooltiptext {
+  visibility: visible;
 }
 
 @media screen and (max-width: 580px) {

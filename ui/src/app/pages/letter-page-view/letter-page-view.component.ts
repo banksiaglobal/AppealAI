@@ -62,6 +62,8 @@ export class LetterPageViewComponent {
 
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
+  @Output() saveDocument = new EventEmitter<any>();
+
   constructor(
     private fb: NonNullableFormBuilder,
     private localStorage: SessionStorageService

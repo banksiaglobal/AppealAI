@@ -128,7 +128,7 @@ export class LetterPageComponent {
 
   deleteDocument(documentInfo: IDoc) {
     this.docsService
-      .deleteDocumentForCurrentPackage(documentInfo.name)
+      .deleteDocumentForCurrentPackage(documentInfo.id)
       .pipe(
         tap(() => {
           this.createSuccessMessage('document', 'was deleted');
@@ -139,6 +139,22 @@ export class LetterPageComponent {
             'document',
             "wasn't deleted. Smth went wrong"
           );
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  saveDocument(documentInfo: IDoc) {
+    this.docsService
+      .downloadDocument(documentInfo.id)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document', 'was saved');
+          this.getAllDocsForCurrentPackage(documentInfo.packageId);
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage('document', "wasn't saved. Smth went wrong");
           return throwError(() => error);
         })
       )
