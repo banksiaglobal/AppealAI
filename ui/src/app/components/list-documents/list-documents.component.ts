@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { IDoc } from '../../interface/docs.interface';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,9 @@ import { CommonModule } from '@angular/common';
 export class ListDocumentsComponent {
   @Input() listDocsForPackage: IDoc[] | null;
 
-  deleteInfoItem(ev: any) {
-    console.log(ev.value);
+  @Output() deleteDocument = new EventEmitter<any>();
+
+  deleteInfoItem(infoFile: IDoc) {
+    this.deleteDocument.emit(infoFile);
   }
 }

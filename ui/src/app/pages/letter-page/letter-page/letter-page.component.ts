@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, catchError, filter, map, of, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
@@ -51,24 +51,17 @@ export class LetterPageComponent {
   answerAI$: Observable<any>;
 
   onUploadDenialLetter(data: any) {
-    const formdata: FormData = new FormData();
-
-    this.answerAI$ = this.docsService.submitDocs(this.formData).pipe(
+    this.answerAI$ = this.docsService.addDocumentForPackage(this.formData).pipe(
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('files')),
+      tap(() => this.createSuccessMessage('file', 'was added')),
       tap(() => this.goToAIPage()),
       catchError((error: any) => {
-        tap(() => this.createErrorMessage('files'));
+        tap(() => this.createErrorMessage('file', "wasn't added"));
         return throwError(() => error);
       })
     );
-  }
-
-  addDocs(formData: FormData) {
-    this.formData = formData;
-    console.log(this.formData.get('sinsay-1.pdf'));
   }
 
   private getData() {
@@ -101,13 +94,15 @@ export class LetterPageComponent {
   }
 
   getAllDocsForCurrentPackage(packageId: string) {
-    this.listDocsForPackage$ = this.docsService
-      .getListDocsForCurrentPackage(packageId)
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
+    if (packageId) {
+      this.listDocsForPackage$ = this.docsService
+        .getListDocsForCurrentPackage(packageId)
+        .pipe(
+          map((data) => {
+            return data;
+          })
+        );
+    }
   }
 
   private saveCurrentCompany(company: ICompany) {
@@ -119,15 +114,34 @@ export class LetterPageComponent {
     this.router.navigate(['/AI']);
   }
 
-  createErrorMessage(type: string): void {
-    this.messageService.error(`The ${type} weren't added. Try it again`, {
+  createErrorMessage(type: string, action: string): void {
+    this.messageService.error(`The ${type} ${action}. Try it again`, {
       nzDuration: 2000,
     });
   }
 
-  createSuccessMessage(type: string): void {
-    this.messageService.success(`The ${type} were added.`, {
+  createSuccessMessage(type: string, action: string): void {
+    this.messageService.success(`The ${type} ${action}.`, {
       nzDuration: 2000,
     });
+  }
+
+  deleteDocument(documentInfo: IDoc) {
+    this.docsService
+      .deleteDocumentForCurrentPackage(documentInfo.name)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document', 'was deleted');
+          this.getAllDocsForCurrentPackage(documentInfo.packageId);
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage(
+            'document',
+            "wasn't deleted. Smth went wrong"
+          );
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
   }
 }

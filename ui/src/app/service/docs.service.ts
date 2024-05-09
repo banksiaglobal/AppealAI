@@ -9,9 +9,9 @@ import { IDoc } from '../interface/docs.interface';
 export class DocsService {
   constructor(private http: HttpClient) {}
 
-  submitDocs(formData: FormData) {
+  addDocumentForPackage(formData: FormData) {
     return this.http
-      .post(`${environment.apiUrl}/document/upload `, formData)
+      .post(`${environment.apiUrl}/document/upload`, formData)
       .pipe(
         map((response) => response),
         catchError(() => of())
@@ -27,5 +27,9 @@ export class DocsService {
         map((response) => response.documents),
         catchError(() => of())
       );
+  }
+
+  deleteDocumentForCurrentPackage(filename: string) {
+    return this.http.delete(`${environment.apiUrl}/document/${filename}`);
   }
 }

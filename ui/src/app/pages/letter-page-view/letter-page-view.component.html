@@ -50,7 +50,8 @@
                     <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
                 </div>
                 <div *ngIf="documentsForm.value.package">
-                    <app-list-documents [listDocsForPackage]="listDocsForPackage" />
+                    <app-list-documents [listDocsForPackage]="listDocsForPackage"
+                        (deleteDocument)="deleteDocument.emit($event)" />
                 </div>
                 <div class="list-info-item" *ngIf="filename !== null">
                     <div nz-typography> Letter: </div>

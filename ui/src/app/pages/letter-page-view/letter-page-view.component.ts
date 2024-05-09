@@ -58,6 +58,8 @@ export class LetterPageViewComponent {
 
   @Output() onSelectPackage = new EventEmitter<any>();
 
+  @Output() deleteDocument = new EventEmitter<any>();
+
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
   constructor(
@@ -120,9 +122,6 @@ export class LetterPageViewComponent {
         this.documentsForm.controls['package'].reset();
         this.localStorage.deletePackage();
         this.filename = null;
-        break;
-      case 'doc':
-        alert;
         break;
       case 'letter':
         this.filename = null;
