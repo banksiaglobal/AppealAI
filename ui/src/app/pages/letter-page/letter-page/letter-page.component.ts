@@ -11,6 +11,7 @@ import { DocsService } from '../../../service/docs.service';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { IDoc } from '../../../interface/docs.interface';
 
 @Component({
   selector: 'app-letter-page',
@@ -42,6 +43,8 @@ export class LetterPageComponent {
   packagesList$: Observable<IResponseAddPackage[]>;
 
   listInsuranceOrg$: Observable<ICompany[]>;
+
+  listDocsForPackage$: Observable<IDoc[]>;
 
   formData: FormData;
 
@@ -83,16 +86,28 @@ export class LetterPageComponent {
   }
 
   onSelectPackage(packageName: string) {
+    let packageId: string;
     this.packagesList$
       .pipe(
         tap((data) => {
           const filteredData = data.filter((el) => el.name === packageName);
-          filteredData.forEach((el) =>
-            this.localStorage.savePackage(el.id, el.name)
-          );
+          filteredData.forEach((el) => {
+            (packageId = el.id), this.localStorage.savePackage(el.id, el.name);
+          });
+          this.getAllDocsForCurrentPackage(packageId);
         })
       )
       .subscribe();
+  }
+
+  getAllDocsForCurrentPackage(packageId: string) {
+    this.listDocsForPackage$ = this.docsService
+      .getListDocsForCurrentPackage(packageId)
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
   }
 
   private saveCurrentCompany(company: ICompany) {

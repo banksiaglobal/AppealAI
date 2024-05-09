@@ -19,6 +19,8 @@ import { ICompany } from '../../interface/company.interface';
 import { RouterLink } from '@angular/router';
 import { SessionStorageService } from '../../service/localStorage.service';
 import { IResponseAddPackage } from '../../interface/package.interface';
+import { IDoc } from '../../interface/docs.interface';
+import { ListDocumentsComponent } from '../../components/list-documents/list-documents.component';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -36,6 +38,7 @@ import { IResponseAddPackage } from '../../interface/package.interface';
     FormsModule,
     ReactiveFormsModule,
     RouterLink,
+    ListDocumentsComponent,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -46,6 +49,8 @@ export class LetterPageViewComponent {
   @Input() listInsuranceOrg: ICompany[] | null;
 
   @Input() packagesList: IResponseAddPackage[] | null;
+
+  @Input() listDocsForPackage: IDoc[] | null;
 
   @Input() answerAI: any[] | null;
 
@@ -115,6 +120,9 @@ export class LetterPageViewComponent {
         this.documentsForm.controls['package'].reset();
         this.localStorage.deletePackage();
         this.filename = null;
+        break;
+      case 'doc':
+        alert;
         break;
       case 'letter':
         this.filename = null;

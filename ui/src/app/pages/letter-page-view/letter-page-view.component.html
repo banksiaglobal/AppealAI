@@ -45,11 +45,12 @@
                     <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
                 </div>
                 <div class="list-info-item" *ngIf="documentsForm.value.package">
-                    <div nz-typography> Insurance package: </div>
+                    <div nz-typography> Package: </div>
                     <div class="list-info-item-name">{{documentsForm.value.package}} </div>
-
                     <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
-
+                </div>
+                <div *ngIf="documentsForm.value.package">
+                    <app-list-documents [listDocsForPackage]="listDocsForPackage" />
                 </div>
                 <div class="list-info-item" *ngIf="filename !== null">
                     <div nz-typography> Letter: </div>
