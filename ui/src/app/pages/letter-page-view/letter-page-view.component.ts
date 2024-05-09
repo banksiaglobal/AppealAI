@@ -79,8 +79,10 @@ export class LetterPageViewComponent {
 
   filename: string | null;
 
+  formData = new FormData();
+
   submitForm() {
-    // this.onUploadInfo.emit(this.documentsForm.value);
+    this.onUploadDenialLetter.emit(this.formData);
   }
 
   public selectCompany(company: ICompany) {
@@ -99,17 +101,16 @@ export class LetterPageViewComponent {
 
   public addLetter(ev: any) {
     const file = ev.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+    console.log(file);
 
-    const fileEntry = formData.get('file');
-
-    if (fileEntry instanceof File) {
-      this.filename = fileEntry.name;
+    if (file) {
+      this.formData = new FormData();
+      this.formData.append('file', file, file.name);
+      this.filename = file.name;
+      console.log(this.filename);
     } else {
-      console.error('Invalid file entry');
+      console.error('No file selected');
     }
-    this.onUploadDenialLetter.emit(formData);
   }
 
   public deleteInfoItem(typeInfo: string) {

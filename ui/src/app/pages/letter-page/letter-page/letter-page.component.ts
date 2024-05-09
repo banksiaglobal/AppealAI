@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';
+import { saveAs } from 'file-saver';
+import { LetterService } from '../../../service/letter.service';
 
 @Component({
   selector: 'app-letter-page',
@@ -26,6 +28,7 @@ export class LetterPageComponent {
     private packageService: PackageService,
     private localStorage: SessionStorageService,
     private docsService: DocsService,
+    private letterService: LetterService,
     private router: Router,
     private messageService: NzMessageService
   ) {}
@@ -46,12 +49,14 @@ export class LetterPageComponent {
 
   listDocsForPackage$: Observable<IDoc[]>;
 
-  formData: FormData;
-
   answerAI$: Observable<any>;
 
-  onUploadDenialLetter(data: any) {
-    this.answerAI$ = this.docsService.addDocumentForPackage(this.formData).pipe(
+  onUploadDenialLetter(formData: any) {
+    const packageId = this.localStorage.getPackageId();
+    formData.append('document', 3);
+    formData.append('visit', ' a1bf3d4e-096f-11ef-9b39-0242ac180002');
+
+    this.answerAI$ = this.letterService.addnewFile(formData).pipe(
       map((data) => {
         return data;
       }),
@@ -111,7 +116,7 @@ export class LetterPageComponent {
   }
 
   goToAIPage() {
-    this.router.navigate(['/AI']);
+    this.router.navigate(['/answer']);
   }
 
   createErrorMessage(type: string, action: string): void {
@@ -147,17 +152,46 @@ export class LetterPageComponent {
 
   saveDocument(documentInfo: IDoc) {
     this.docsService
-      .downloadDocument(documentInfo.id)
+      .downloadDocument(documentInfo.name)
       .pipe(
+        map((result: any) => {
+          console.log(result);
+          saveAs(result, documentInfo.name);
+          this.downloadFile(result);
+          return result;
+        }),
         tap(() => {
           this.createSuccessMessage('document', 'was saved');
           this.getAllDocsForCurrentPackage(documentInfo.packageId);
         }),
         catchError((error: any) => {
           this.createErrorMessage('document', "wasn't saved. Smth went wrong");
+          console.error(error);
+
+          alert(
+            'Problem while downloading the file.\n' +
+              '[' +
+              error.status +
+              '] ' +
+              error.statusText
+          );
           return throwError(() => error);
         })
       )
       .subscribe();
+  }
+
+  downloadFile(response: any) {
+    // console.log(response);
+    // let header_content = response.headers.get('content-disposition');
+    // let file = header_content.split('=')[1];
+    // file = file.substring(1, file.length - 1);
+    // let extension = file.split('.')[1].toLowerCase();
+    // let newVariable: any = window.navigator;
+    // let newBlob = new Blob([response.body], { type: extension });
+    // if (newVariable && newVariable.msSaveOrOpenBlob) {
+    //   newVariable.msSaveOrOpenBlob(newBlob);
+    //   return;
+    // }
   }
 }
