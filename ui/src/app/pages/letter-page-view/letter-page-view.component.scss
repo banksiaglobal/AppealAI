@@ -48,14 +48,11 @@ label {
 }
 
 .list-docs-box {
-  margin-right: auto;
+  margin: 0 auto;
+  width: 100%;
 }
 
-.list-docs-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
+.list-info-item {
   &-name {
     font-size: 18px;
     color: var(--primary-color);

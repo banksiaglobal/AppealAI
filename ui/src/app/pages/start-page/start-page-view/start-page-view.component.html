@@ -8,14 +8,14 @@
             </nz-steps>
 
             @if(currentCompany?.name || companyName){
-            <div class="item-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+            <div class="list-info-item" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
                 <div>The Insurance Company:</div>
                 <div class="item-name-title">{{currentCompany?.name || companyName}}</div>
                 <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
             </div>
             }
             @if(newPackage?.name || packageName){
-            <div class="item-header-box" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+            <div class="list-info-item" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
                 <div>The Insurance Package:</div>
                 <div class="item-name-title">{{newPackage?.name || packageName}}</div>
                 <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="list-docs-item" id="listDocsItem" *ngIf="filename">
-                    <div class="item-header-box">
+                    <div class="list-info-item">
                         <div nz-typography> Doc: </div>
                         <div class="item-name-title">{{ filename }}</div>
                         <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
