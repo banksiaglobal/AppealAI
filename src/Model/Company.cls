@@ -5,6 +5,8 @@ Property Name As %String;
 
 Index IndexName On Name [ Unique ];
 
+// Retrieve all companies
+
 ClassMethod GetAll() As %Library.DynamicArray
 {
     

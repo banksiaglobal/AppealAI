@@ -11,7 +11,9 @@ Property Package As Model.Package;
 
 Property TypeOfDocument As %String;
 
-Index IndexName On Name;
+Index IndexName On Name [ Unique ];
+
+// Retrieve a document by its name
 
 ClassMethod GetDocumentByName(name) As Model.Document
 {
@@ -22,6 +24,8 @@ ClassMethod GetDocumentByName(name) As Model.Document
     }
     Return Document
 }
+
+// Retrieve all documents belonging to a specific package
 
 ClassMethod GetAllByPackage(packageId) As %Library.DynamicArray
 {
@@ -48,6 +52,8 @@ ClassMethod GetAllByPackage(packageId) As %Library.DynamicArray
     return documents
 }
 
+// Save a document as a PDF using Python's reportlab library
+
 ClassMethod SaveDocumentPDF(text, path) [ Language = python ]
 {
     from reportlab.lib.pagesizes import A4
@@ -56,14 +62,13 @@ ClassMethod SaveDocumentPDF(text, path) [ Language = python ]
     c = canvas.Canvas(path, pagesize=A4)
     width, height = A4
 
-    # Split text into lines
+   
     lines = text.split('\n')
 
-    # Write each line to the PDF
-    y = height - 50  # Starting position from the top
+    y = height - 50  
     for line in lines:
         c.drawString(50, y, line)
-        y -= 15  # Move to the next line
+        y -= 15 
 
     c.save()
 }

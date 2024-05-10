@@ -9,6 +9,8 @@ Property Text As %String(MAXLEN = "");
 
 Index IndexDocument On Document;
 
+// Add a new chunk to the database
+
 ClassMethod AddChunk(pDocumentId As %String, pText As %String, pVector As %DynamicObject) As %Status
 {
     set NewChunk=..%New()
