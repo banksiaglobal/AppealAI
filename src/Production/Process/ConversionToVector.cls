@@ -88,6 +88,7 @@ for key, text in enumerate(texts):
 <assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
 <assign property="callrequest.TextChunks" value="context.textChunks" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
+<assign property="callrequest.TypeOfDoc" value="&quot;document&quot;" action="set" languageOverride="" />
 </request>
 <response type='Ens.Response' />
 </call>

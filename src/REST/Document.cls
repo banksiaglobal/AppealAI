@@ -225,6 +225,7 @@ ClassMethod GetDocumentInfo(name) As %Status
         set response.name = Document.Name
         set response.createdDateTime = Document.DateTime
         set response.packageId = Document.Package.%Id()
+        set response.typeOfDocument = Document.TypeOfDocument
         
     }
     catch ex {
