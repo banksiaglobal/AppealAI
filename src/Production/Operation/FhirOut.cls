@@ -1,7 +1,7 @@
 Class Production.Operation.FhirOut Extends HS.FHIRServer.Interop.HTTPOperation
 {
 
-Method OnMessage(pInteropRequest As HS.FHIRServer.Interop.Request, Output pInteropResponse As HS.FHIRServer.Interop.Response) As %Status
+Method OnMessage(pInteropRequest As HS.FHIRServer.Interop.Request, Output pInteropResponse As Production.Message.Response) As %Status
 {
     set tSC=$$$OK
 
@@ -219,19 +219,19 @@ Method OnMessage(pInteropRequest As HS.FHIRServer.Interop.Request, Output pInter
 		set apiResponse.Status = clientResponse.Status
 		set apiResponse.VId = clientResponse.VId
 		
-		set pInteropResponse.Response = apiResponse
-		// RestHandler needs this CharSet value to trigger proper handling
-		// of UTF-8 encoding when returning payload back over HTTP.
-		set pInteropResponse.CharSet = "UTF-8"
-		set pInteropResponse.ContentType = clientResponse.ResponseFormat
+		set pInteropResponse.Result = apiResponse
+		#; // RestHandler needs this CharSet value to trigger proper handling
+		#; // of UTF-8 encoding when returning payload back over HTTP.
+		#; set pInteropResponse.CharSet = "UTF-8"
+		#; set pInteropResponse.ContentType = clientResponse.ResponseFormat
 		
-		if $IsObject(clientResponse.Payload) {
-			set quickStreamOut = ##class(HS.SDA3.QuickStream).%New()
-			set pInteropResponse.QuickStreamId = quickStreamOut.%Id()
-			$$$ThrowOnError(quickStreamOut.CopyFrom(clientResponse.Payload))
-			$$$HSTRACE("Response QuickStream", "quickStreamOut", quickStreamOut)
-			$$$ThrowOnError(quickStreamOut.Rewind())
-		}
+		#; if $IsObject(clientResponse.Payload) {
+		#; 	set quickStreamOut = ##class(HS.SDA3.QuickStream).%New()
+		#; 	set pInteropResponse.QuickStreamId = quickStreamOut.%Id()
+		#; 	$$$ThrowOnError(quickStreamOut.CopyFrom(clientResponse.Payload))
+		#; 	$$$HSTRACE("Response QuickStream", "quickStreamOut", quickStreamOut)
+		#; 	$$$ThrowOnError(quickStreamOut.Rewind())
+		#; }
         
     }
     catch eException {
@@ -241,10 +241,10 @@ Method OnMessage(pInteropRequest As HS.FHIRServer.Interop.Request, Output pInter
 				do quickStreamIn.Rewind()
 				$$$HSTRACEERROR("Request QuickStream", "quickStreamIn", quickStreamIn)
 			}
-			if (($IsObject($Get(quickStreamOut))) && (quickStreamOut.%Extends("%Stream.Object"))) {	
-				do quickStreamOut.Rewind()
-				$$$HSTRACEERROR("Response QuickStream", "quickStreamOut", quickStreamOut)
-			}
+			#; if (($IsObject($Get(quickStreamOut))) && (quickStreamOut.%Extends("%Stream.Object"))) {	
+			#; 	do quickStreamOut.Rewind()
+			#; 	$$$HSTRACEERROR("Response QuickStream", "quickStreamOut", quickStreamOut)
+			#; }
 		}
     }
 }
