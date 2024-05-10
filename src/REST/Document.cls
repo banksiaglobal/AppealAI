@@ -15,6 +15,8 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 </Routes>
 }
 
+// Get all documents of a package
+
 ClassMethod GetAllDocumentOfPackage(packageId) As %Status
 {
     set response = {}
@@ -33,12 +35,16 @@ ClassMethod GetAllDocumentOfPackage(packageId) As %Status
     return ..Response(response, responseSC)
 }
 
+// Upload rejection letter
+
 ClassMethod UploadRejection() As %Status
 {
     #dim %request As %CSP.Request
     set response = {}
     set responseSC = $$$OK
-    set data = %request.GetMimeData("file") // %CSP.BinaryStream
+
+    // Get the file data and other parameters from the form-data
+    set data = %request.GetMimeData("file") 
     set documentId = %request.Get("document")
     set visitId = %request.Get("visit")
 
@@ -54,6 +60,7 @@ ClassMethod UploadRejection() As %Status
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
         }    
 
+        // Create a new request for Production.Service.AppealIn
         set requestDoc = ##class(Production.Message.AppealRequest).%New()
         set requestDoc.Name = data.FileName
         set requestDoc.DocumentId = documentId
@@ -61,12 +68,11 @@ ClassMethod UploadRejection() As %Status
         set requestDoc.VisitId = visitId
         set requestDoc.Data = data
 
-        set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
+        // Start production, if the it is not running
+        do ##class(Production.Utils).StartProduction("Production.AppealAIApp")
 
-        if 'statusProd{
-            do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
-        }
-        
+ 
+        // Call Production.Service.AppealIn
         set tSC = ##class(Ens.Director).CreateBusinessService("AppealIn",.tService)
 
         if ($ISOBJECT(tService)) {
@@ -90,12 +96,16 @@ ClassMethod UploadRejection() As %Status
     return ..Response(response, responseSC)
 }
 
+// Upload document
+
 ClassMethod Upload() As %Library.DynamicObject
 {
     #dim %request As %CSP.Request
     set response = {}
     set responseSC = $$$OK
-    set data = %request.GetMimeData("file") // %CSP.BinaryStream
+
+    // Get the file data and other parameters from the form-data
+    set data = %request.GetMimeData("file") 
     set packageId = %request.Get("package")
 
     try {
@@ -112,17 +122,16 @@ ClassMethod Upload() As %Library.DynamicObject
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Package not found"))
         }
 
+        // Create a new request for Production.Service.DocumentIn
         set requestDoc = ##class(Production.Message.DocumentRequest).%New()
         set requestDoc.Name = data.FileName
         set requestDoc.Package = packageId
         set requestDoc.Data = data
 
-        set statusProd = ##class(Ens.Director).IsProductionRunning("Production.AppealAIApp")
-
-        if 'statusProd{
-            do ##class(Ens.Director).StartProduction("Production.AppealAIApp")
-        }
+        // Start production, if the it is not running
+        do ##class(Production.Utils).StartProduction("Production.AppealAIApp")
         
+        // Call Production.Service.DocumentIn
         set tSC = ##class(Ens.Director).CreateBusinessService("DocumentIn",.tService)
         
         if ($ISOBJECT(tService)) {
