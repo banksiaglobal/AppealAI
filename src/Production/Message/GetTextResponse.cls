@@ -1,9 +1,7 @@
 Class Production.Message.GetTextResponse Extends (Ens.Response, %JSON.Adaptor, %XML.Adaptor)
 {
 
-Parameter %JSONIGNOREINVALIDFIELD = 1;
-
-Property Text As %String(%JSONFIELDNAME = "text", MAXLEN = "");
+Property Text As %String(MAXLEN = "");
 
 Storage Default
 {

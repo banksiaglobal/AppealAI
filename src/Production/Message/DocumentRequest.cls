@@ -1,11 +1,9 @@
 Class Production.Message.DocumentRequest Extends (Ens.Request, %JSON.Adaptor, %XML.Adaptor)
 {
 
-Parameter %JSONIGNOREINVALIDFIELD = 1;
+Property Name As %String(MAXLEN = 200);
 
-Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = 200);
-
-Property Package As %String(%JSONFIELDNAME = "package");
+Property Package As %String;
 
 Property Data As %CSP.BinaryStream;
 

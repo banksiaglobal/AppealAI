@@ -12,6 +12,8 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 </Routes>
 }
 
+// Create a new company
+
 ClassMethod Create() As %Library.DynamicObject
 {
     #dim %request As %CSP.Request
@@ -46,6 +48,8 @@ ClassMethod Create() As %Library.DynamicObject
     return ..Response(response, responseSC)
 }
 
+// Get company details by ID
+
 ClassMethod GetCompany(id) As %Status
 {
     set response = {}
@@ -71,6 +75,8 @@ ClassMethod GetCompany(id) As %Status
     
     return ..Response(response, responseSC)
 }
+
+// Get details of all companies
 
 ClassMethod GetAllCompany() As %Status
 {

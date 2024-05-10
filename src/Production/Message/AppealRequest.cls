@@ -1,15 +1,13 @@
 Class Production.Message.AppealRequest Extends (Ens.Request, %JSON.Adaptor, %XML.Adaptor)
 {
 
-Parameter %JSONIGNOREINVALIDFIELD = 1;
+Property Name As %String(MAXLEN = 200);
 
-Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = 200);
+Property DocumentId As %String;
 
-Property DocumentId As %String(%JSONFIELDNAME = "document");
+Property PackageId As %String;
 
-Property PackageId As %String(%JSONFIELDNAME = "document");
-
-Property VisitId As %String(%JSONFIELDNAME = "visit");
+Property VisitId As %String;
 
 Property Data As %CSP.BinaryStream;
 

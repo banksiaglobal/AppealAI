@@ -12,6 +12,8 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 </Routes>
 }
 
+// Create a new package
+
 ClassMethod Create() As %Status
 {
     #dim %request As %CSP.Request
@@ -57,6 +59,8 @@ ClassMethod Create() As %Status
     return ..Response(response, responseSC)
 }
 
+// Get information about a package
+
 ClassMethod GetPackage(id) As %Status
 {
     set response = {}
@@ -84,6 +88,8 @@ ClassMethod GetPackage(id) As %Status
     
     return ..Response(response, responseSC)
 }
+
+// Get all packages associated with a company
 
 ClassMethod GetAllPackages(companyId) As %Status
 {

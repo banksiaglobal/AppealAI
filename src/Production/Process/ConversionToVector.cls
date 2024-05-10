@@ -7,6 +7,12 @@ Storage Default
 <Type>%Storage.Persistent</Type>
 }
 
+/*
+    BPL Definition:
+
+    Splits the text of the document into parts. 
+	For each part get a vector and save the data.
+*/
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
@@ -49,7 +55,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 </property>
 </context>
 <sequence xend='200' yend='900' >
-<call name='Save file' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
+<call name='Save file to server' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
 <request type='Production.Message.SaveDocumentRequest' >
 <assign property="callrequest.Data" value="request.Data" action="set" languageOverride="" />
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
@@ -60,7 +66,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 <assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
 </response>
 </call>
-<if name='The file was successfully saved' condition='context.filePath &apos;= ""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='800' >
+<if name='The file was saved' condition='context.filePath &apos;= ""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='800' >
 <true>
 <call name='Get text of file' target='GetText' async='0' languageOverride="objectscript" xpos='335' ypos='500' >
 <request type='Production.Message.GetTextRequest' >
@@ -81,7 +87,7 @@ for key, text in enumerate(texts):
     context.vectorChunks.Insert(json.dumps(data[key][:200]))
 ]]>
 </code>
-<call name='Save data' target='SaveVector' async='0' xpos='335' ypos='700' >
+<call name='Save data' target='SaveVector' async='0' languageOverride="objectscript" xpos='335' ypos='700' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.VectorChunks" value="context.vectorChunks" action="set" languageOverride="" />

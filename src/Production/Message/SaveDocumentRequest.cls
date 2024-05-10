@@ -1,15 +1,13 @@
 Class Production.Message.SaveDocumentRequest Extends (Ens.Request, %JSON.Adaptor, %XML.Adaptor)
 {
 
-Parameter %JSONIGNOREINVALIDFIELD = 1;
+Property Text As %String(MAXLEN = "");
 
-Property Text As %String(%JSONFIELDNAME = "text", MAXLEN = "");
+Property Name As %String(MAXLEN = "");
 
-Property Name As %String(%JSONFIELDNAME = "name", MAXLEN = "");
+Property Package As %String;
 
-Property Package As %String(%JSONFIELDNAME = "package");
-
-Property TypeOfDoc As %String(%JSONFIELDNAME = "type");
+Property TypeOfDoc As %String;
 
 Property Data As %CSP.BinaryStream;
 

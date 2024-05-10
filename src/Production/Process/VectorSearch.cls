@@ -7,6 +7,13 @@ Storage Default
 <Type>%Storage.Persistent</Type>
 }
 
+/*
+    BPL Definition:
+
+    Get the text of the document and the vector.
+	Perform vector search.
+	Compose a letter of appeal.
+*/
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
@@ -63,7 +70,7 @@ import os
 </property>
 </context>
 <sequence xend='200' yend='2350' >
-<call name='Save file' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
+<call name='Save rejection file to server' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
 <request type='Production.Message.SaveDocumentRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />
@@ -74,9 +81,9 @@ import os
 <assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
 </response>
 </call>
-<if name='The file was successfully saved' condition='context.filePath &apos;=""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='2250' >
+<if name='The file was saved' condition='context.filePath &apos;=""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='2250' >
 <true>
-<call name='Get Text' target='GetText' async='0' languageOverride="objectscript" xpos='470' ypos='500' >
+<call name='Get text rejection file' target='GetText' async='0' languageOverride="objectscript" xpos='470' ypos='500' >
 <request type='Production.Message.GetTextRequest' >
 <assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
 </request>
@@ -84,7 +91,7 @@ import os
 <assign property="context.text" value="callresponse.Text" action="set" languageOverride="" />
 </response>
 </call>
-<code name='Get vector' languageOverride='python' xpos='470' ypos='600' >
+<code name='Get vector rejection file' languageOverride='python' xpos='470' ypos='600' >
 <![CDATA[OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 embeddings = OpenAIEmbeddings(api_key=OPENAI_API_KEY)
 data = embeddings.embed_documents([context.text])
@@ -92,7 +99,7 @@ context.textChunks.Insert(context.text)
 context.vectorChunks.Insert(json.dumps(data[0][:200]))
 context.vector = json.dumps(data[0])]]>
 </code>
-<call name='Save data' target='SaveVector' async='0' languageOverride="objectscript" xpos='470' ypos='700' >
+<call name='Save rejection data' target='SaveVector' async='0' languageOverride="objectscript" xpos='470' ypos='700' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.VectorChunks" value="context.vectorChunks" action="set" languageOverride="" />
 <assign property="callrequest.TextChunks" value="context.textChunks" action="set" languageOverride="" />
@@ -109,9 +116,9 @@ WHERE Document->ID = :request.DocumentId
 ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DESC
 ]]>
 </sql>
-<if name='The search turned up a match' condition='context.resultSearch &apos;=""' languageOverride="objectscript" xpos='470' ypos='900' xend='470' yend='2150' >
+<if name='The search a is match' condition='context.resultSearch &apos;=""' languageOverride="objectscript" xpos='470' ypos='900' xend='470' yend='2150' >
 <true>
-<call name='Call ai for bool' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='740' ypos='1050' >
+<call name='Call Ai for an analysis ' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='740' ypos='1050' >
 <request type='Banksia.OpenAi.Msg.SimplePrompt.Request' >
 <assign property="callrequest.UserInput" value="&quot;The denial letter: &quot;_context.text_&quot; And  text with  insurance contract: &quot;_context.resultSearch" action="set" languageOverride="" />
 <assign property="callrequest.Model" value="&quot;gpt-4-turbo&quot;" action="set" languageOverride="" />
@@ -121,10 +128,10 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <assign property="context.appealIspossible" value="callresponse.Content" action="set" languageOverride="" />
 </response>
 </call>
-<sync name='Wait call' calls='Call ai for bool' type='all' xpos='740' ypos='1150' />
+<sync name='Wait call' calls='Call Ai for an analysis ' type='all' xpos='740' ypos='1150' />
 <if name='An appeal is possible' condition='$ZCONVERT(context.appealIspossible, "t") = "YES"' languageOverride="objectscript" xpos='740' ypos='1250' xend='740' yend='2050' >
 <true>
-<call name='Call ai for appeal' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='1010' ypos='1400' >
+<call name='Call Ai for get appeal letter' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='1010' ypos='1400' >
 <request type='Banksia.OpenAi.Msg.SimplePrompt.Request' >
 <assign property="callrequest.UserInput" value="&quot;You have received the following insurance claim denial letter: &quot;_context.text_&quot;   Please write an appeal letter on behalf of treating hospital. Send just the text of the letter.&quot;" action="set" languageOverride="" />
 <assign property="callrequest.Prompt" value="&quot;You are a helpful, smart, kind, and efficient insurance claim appeal attorney. You always fulfill the user's requests to the best of your ability. &quot;" action="set" languageOverride="" />
@@ -134,8 +141,8 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <assign property="context.textAppeal" value="callresponse.Content" action="set" languageOverride="" />
 </response>
 </call>
-<sync name='Wait call' calls='Call ai for appeal' type='all' xpos='1010' ypos='1500' />
-<call name='Save file  ' target='SaveDocument' async='0' languageOverride="objectscript" xpos='1010' ypos='1600' >
+<sync name='Wait call' calls='Call Ai for get appeal letter' type='all' xpos='1010' ypos='1500' />
+<call name='Save appeal file to server' target='SaveDocument' async='0' languageOverride="objectscript" xpos='1010' ypos='1600' >
 <request type='Production.Message.SaveDocumentRequest' >
 <assign property="callrequest.TypeOfDoc" value="&quot;appeal&quot;" action="set" languageOverride="" />
 <assign property="callrequest.Text" value="context.textAppeal" action="set" languageOverride="" />
@@ -147,9 +154,9 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
 </response>
 </call>
-<if name='The file was successfully saved' condition='context.filePath &apos;=""' languageOverride="objectscript" xpos='1010' ypos='1700' xend='1010' yend='1950' >
+<if name='The file was saved' condition='context.filePath &apos;=""' languageOverride="objectscript" xpos='1010' ypos='1700' xend='1010' yend='1950' >
 <true>
-<call name='Save data appeal' target='SaveVector' async='0' languageOverride="objectscript" xpos='1280' ypos='1850' >
+<call name='Save appeal data' target='SaveVector' async='0' languageOverride="objectscript" xpos='1280' ypos='1850' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.PackageId" action="set" languageOverride="" />

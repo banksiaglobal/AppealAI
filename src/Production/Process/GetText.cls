@@ -2,6 +2,16 @@
 Class Production.Process.GetText Extends Ens.BusinessProcessBPL
 {
 
+/*
+    BPL Definition: 
+    
+    Get the text of the document.
+*/
+Storage Default
+{
+<Type>%Storage.Persistent</Type>
+}
+
 /// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
@@ -28,7 +38,7 @@ import os
 </context>
 <sequence xend='200' yend='800' >
 <assign name="Get file extension" property="context.Extension" value="request.Path.split('.')[-1]" action="set" languageOverride="python" xpos='200' ypos='250' />
-<switch xpos='200' ypos='350' xend='200' yend='600' >
+<switch name='Extension' xpos='200' ypos='350' xend='200' yend='600' >
 <case condition='context.Extension = "pdf"' name='Extension is pdf' languageOverride='objectscript' >
 <code name='PDF' languageOverride='python' xpos='335' ypos='500' >
 <![CDATA[with pdfplumber.open(request.Path) as pdf:
@@ -47,11 +57,6 @@ context. TextOfFile = '\n'.join([para.text for para in doc.paragraphs])]]>
 <assign name="Set text of file" property="response.Text" value="context.TextOfFile" action="set" languageOverride="" xpos='200' ypos='700' />
 </sequence>
 </process>
-}
-
-Storage Default
-{
-<Type>%Storage.Persistent</Type>
 }
 
 }

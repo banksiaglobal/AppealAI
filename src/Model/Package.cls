@@ -7,6 +7,8 @@ Property Description As %String(MAXLEN = "");
 
 Property Company As Model.Company;
 
+// Retrieve all packages associated with a company
+
 ClassMethod GetAllByCompany(id) As %Library.DynamicArray
 {
     set packages = []
