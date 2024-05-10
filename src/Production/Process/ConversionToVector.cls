@@ -1,3 +1,4 @@
+/// 
 Class Production.Process.ConversionToVector Extends Ens.BusinessProcessBPL
 {
 
@@ -12,6 +13,7 @@ Storage Default
     Splits the text of the document into parts. 
 	For each part get a vector and save the data.
 */
+/// BPL Definition
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
 <process language='python' request='Production.Message.DocumentRequest' response='Ens.Response' height='2000' width='2000' >
@@ -53,7 +55,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 </property>
 </context>
 <sequence xend='200' yend='900' >
-<call name='Save file' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
+<call name='Save file to server' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
 <request type='Production.Message.SaveDocumentRequest' >
 <assign property="callrequest.Data" value="request.Data" action="set" languageOverride="" />
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
@@ -64,7 +66,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 <assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
 </response>
 </call>
-<if name='The file was successfully saved' condition='context.filePath &apos;= ""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='800' >
+<if name='The file was saved' condition='context.filePath &apos;= ""' languageOverride="objectscript" xpos='200' ypos='350' xend='200' yend='800' >
 <true>
 <call name='Get text of file' target='GetText' async='0' languageOverride="objectscript" xpos='335' ypos='500' >
 <request type='Production.Message.GetTextRequest' >
