@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';
-import { saveAs } from 'file-saver';
 import { LetterService } from '../../../service/letter.service';
 
 @Component({
@@ -156,7 +155,6 @@ export class LetterPageComponent {
       .pipe(
         map((result: any) => {
           console.log(result);
-          saveAs(result, documentInfo.name);
           this.downloadFile(result);
           return result;
         }),
