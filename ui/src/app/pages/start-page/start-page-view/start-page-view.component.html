@@ -33,27 +33,22 @@
                 <app-create-package (createNewPackage)="createNewPackage.emit($event)" [packageName]="packageName" />
             </div>
             }
-
             @if (index===3) {
             <div class="steps-content">
-
-                <div class="load-box">
-
-                    <label for="inputLetter">
-                        <div class="btn-download">Add Doc </div>
-                        <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)">
+                <div class="load-box" *ngIf="!isUploadDoc">
+                    <label for="inputLetter" nz-tooltip nzTooltipTitle="adding an isurance contract"
+                        nzTooltipColor="geekblue" nzTooltipPlacement="bottom">
+                        <div class="btn-download">Add a contract </div>
+                        <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)"
+                            [disabled]="!newPackage && !packageName" />
                     </label>
                 </div>
 
-                <div class="list-info-item" *ngIf="filename">
+                <div class=" list-info-item" *ngIf="filename">
                     <div nz-typography> Doc: </div>
                     <div class="item-name-title">{{ filename }}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
-
-
-
-
                 <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
                     [disabled]="!newPackage && !filename">Upload</button>
             </div>
@@ -63,7 +58,6 @@
                 </div>
             </ng-container>
             }
-
             <div class="steps-action">
                 <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
                     <span>Previous</span>

@@ -1,7 +1,7 @@
 <nz-layout class="app-layout">
   <nz-sider class="menu-sidebar" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" [nzBreakpoint]="'md'">
     <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
+      <a href="https://community.intersystems.com/post/intersystems-vector-search-genai-and-ml-contest" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
         <h1>AppealAI</h1>
       </a>
@@ -16,7 +16,7 @@
           <a routerLink="/start">Start</a>
         </li>
         <li nz-menu-item>
-          <a routerLink="/letter">Loading...</a>
+          <a routerLink="/letter">Upload...</a>
         </li>
         <!-- <li nz-menu-item>
           <a routerLink="/answer">AI</a>
@@ -49,7 +49,7 @@
       <ul nz-menu nzTheme="dark" nzMode="horizontal">
         <li nz-menu-item><a routerLink="welcome">Welcome</a></li>
         <li nz-menu-item> <a routerLink="/start">Start</a></li>
-        <li nz-menu-item> <a routerLink="/letter">Loading...</a></li>
+        <li nz-menu-item> <a routerLink="/letter">Upload...</a></li>
         <!-- <li nz-menu-item>
           <a routerLink="/answer">AI</a>
         </li> -->
@@ -64,7 +64,9 @@
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-    <nz-footer nz-flex nzJustify="center">© 2024 Banksia Global. This site does not use trackers or cookies.</nz-footer>
+    <nz-footer nz-flex nzJustify="center">
+      <span>© 2024 </span> <a href="https://banksiaglobal.com/"> Banksia Global </a>. This site
+      does not use trackers or cookies.</nz-footer>
   </nz-layout>
 
 </nz-layout>

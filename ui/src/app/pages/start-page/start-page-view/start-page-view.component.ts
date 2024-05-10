@@ -20,6 +20,7 @@ import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { UploadDocMessageComponent } from '../../../components/upload-doc-message/upload-doc-message.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'app-start-page-view',
@@ -36,6 +37,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzFlexModule,
     UploadDocMessageComponent,
     NzUploadModule,
+    NzToolTipModule,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',

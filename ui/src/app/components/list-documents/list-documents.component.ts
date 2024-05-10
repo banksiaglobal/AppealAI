@@ -3,11 +3,12 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { IDoc } from '../../interface/docs.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'app-list-documents',
   standalone: true,
-  imports: [NzListModule, CommonModule, RouterLink],
+  imports: [NzListModule, CommonModule, RouterLink, NzToolTipModule],
   templateUrl: './list-documents.component.html',
   styleUrl: './list-documents.component.scss',
 })
