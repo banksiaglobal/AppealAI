@@ -21,6 +21,7 @@ import { SessionStorageService } from '../../service/localStorage.service';
 import { IResponseAddPackage } from '../../interface/package.interface';
 import { IDoc } from '../../interface/docs.interface';
 import { ListDocumentsComponent } from '../../components/list-documents/list-documents.component';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -39,6 +40,7 @@ import { ListDocumentsComponent } from '../../components/list-documents/list-doc
     ReactiveFormsModule,
     RouterLink,
     ListDocumentsComponent,
+    NzToolTipModule,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -103,10 +105,12 @@ export class LetterPageViewComponent {
     const file = ev.target.files[0];
     console.log(file);
 
-    if (file) {
+    if (file && this.packagesList) {
       this.formData = new FormData();
       this.formData.append('file', file, file.name);
       this.filename = file.name;
+      this.formData.append('document', this.packagesList[0].id);
+      this.formData.append('visit', ' a1bf3d4e-096f-11ef-9b39-0242ac180002');
       console.log(this.filename);
     } else {
       console.error('No file selected');

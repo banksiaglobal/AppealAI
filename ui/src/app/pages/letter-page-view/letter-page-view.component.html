@@ -30,16 +30,16 @@
                         </a>
                     </div>
                 </nz-form-item>
-                <nz-form-item class="download" nz-button nzType="primary">
+                <nz-form-item class="download" nz-button nzType="primary"
+                    *ngIf="listDocsForPackage && listDocsForPackage.length >=1 ">
                     <label for="inputLetter">
                         <div class="btn-download">Add a denial letter</div>
-                        <input type="file" id="inputLetter" (change)="addLetter($event)">
+                        <input type="file" id="inputLetter" (change)="addLetter($event)"
+                            disabled="!documentsForm.value?.package" nz-tooltip
+                            nzTooltipTitle="add an isurance contract before!" nzTooltipColor="red">
                     </label>
-
                 </nz-form-item>
-
             </div>
-
             <div class="list-docs-box" *ngIf="documentsForm.value.company  || documentsForm.value?.package || filename">
                 <div class="list-info-item" *ngIf="documentsForm.value.company">
                     <div nz-typography>Company: </div>
@@ -65,7 +65,7 @@
             <div class="btn-box" nz-flex [nzAlign]="'center'">
                 <button class="btn-submit" type="submit" nz-button nzType="primary"
                     [disabled]="!documentsForm.valid || !filename" (click)="submitForm()">
-                    Add
+                    Search
                 </button>
             </div>
         </form>

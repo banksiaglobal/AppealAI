@@ -51,10 +51,6 @@ export class LetterPageComponent {
   answerAI$: Observable<any>;
 
   onUploadDenialLetter(formData: any) {
-    const packageId = this.localStorage.getPackageId();
-    formData.append('document', 3);
-    formData.append('visit', ' a1bf3d4e-096f-11ef-9b39-0242ac180002');
-
     this.answerAI$ = this.letterService.addnewFile(formData).pipe(
       map((data) => {
         return data;
