@@ -5,10 +5,6 @@ Parameter ADAPTER = "EnsLib.File.OutboundAdapter";
 
 Property Adapter As EnsLib.File.OutboundAdapter;
 
-Parameter INVOCATION = "Queue";
-
-Parameter PARAMETERNAME;
-
 Method OnMessage(pInput As Production.Message.SaveDocumentRequest, pOutput As Production.Message.Response) As %Status
 {
     set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")_"/"
