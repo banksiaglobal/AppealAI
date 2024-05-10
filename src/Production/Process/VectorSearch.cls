@@ -61,8 +61,19 @@ import os
 <parameter name='MAXLEN'  value='' />
 </parameters>
 </property>
+<property name='visitResult' type='%Library.DynamicObject' instantiate='0' />
 </context>
 <sequence xend='200' yend='2350' >
+<call name='Find a Encounter in FHIR' target='FhirOut' async='1' xpos='491' ypos='179' >
+<request type='HS.FHIRServer.Interop.Request' >
+<assign property="callrequest.Request.RequestMethod" value="&quot;GET&quot;" action="set" languageOverride="" />
+<assign property="callrequest.Request.RequestPath" value="&quot;/Encounter&quot;" action="set" languageOverride="" />
+</request>
+<response type='HS.FHIRServer.Interop.Response' >
+<assign property="context.visitResult" value="{}.%FromJSON(##class(HS.SDA3.QuickStream).%OpenId(callresponse.QuickStreamId))" action="set" languageOverride="" />
+</response>
+</call>
+<sync name='Wait for response FHIR' calls='Find a Encounter in FHIR' type='all' xpos='711' ypos='323' />
 <call name='Save file' target='SaveDocument' async='0' languageOverride="objectscript" xpos='200' ypos='250' >
 <request type='Production.Message.SaveDocumentRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
