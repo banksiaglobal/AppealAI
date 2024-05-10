@@ -1,10 +1,35 @@
 <div class="page">
     <div class="container-page">
         <div class="welcome-box">
-            <h2>Welcome</h2>
-            <div>Система помощи в написании аппеляций на отказ страховой компании оплатить больничные процедуры.</div>
+            <h2>Application:</h2>
+            <div class="section"> ApppelAI is a smart assistant that helps you write an appeal in the event that an
+                insurance company
+                refuses. It is an example of how vector search and generative AI can be used in
+                applications developed using InterSystems technologies.
+            </div>
+            <div class="section">
+                The developed application is designed to assist
+                in writing appeals against an insurance company's refusal to pay for hospital procedures.
+            </div>
+            <div class="section">
+                <h2>Technologies used:</h2>
+                <p>Frontend - Angular</p>
+                <p>Backend - IRIS + LangChain + FHIR</p>
+            </div>
+            <div class="section">
+                <h2>Documentation:</h2>
 
-            <a routerLink="/start" nz-button nzType="primary" (click)="clearStorageToStart()">Start right now</a>
+                <a href="https://github.com/banksiaglobal/AppealAI" target="_blank">GitHub</a>
+            </div>
+
+
+
+            <div class="section">
+                <h2>Demo</h2>
+                <a href="https://appealai.cloud.banksia.global/" target="_blank">AppealAI</a>
+            </div>
+            <a class="btn-link" routerLink="/start" nz-button nzType="primary" (click)="clearStorageToStart()">Start
+                right now</a>
         </div>
 
     </div>
