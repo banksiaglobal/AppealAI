@@ -55,6 +55,15 @@ nz-list {
   visibility: visible;
 }
 
+.ant-list-empty-text {
+  max-height: 100px;
+  padding: 0;
+}
+
+nz-empty {
+  margin: 0 0 !important;
+}
+
 @media screen and (max-width: 580px) {
   nz-list {
     min-width: 100%;

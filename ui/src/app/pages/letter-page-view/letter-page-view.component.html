@@ -59,6 +59,12 @@
                     <div class="btn-download">Add a denial letter</div>
                     <input type="file" id="inputLetter" (change)="addLetter($event)">
                 </label>
+                <div class="create-obj-box" *ngIf="documentsForm.value.package">
+                    <span>Didn't have enough documents? </span>
+                    <a class="link-text" routerLink="/start">
+                        Add some
+                    </a>
+                </div>
             </nz-form-item>
             <div class="btn-box" nz-flex [nzAlign]="'center'">
                 <button class="btn-submit" type="submit" nz-button nzType="primary"
