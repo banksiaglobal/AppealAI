@@ -11,7 +11,7 @@ Parameter PARAMETERNAME;
 
 Method OnMessage(pInput As Production.Message.SaveDocumentRequest, pOutput As Production.Message.Response) As %Status
 {
-    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")
+    set path = ##class(%SYSTEM.Util).GetEnviron("PATH_SAVE_DOC")_"/"
     if pInput.Text '= ""{
         do ##class(Model.Document).SaveDocumentPDF(pInput.Text ,path_pInput.Name)
         set sc = $$$OK
