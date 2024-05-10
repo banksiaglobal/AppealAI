@@ -155,19 +155,23 @@ ClassMethod Upload() As %Library.DynamicObject
     return ..Response(response, responseSC)
 }
 
+// Delete document 
+
 ClassMethod Delete(id) As %Status
 {
     set response = {}
     set responseSC = $$$OK
 
     tstart
-    Try {
+    try {
 
         set Document = ##class(Model.Document).%OpenId(id)
         if '$ISOBJECT(Document){
             set response={"error":-404}
             $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
         }
+
+        // Remove from server
         set sc = ##class(%File).Delete(Document.Path)
 
         if 'sc {
@@ -175,6 +179,7 @@ ClassMethod Delete(id) As %Status
             $$$ThrowOnError($$$ERROR($$$GeneralError, "File cannot be deleted"))
         }
 
+        // Delete data
         set sc = ##class(Model.Document).%DeleteId(id)
 
         if 'sc {
@@ -184,7 +189,7 @@ ClassMethod Delete(id) As %Status
 
         tcommit
     }
-    Catch ex {
+    catch ex {
         trollback
         if response.error="" set response.error=-500
         set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
@@ -193,6 +198,8 @@ ClassMethod Delete(id) As %Status
 
     return ..Response(response, responseSC)
 }
+
+// Download document
 
 ClassMethod GetDocument(name) As %Status
 {
@@ -217,6 +224,8 @@ ClassMethod GetDocument(name) As %Status
     
     return ..Response(response, responseSC)
 }
+
+// Get information about a document
 
 ClassMethod GetDocumentInfo(name) As %Status
 {

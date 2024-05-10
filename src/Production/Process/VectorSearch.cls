@@ -1,4 +1,3 @@
-/// 
 Class Production.Process.VectorSearch Extends Ens.BusinessProcessBPL
 {
 
@@ -7,7 +6,13 @@ Storage Default
 <Type>%Storage.Persistent</Type>
 }
 
-/// BPL Definition
+/*
+    BPL Definition:
+
+    Get the text of the document and the vector.
+	Perform vector search.
+	Compose a letter of appeal.
+*/
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
 <process language='objectscript' request='Production.Message.AppealRequest' response='Production.Message.Response' height='2600' width='2000' >

@@ -1,9 +1,7 @@
 Class Production.Message.GetTextRequest Extends (Ens.Request, %JSON.Adaptor, %XML.Adaptor)
 {
 
-Parameter %JSONIGNOREINVALIDFIELD = 1;
-
-Property Path As %String(%JSONFIELDNAME = "path", MAXLEN = "");
+Property Path As %String(MAXLEN = "");
 
 Storage Default
 {

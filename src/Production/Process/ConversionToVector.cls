@@ -1,4 +1,3 @@
-/// 
 Class Production.Process.ConversionToVector Extends Ens.BusinessProcessBPL
 {
 
@@ -7,7 +6,12 @@ Storage Default
 <Type>%Storage.Persistent</Type>
 }
 
-/// BPL Definition
+/*
+    BPL Definition:
+
+    Splits the text of the document into parts. 
+	For each part get a vector and save the data.
+*/
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
 <process language='python' request='Production.Message.DocumentRequest' response='Ens.Response' height='2000' width='2000' >
@@ -81,7 +85,7 @@ for key, text in enumerate(texts):
     context.vectorChunks.Insert(json.dumps(data[key][:200]))
 ]]>
 </code>
-<call name='Save data' target='SaveVector' async='0' xpos='335' ypos='700' >
+<call name='Save data' target='SaveVector' async='0' languageOverride="objectscript" xpos='335' ypos='700' >
 <request type='Production.Message.SaveVectorRequest' >
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.VectorChunks" value="context.vectorChunks" action="set" languageOverride="" />

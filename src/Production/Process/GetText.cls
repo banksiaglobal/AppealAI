@@ -1,8 +1,11 @@
-/// 
 Class Production.Process.GetText Extends Ens.BusinessProcessBPL
 {
 
-/// BPL Definition
+/*
+    BPL Definition: 
+    
+    Get the text of the document.
+*/
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 {
 <process language='objectscript' request='Production.Message.GetTextRequest' response='Production.Message.GetTextResponse' height='2000' width='2000' >
