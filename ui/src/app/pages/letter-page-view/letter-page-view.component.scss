@@ -23,7 +23,6 @@ nz-select {
 nz-form-item {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px !important;
 }
 
 .btn-box {
@@ -39,7 +38,6 @@ nz-form-item {
 label {
   display: inline-block;
   position: relative;
-  height: 30px;
   width: 270px;
 }
 
@@ -65,4 +63,13 @@ label {
 .dialog-contauner {
   position: absolute;
   bottom: 100px;
+}
+
+.ant-form-item {
+  margin-bottom: 0;
+}
+
+.download {
+  margin-bottom: 5px;
+  gap: 0;
 }

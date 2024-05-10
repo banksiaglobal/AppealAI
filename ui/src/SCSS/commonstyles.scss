@@ -25,7 +25,6 @@ html {
 
 .download {
   display: flex;
-  height: 30px;
   width: 270px;
   gap: 10px;
   align-items: center;
@@ -154,6 +153,10 @@ input[type="file"] {
   top: 0;
   bottom: 0;
   width: 100%;
+}
+
+nz-empty {
+  margin: 5px !important;
 }
 
 @media screen and (max-width: 580px) {
