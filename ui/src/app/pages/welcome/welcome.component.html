@@ -1,10 +1,37 @@
 <div class="page">
     <div class="container-page">
         <div class="welcome-box">
-            <h2>Welcome</h2>
-            <div>Система помощи в написании аппеляций на отказ страховой компании оплатить больничные процедуры.</div>
-
-            <a routerLink="/start" nz-button nzType="primary" (click)="clearStorageToStart()">Start right now</a>
+            <h2>Application:</h2>
+            <div class="section">
+                <p> ApppelAI is a smart assistant that helps you write an appeal against an insurance company's refusal
+                    to pay for hospital procedures.</p>
+            </div>
+            <div class="section">
+                <p> It is project was created as a technology example to participate in
+                    <b>InterSystems
+                        Vector Search, GenAI and ML Contest</b> , it was created to demonstrate how our team uses
+                    Vector Search
+                    and
+                    GenAI tools in our solutions.
+                </p>
+            </div>
+            <div class="section">
+                <h2>Technologies used:</h2>
+                <p>Frontend - Angular</p>
+                <p>Backend - IRIS + LangChain + FHIR</p>
+            </div>
+            <div class="section">
+                <h2>Documentation:</h2>
+                <p>You can read more about our application and its technical implementation at the following link
+                    <a href="https://github.com/banksiaglobal/AppealAI" target="_blank">GitHub</a>
+                </p>
+            </div>
+            <div class="section">
+                <h2>Demo</h2>
+                <a href="https://appealai.cloud.banksia.global/" target="_blank">AppealAI</a>
+            </div>
+            <a class="btn-link" routerLink="/start" nz-button nzType="primary" (click)="clearStorageToStart()">Start
+                right now</a>
         </div>
 
     </div>
