@@ -1,25 +1,78 @@
 <div class="page">
     <div class="container-page">
         <div class="welcome-box">
-            <h2>Application:</h2>
+            <h2>Welcome</h2>
             <div class="section">
-                <p> <b>ApppelAI </b> is a smart assistant that helps you write an appeal against an insurance company's
-                    refusal
-                    to pay for hospital procedures.</p>
+                The AppealAI project is a fascinating case study on integrating modern AI technologies, specifically
+                vector search and generative AI, with InterSystems technologies to create practical and impactful
+                solutions. It's a sample application designed to automate the process of writing
+                appeals against insurance denials for medical procedures. Leveraging advanced AI technologies, it
+                assists users by generating tailored appeal letters based on specific case details entered
+                by the user.
+                The app utilizes a database of documents related to each specific insurance product to enhance the
+                effectiveness of each generated appeal. Here’s an overview of how these components work together in
+                the AppealAI application:
             </div>
+            <h2>Understanding the Components</h2>
             <div class="section">
-                <p> It is project was created as a technology example to participate in
-                    <b>InterSystems
-                        Vector Search, GenAI and ML Contest</b> , it was created to demonstrate how our team uses
-                    Vector Search
-                    and
-                    GenAI tools in our solutions.
-                </p>
+
+                <ul>
+                    <li>
+                        <b>Vector Search:</b> This technology allows the system to search through large amounts of data
+                        by converting text into vectors (arrays of numbers) that represent the text in a
+                        multi-dimensional space. By using algorithms like cosine similarity, the system can quickly find
+                        the most relevant texts based on vector closeness.
+                    </li>
+                    <li>
+
+                        <b>Generative AI:</b>
+                        This involves AI models that can generate text based on input data. In the case of
+                        AppealAI, generative AI helps draft personalized appeal letters by understanding the context and
+                        specifics of each case, such as the medical procedure involved and the details of the insurance
+                        denial. We are using approach called
+                    </li>
+
+                    <li>
+
+                        <b>Retrieval-Augmented Generation (RAG):</b>
+                        It's a model architecture that combines previous two components of artificial intelligence by
+                        using vector search to find documents or information that are relevant to the input query,
+                        incorporating it into the AI prompt, and using Generative AI to generate a template of an appeal
+                        letter
+                    </li>
+                </ul>
+
             </div>
+            <h2>How AppealAI Works</h2>
             <div class="section">
-                <h2>Technologies used:</h2>
+
+
+                <ul>
+                    <li>
+                        <b>Setup: </b>First, we use InterSystems IRIS to manage and store all the available data about
+                        insurance products, such as insurance contracts, policy limits, exclusions, etc. System will
+                        convert documents to
+                        text, split them into small chunks, and convert those chunks into vectors. This data
+                        serves as the foundation for querying during operations.
+                        <a class="btn-link" routerLink="/start" nz-button nzType="primary"
+                            (click)="clearStorageToStart()">Go to Setup</a>
+
+                    </li>
+
+                    <b> Run: </b>Users input letters with specific details about the insurance denial, such as the
+                    procedure
+                    code, reason for denial, and patient information. The system uses vector search to quickly sift
+                    through data uploaded on the previous step.
+                    Then, using generative AI, the system drafts a customized appeal letter.
+                    <a class="btn-link" routerLink="/letter" nz-button nzType="primary"
+                        (click)="clearStorageToStart()">Go to Run</a>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Technologies Used:</h2>
                 <p>Frontend - <b>Angular</b> </p>
-                <p>Backend - <b>IRIS</b> + <b>LangChain</b> + <b>FHIR</b> </p>
+                <p>Backend - <b>IRIS</b> + <b>LangChain</b> </p>
             </div>
             <div class="section">
                 <h2>Documentation:</h2>
@@ -28,11 +81,10 @@
                 </p>
             </div>
             <div class="section">
-                <h2>Demo</h2>
+                <h2>Hosted Demo</h2>
                 <a href="https://appealai.cloud.banksia.global/" target="_blank">AppealAI</a>
             </div>
-            <a class="btn-link" routerLink="/start" nz-button nzType="primary" (click)="clearStorageToStart()">Start
-                right now</a>
+
         </div>
 
     </div>

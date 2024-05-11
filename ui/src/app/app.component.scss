@@ -89,11 +89,13 @@ nz-header {
 .h2 {
   font-size: 30px;
   color: var(--primary-color);
+  margin: 0;
 }
 
 .header-title {
   margin: auto;
   gap: 5px;
+  padding-top: 0.6em;
 }
 
 .description-logo {
@@ -103,6 +105,7 @@ nz-header {
 
 nz-footer {
   text-align: center;
+  background-color: #fff;
 }
 
 @media screen and (max-width: 680px) {

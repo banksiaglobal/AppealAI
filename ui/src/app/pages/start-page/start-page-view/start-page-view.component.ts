@@ -11,6 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { CreateCompanyComponent } from '../../../components/dialogs/create-company/create-company.component';
 import { ICompany } from '../../../interface/company.interface';
@@ -28,6 +29,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
   imports: [
     CommonModule,
     NzStepsModule,
+    NzTableModule,
     NzButtonModule,
     NzLayoutModule,
     CreateCompanyComponent,
@@ -51,6 +53,7 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   }
 
   @Output() createNewCompany = new EventEmitter<string>();
+  @Output() selectCompany = new EventEmitter<ICompany>();
 
   @Output() createNewPackage = new EventEmitter<{
     name: string;
@@ -60,11 +63,9 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   @Output() sendDocs = new EventEmitter<any>();
 
   @Input() currentCompany: ICompany | null;
-
+  @Input() companiesList: any | null;
   @Input() packagesList: any | null;
-
   @Input() newPackage: any | null;
-
   @Input() isUploadDoc: boolean | null;
 
   companyName: string | null = null;

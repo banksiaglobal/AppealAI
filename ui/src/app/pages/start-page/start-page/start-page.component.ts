@@ -37,16 +37,28 @@ export class StartPageComponent implements OnInit {
     private docsService: DocsService
   ) {}
   ngOnInit(): void {
-    const currentPackage = this.localStorage.getPackageName();
-    if (currentPackage) {
-    }
+    this.localStorage.clean();
+    this.getData();
   }
 
+  listInsuranceOrg$: Observable<ICompany[]>;
+  packagesList$: Observable<IResponseAddPackage[]>;
   public currentCompany$: Observable<ICompany>;
-
   public newPackage$: Observable<IResponseAddPackage>;
-
   public isUploadDoc$: Observable<boolean>;
+
+  private getData() {
+    this.listInsuranceOrg$ = this.companyService
+      .getCompanyList()
+      .pipe(map((data) => data));
+  }
+
+  onSelectCompany(company: ICompany) {
+    this.currentCompany$ = of(company);
+    this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
+      company.id
+    );
+  }
 
   createNewCompany(companyName: string) {
     this.currentCompany$ = this.companyService.addNewCompany(companyName).pipe(
