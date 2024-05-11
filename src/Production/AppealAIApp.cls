@@ -24,8 +24,7 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="SSLConfig">pm.community.intersystems.com</Setting>
     <Setting Target="Adapter" Name="Credentials">HS_Services</Setting>
   </Item>
-  <Item Name="FhirOut" Category="" ClassName="Production.Operation.FhirOut" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Host" Name="ServiceName">FhirService</Setting>
+  <Item Name="SaveAppeal" Category="" ClassName="Production.Operation.SaveAppeal" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
 </Production>
 }

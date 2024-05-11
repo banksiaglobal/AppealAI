@@ -8,8 +8,17 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/create" Method="POST" Call="Create" Cors="true"/>
     <Route Url="/:id" Method="GET" Call="GetCompany" Cors="true"/>
     <Route Url="/" Method="GET" Call="GetAllCompany" Cors="true"/>
+    <Route Url="/:id" Method="DELETE" Call="Delete" Cors="true"/>
 
 </Routes>
+}
+
+/// Description
+ClassMethod Delete(id) As %Status
+{
+    Set sc = $$$OK
+    // do something
+    Return sc
 }
 
 // Create a new company
@@ -24,7 +33,7 @@ ClassMethod Create() As %Library.DynamicObject
 
     tstart
 
-    Try {
+    try {
         set Company = ##class(Model.Company).%New()
         set Company.Name = data.name
         set sc = Company.%Save()

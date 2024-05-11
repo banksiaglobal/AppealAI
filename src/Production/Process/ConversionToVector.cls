@@ -60,7 +60,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 <assign property="callrequest.Data" value="request.Data" action="set" languageOverride="" />
 <assign property="callrequest.Name" value="request.Name" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
-<assign property="callrequest.TypeOfDoc" value="&quot;document&quot;" action="set" languageOverride="" />
 </request>
 <response type='Production.Message.Response' >
 <assign property="context.filePath" value="callresponse.Result" action="set" languageOverride="" />
@@ -94,7 +93,6 @@ for key, text in enumerate(texts):
 <assign property="callrequest.Path" value="context.filePath" action="set" languageOverride="" />
 <assign property="callrequest.TextChunks" value="context.textChunks" action="set" languageOverride="" />
 <assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
-<assign property="callrequest.TypeOfDoc" value="&quot;document&quot;" action="set" languageOverride="" />
 </request>
 <response type='Ens.Response' />
 </call>

@@ -9,8 +9,6 @@ Property DateTime As %TimeStamp;
 
 Property Package As Model.Package;
 
-Property TypeOfDocument As %String;
-
 Index IndexName On Name [ Unique ];
 
 // Retrieve a document by its name
@@ -41,7 +39,6 @@ ClassMethod GetAllByPackage(packageId) As %Library.DynamicArray
                         set document.createdDateTime = tResult.DateTime
                         set document.id = tResult.ID
                         set document.packageId = packageId
-                        set document.typeOfDocument = tResult.TypeOfDocument
 						do documents.%Push(document)
 					}
 				}
@@ -50,27 +47,6 @@ ClassMethod GetAllByPackage(packageId) As %Library.DynamicArray
                 $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
             }
     return documents
-}
-
-// Save a document as a PDF using Python's reportlab library
-
-ClassMethod SaveDocumentPDF(text, path) [ Language = python ]
-{
-    from reportlab.lib.pagesizes import A4
-    from reportlab.pdfgen import canvas
-
-    c = canvas.Canvas(path, pagesize=A4)
-    width, height = A4
-
-   
-    lines = text.split('\n')
-
-    y = height - 50  
-    for line in lines:
-        c.drawString(50, y, line)
-        y -= 15 
-
-    c.save()
 }
 
 Storage Default
@@ -91,51 +67,11 @@ Storage Default
 <Value name="5">
 <Value>Package</Value>
 </Value>
-<Value name="6">
-<Value>TypeOfDocument</Value>
-</Value>
 </Data>
 <DataLocation>^Model.DocumentD</DataLocation>
 <DefaultData>DocumentDefaultData</DefaultData>
-<ExtentSize>13</ExtentSize>
 <IdLocation>^Model.DocumentD</IdLocation>
 <IndexLocation>^Model.DocumentI</IndexLocation>
-<Property name="%%CLASSNAME">
-<AverageFieldSize>2</AverageFieldSize>
-<OutlierSelectivity>.999999:</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="%%ID">
-<AverageFieldSize>3</AverageFieldSize>
-<Selectivity>1</Selectivity>
-</Property>
-<Property name="DateTime">
-<AverageFieldSize>21</AverageFieldSize>
-<Selectivity>11.1111%</Selectivity>
-</Property>
-<Property name="Name">
-<AverageFieldSize>23.08</AverageFieldSize>
-<Selectivity>25.0000%</Selectivity>
-</Property>
-<Property name="Package">
-<AverageFieldSize>3</AverageFieldSize>
-<OutlierSelectivity>.999999:1</OutlierSelectivity>
-<Selectivity>0.0001%</Selectivity>
-</Property>
-<Property name="Path">
-<AverageFieldSize>36.08</AverageFieldSize>
-<Selectivity>25.0000%</Selectivity>
-</Property>
-<Property name="TypeOfDocument">
-<AverageFieldSize>8</AverageFieldSize>
-<Selectivity>33.3333%</Selectivity>
-</Property>
-<SQLMap name="IDKEY">
-<BlockCount>-4</BlockCount>
-</SQLMap>
-<SQLMap name="IndexName">
-<BlockCount>-4</BlockCount>
-</SQLMap>
 <StreamLocation>^Model.DocumentS</StreamLocation>
 <Type>%Storage.Persistent</Type>
 }
