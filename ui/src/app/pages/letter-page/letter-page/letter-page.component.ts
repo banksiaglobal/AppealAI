@@ -13,6 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';
 import { LetterService } from '../../../service/letter.service';
+import { IAppealLetter } from '../../../interface/interfaces';
 
 @Component({
   selector: 'app-letter-page',
@@ -49,6 +50,8 @@ export class LetterPageComponent {
   listDocsForPackage$: Observable<IDoc[]>;
 
   answerAI$: Observable<any>;
+
+  public listDenialLetters$: Observable<IAppealLetter[]>;
 
   onUploadDenialLetter(formData: any) {
     this.answerAI$ = this.letterService.addnewFile(formData).pipe(
@@ -88,6 +91,7 @@ export class LetterPageComponent {
             (packageId = el.id), this.localStorage.savePackage(el.id, el.name);
           });
           this.getAllDocsForCurrentPackage(packageId);
+          this.getListLetters(packageId);
         })
       )
       .subscribe();
@@ -187,5 +191,10 @@ export class LetterPageComponent {
     //   newVariable.msSaveOrOpenBlob(newBlob);
     //   return;
     // }
+  }
+
+  getListLetters(packageId: string) {
+    this.listDenialLetters$ =
+      this.letterService.getListDenialLettersForPackage(packageId);
   }
 }

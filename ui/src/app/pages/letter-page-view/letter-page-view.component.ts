@@ -22,6 +22,8 @@ import { IResponseAddPackage } from '../../interface/package.interface';
 import { IDoc } from '../../interface/docs.interface';
 import { ListDocumentsComponent } from '../../components/list-documents/list-documents.component';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { IAppealLetter } from '../../interface/interfaces';
+import { ListDenialLettersComponent } from '../../components/list-denial-letters/list-denial-letters.component';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -41,6 +43,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
     RouterLink,
     ListDocumentsComponent,
     NzToolTipModule,
+    ListDenialLettersComponent,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -65,6 +68,8 @@ export class LetterPageViewComponent {
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
   @Output() saveDocument = new EventEmitter<any>();
+
+  @Input() listDenialLetters: IAppealLetter[] | null;
 
   constructor(
     private fb: NonNullableFormBuilder,

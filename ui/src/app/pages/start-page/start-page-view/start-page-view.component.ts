@@ -23,6 +23,7 @@ import { UploadDocMessageComponent } from '../../../components/upload-doc-messag
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IResponseAddPackage } from '../../../interface/package.interface';
+import { IAppealLetter } from '../../../interface/interfaces';
 
 @Component({
   selector: 'app-start-page-view',
