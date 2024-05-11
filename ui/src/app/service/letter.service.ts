@@ -10,9 +10,9 @@ import { IAppealLetter } from '../interface/interfaces';
 export class LetterService {
   constructor(private http: HttpClient) {}
 
-  addnewFile(formData: FormData): Observable<any> {
+  addnewFile(body: { text: string; packageId: string }): Observable<any> {
     return this.http
-      .post<any>(`${environment.apiUrl}/appeal/upload`, formData)
+      .post<any>(`${environment.apiUrl}/appeal/upload`, body)
       .pipe(map((response) => response));
   }
 

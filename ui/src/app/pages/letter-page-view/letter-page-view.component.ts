@@ -71,6 +71,8 @@ export class LetterPageViewComponent {
 
   @Input() listDenialLetters: IAppealLetter[] | null;
 
+  packageName: string;
+
   constructor(
     private fb: NonNullableFormBuilder,
     private localStorage: SessionStorageService
@@ -78,18 +80,16 @@ export class LetterPageViewComponent {
 
   documentsForm: FormGroup<{
     company: FormControl<string>;
-    package: FormControl<string>;
+    package: FormControl<any>;
+    text: FormControl<string>;
   }> = this.fb.group({
     company: ['', [Validators.required]],
     package: ['', [Validators.required]],
+    text: ['', [Validators.required]],
   });
 
-  filename: string | null;
-
-  formData = new FormData();
-
   submitForm() {
-    this.onUploadDenialLetter.emit(this.formData);
+    this.onUploadDenialLetter.emit(this.documentsForm.value);
   }
 
   public selectCompany(company: ICompany) {
@@ -102,24 +102,9 @@ export class LetterPageViewComponent {
   }
 
   public selectPackage(e: any) {
+    this.packageName = this.documentsForm.value.package.name;
     this.onSelectPackage.emit(this.documentsForm.value.package);
     this.deleteInfoItem('letter');
-  }
-
-  public addLetter(ev: any) {
-    const file = ev.target.files[0];
-    console.log(file);
-
-    if (file && this.packagesList) {
-      this.formData = new FormData();
-      this.formData.append('file', file, file.name);
-      this.filename = file.name;
-      this.formData.append('document', this.packagesList[0].id);
-      this.formData.append('visit', ' a1bf3d4e-096f-11ef-9b39-0242ac180002');
-      console.log(this.filename);
-    } else {
-      console.error('No file selected');
-    }
   }
 
   public deleteInfoItem(typeInfo: string) {
@@ -128,15 +113,12 @@ export class LetterPageViewComponent {
         this.documentsForm.controls['company'].reset();
         this.localStorage.clean();
         this.documentsForm.reset();
-        this.filename = null;
         break;
       case 'package':
         this.documentsForm.controls['package'].reset();
         this.localStorage.deletePackage();
-        this.filename = null;
         break;
       case 'letter':
-        this.filename = null;
         break;
     }
   }

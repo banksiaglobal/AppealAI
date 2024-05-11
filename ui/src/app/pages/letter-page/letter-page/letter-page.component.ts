@@ -53,15 +53,19 @@ export class LetterPageComponent {
 
   public listDenialLetters$: Observable<IAppealLetter[]>;
 
-  onUploadDenialLetter(formData: any) {
-    this.answerAI$ = this.letterService.addnewFile(formData).pipe(
+  onUploadDenialLetter(info: any) {
+    const body = {
+      text: info.text,
+      packageId: info.package.id,
+    };
+    this.answerAI$ = this.letterService.addnewFile(body).pipe(
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('file', 'was added')),
+      tap(() => this.createSuccessMessage('denial letter', 'was added')),
       tap(() => this.goToAIPage()),
       catchError((error: any) => {
-        tap(() => this.createErrorMessage('file', "wasn't added"));
+        tap(() => this.createErrorMessage('denial letter', "wasn't added"));
         return throwError(() => error);
       })
     );
@@ -81,17 +85,13 @@ export class LetterPageComponent {
     }
   }
 
-  onSelectPackage(packageName: string) {
-    let packageId: string;
+  onSelectPackage(packageInfo: IResponseAddPackage) {
     this.packagesList$
       .pipe(
         tap((data) => {
-          const filteredData = data.filter((el) => el.name === packageName);
-          filteredData.forEach((el) => {
-            (packageId = el.id), this.localStorage.savePackage(el.id, el.name);
-          });
-          this.getAllDocsForCurrentPackage(packageId);
-          this.getListLetters(packageId);
+          this.localStorage.savePackage(packageInfo.id, packageInfo.name);
+          this.getAllDocsForCurrentPackage(packageInfo.id);
+          this.getListLetters(packageInfo.id);
         })
       )
       .subscribe();
