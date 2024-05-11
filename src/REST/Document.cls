@@ -54,6 +54,12 @@ ClassMethod UploadRejection() As %Status
             $$$ThrowOnError($$$ERROR($$$GeneralError,"No file"))
         }
 
+        set Document = ##class(Model.Document).GetDocumentByName(data.FileName)
+        if $ISOBJECT(Document){
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "A document with that name already exists"))
+        } 
+
         set Document = ##class(Model.Document).%OpenId(documentId)
         if '$ISOBJECT(Document){
             set response={"error":-404}
@@ -114,6 +120,12 @@ ClassMethod Upload() As %Library.DynamicObject
             set response={"error":-500}
             $$$ThrowOnError($$$ERROR($$$GeneralError,"No file"))
         }
+
+        set Document = ##class(Model.Document).GetDocumentByName(data.FileName)
+        if $ISOBJECT(Document){
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "A document with that name already exists"))
+        } 
         
         set Package = ##class(Model.Package).%OpenId(packageId)
 
