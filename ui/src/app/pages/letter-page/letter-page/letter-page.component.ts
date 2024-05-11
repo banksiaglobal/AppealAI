@@ -63,7 +63,6 @@ export class LetterPageComponent {
         return data;
       }),
       tap(() => this.createSuccessMessage('denial letter', 'was added')),
-      tap(() => this.goToAIPage()),
       catchError((error: any) => {
         tap(() => this.createErrorMessage('denial letter', "wasn't added"));
         return throwError(() => error);
@@ -112,10 +111,6 @@ export class LetterPageComponent {
   private saveCurrentCompany(company: ICompany) {
     this.currentCompany$ = of(company);
     this.localStorage.saveCompany(company.id, company.name);
-  }
-
-  goToAIPage() {
-    this.router.navigate(['/answer']);
   }
 
   createErrorMessage(type: string, action: string): void {
