@@ -1,4 +1,5 @@
 <app-start-page-view (createNewCompany)="createNewCompany($event)" (selectCompany)="onSelectCompany($event)"
-    (createNewPackage)="createNewPackage($event)" (sendDocs)="sendDocs($event)"
-    [currentCompany]="currentCompany$ | async" [newPackage]="newPackage$ | async" [isUploadDoc]="isUploadDoc$ | async"
-    [companiesList]="listInsuranceOrg$ | async" />
+    (selectPackage)="onSelectPackage($event)" (createNewPackage)="createNewPackage($event)"
+    (sendDocs)="sendDocs($event)" [currentCompany]="currentCompany$ | async" [newPackage]="newPackage$ | async"
+    [isUploadDoc]="isUploadDoc$ | async" [companiesList]="listInsuranceOrg$ | async"
+    [packagesList]="packagesList$ | async " />

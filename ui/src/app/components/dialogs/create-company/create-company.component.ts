@@ -3,12 +3,10 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { CommonModule } from '@angular/common';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
-
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { ICompany } from '../../../interface/company.interface';
-
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 @Component({
   selector: 'app-create-company',
   standalone: true,
@@ -21,6 +19,7 @@ import { ICompany } from '../../../interface/company.interface';
     NzInputModule,
     FormsModule,
     NzButtonModule,
+    NzCollapseModule,
   ],
   templateUrl: './create-company.component.html',
   styleUrl: './create-company.component.scss',

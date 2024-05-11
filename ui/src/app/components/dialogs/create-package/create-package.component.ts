@@ -21,6 +21,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 @Component({
   selector: 'app-create-package',
@@ -37,6 +38,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     NzFormModule,
     NzSelectModule,
     ReactiveFormsModule,
+    NzCollapseModule,
   ],
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss',
@@ -71,6 +73,7 @@ export class CreatePackageComponent implements OnChanges {
 
   save() {
     const { name } = this.docsForm.value;
+    console.log(this.docsForm.value);
     if (name !== undefined) {
       this.createNewPackage.emit(this.docsForm.value);
     }

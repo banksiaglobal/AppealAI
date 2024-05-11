@@ -78,14 +78,12 @@ html {
 
 .dialog-container {
   max-width: 70%;
-  padding: 20px;
+  padding: 5px;
   display: flex;
   margin: 0 auto;
   flex-direction: column;
   background: white;
   gap: 3px;
-  box-shadow: rgba(24, 144, 255, 0.2) 0px 0px 0px 1px inset;
-  border-radius: 5px;
 }
 
 .actions-popup-btn {

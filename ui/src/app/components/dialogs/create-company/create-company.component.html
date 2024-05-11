@@ -1,13 +1,17 @@
-<div class="dialog-container">
-    <div class="company-box">
-        <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-            Adding a new company
-        </nz-page-header-subtitle>
-        <input class="input-company" nz-input name="companyName" type="text" id="companyName" required
-            placeholder={{companyName}} [(ngModel)]="newCompanyName" autoFocus autocomplete="off"
-            [disabled]="companyName !== null" />
-        <div class="actions-popup-btn ">
-            <button nz-button nzType="primary" (click)="save()" [disabled]="!newCompanyName">Save</button>
+<nz-collapse>
+    <nz-collapse-panel nzHeader="Create a new one" [nzActive]="false">
+        <div class="dialog-container">
+            <div class="company-box">
+                <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                    Adding a new company
+                </nz-page-header-subtitle>
+                <input class="input-company" nz-input name="companyName" type="text" id="companyName" required
+                    placeholder={{companyName}} [(ngModel)]="newCompanyName" autoFocus autocomplete="off"
+                    [disabled]="companyName !== null" />
+                <div class="actions-popup-btn ">
+                    <button nz-button nzType="primary" (click)="save()" [disabled]="!newCompanyName">Save</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </nz-collapse-panel>
+</nz-collapse>

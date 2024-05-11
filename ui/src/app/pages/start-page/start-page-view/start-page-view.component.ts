@@ -22,6 +22,7 @@ import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { UploadDocMessageComponent } from '../../../components/upload-doc-message/upload-doc-message.component';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { IResponseAddPackage } from '../../../interface/package.interface';
 
 @Component({
   selector: 'app-start-page-view',
@@ -54,6 +55,7 @@ export class StartPageViewComponent implements OnInit, OnChanges {
 
   @Output() createNewCompany = new EventEmitter<string>();
   @Output() selectCompany = new EventEmitter<ICompany>();
+  @Output() selectPackage = new EventEmitter<IResponseAddPackage>();
 
   @Output() createNewPackage = new EventEmitter<{
     name: string;
@@ -63,9 +65,9 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   @Output() sendDocs = new EventEmitter<any>();
 
   @Input() currentCompany: ICompany | null;
-  @Input() companiesList: any | null;
-  @Input() packagesList: any | null;
-  @Input() newPackage: any | null;
+  @Input() companiesList: ICompany[] | null;
+  @Input() packagesList: IResponseAddPackage[] | null;
+  @Input() newPackage: IResponseAddPackage | null;
   @Input() isUploadDoc: boolean | null;
 
   companyName: string | null = null;
@@ -89,7 +91,7 @@ export class StartPageViewComponent implements OnInit, OnChanges {
     }
 
     this.packageName = this.localStorage.getPackageName();
-    if (this.packageName !== null || this.newPackage) {
+    if (this.packageName !== null || this.newPackage?.name) {
       this.current = 2;
       this.index = 3;
     }
