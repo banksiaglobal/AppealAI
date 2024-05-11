@@ -63,6 +63,8 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   }>();
 
   @Output() sendDocs = new EventEmitter<any>();
+  @Output() deleteCompany = new EventEmitter<any>();
+  @Output() deletePackage = new EventEmitter<any>();
 
   @Input() currentCompany: ICompany | null;
   @Input() companiesList: ICompany[] | null;

@@ -28,7 +28,7 @@
                 one
                 below.
                 <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
-                <nz-table #basicTable [nzData]="companiesList" *ngIf="companiesList">
+                <nz-table #basicTable [nzData]="companiesList" *ngIf="companiesList ">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -39,7 +39,7 @@
                         <tr *ngFor="let data of basicTable.data">
                             <td><a (click)="selectCompany.emit(data); current=1; index=2;">{{data.name}}</a></td>
                             <td>
-                                <a>Delete</a>
+                                <a (click)="deleteCompany.emit(data.id)">Delete</a>
                             </td>
                         </tr>
                     </tbody>
@@ -52,7 +52,8 @@
                 Secondly, we need to define an insurance company. You can choose one of existing packages or create a
                 new one below.
                 <app-create-package (createNewPackage)="createNewPackage.emit($event)" [packageName]="packageName" />
-                <nz-table #basicTable [nzData]="packagesList" *ngIf="packagesList">
+                <nz-table #basicTable [nzData]="packagesList"
+                    *ngIf="packagesList && (companyName || currentCompany?.name)">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -63,7 +64,7 @@
                         <tr *ngFor="let data of basicTable.data">
                             <td><a (click)="selectPackage.emit(data); current=1; index=2;">{{data.name}}</a></td>
                             <td>
-                                <a>Delete</a>
+                                <a (click)="deletePackage.emit(data.id)">Delete</a>
                             </td>
                         </tr>
                     </tbody>
