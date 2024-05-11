@@ -27,8 +27,8 @@
                 First, we need to define an insurance company. You can choose one of existing companies or create a new
                 one
                 below.
-
-                <nz-table #basicTable [nzData]="companiesList">
+                <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
+                <nz-table #basicTable [nzData]="companiesList" *ngIf="companiesList">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -44,13 +44,30 @@
                         </tr>
                     </tbody>
                 </nz-table>
-                <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
             </div>
             }
 
             @if (index===2) {
             <div class="steps-content">
+                Secondly, we need to define an insurance company. You can choose one of existing packages or create a
+                new one below.
                 <app-create-package (createNewPackage)="createNewPackage.emit($event)" [packageName]="packageName" />
+                <nz-table #basicTable [nzData]="packagesList" *ngIf="packagesList">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of basicTable.data">
+                            <td><a (click)="selectPackage.emit(data); current=1; index=2;">{{data.name}}</a></td>
+                            <td>
+                                <a>Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
             </div>
             }
             @if (index===3) {
@@ -60,7 +77,9 @@
                         nzTooltipColor="geekblue" nzTooltipPlacement="bottom">
                         <div class="btn-download">Add a contract </div>
                         <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)"
-                            [disabled]="!newPackage && !packageName" />
+                            [disabled]="!newPackage?.name && !packageName" />
+                        <p class="error-title" *ngIf="!newPackage?.name && !packageName">first, add an insurance package
+                        </p>
                     </label>
                 </div>
 

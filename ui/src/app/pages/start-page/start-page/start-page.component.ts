@@ -37,7 +37,6 @@ export class StartPageComponent implements OnInit {
     private docsService: DocsService
   ) {}
   ngOnInit(): void {
-    this.localStorage.clean();
     this.getData();
   }
 
@@ -55,8 +54,17 @@ export class StartPageComponent implements OnInit {
 
   onSelectCompany(company: ICompany) {
     this.currentCompany$ = of(company);
+    this.localStorage.saveCompany(company.id, company.name);
     this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
       company.id
+    );
+  }
+
+  onSelectPackage(packageInfo: IResponseAddPackage) {
+    this.newPackage$ = of(packageInfo);
+    this.localStorage.savePackage(packageInfo.id, packageInfo.name);
+    this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
+      packageInfo.companyId
     );
   }
 
@@ -96,6 +104,12 @@ export class StartPageComponent implements OnInit {
             return throwError(() => error);
           })
         );
+  }
+
+  getListPackageForCompany(companyId: string) {
+    this.packagesList$ = this.packageService
+      .getListPackagesForCurrentCompany(companyId)
+      .pipe(map((response) => response));
   }
 
   createErrorMessage(type: string): void {

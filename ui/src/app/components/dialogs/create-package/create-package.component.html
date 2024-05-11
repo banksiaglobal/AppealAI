@@ -1,30 +1,33 @@
-<div class="dialog-container">
-    <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-        Adding a new package
-    </nz-page-header-subtitle>
-    <form nz-form [formGroup]="docsForm">
-        <div class="package-box">
-            <nz-form-item>
-                <nz-form-label class="label-package">
-                    Package name
-                </nz-form-label>
-                <input class="input-package" nz-input name="packageName" type="text" id="packageName" required
-                    formControlName="name" placeholder={{packageName}} autofocus />
-            </nz-form-item>
-            <nz-form-item *ngIf="!packageName">
-                <nz-form-label class="label-package-description">
-                    Description
-                </nz-form-label>
-                <input class="input-package-description" nz-input name="packageDescription" type="text"
-                    id="packageDescription" formControlName="description" />
-            </nz-form-item>
-            <nz-form-item nz-button nzType="primary">
-                <div class="actions-popup-btn ">
-                    <button nz-button nzType="primary" (click)="save()"
-                        [disabled]="docsForm.invalid || packageName!== null">Save</button>
+<nz-collapse>
+    <nz-collapse-panel nzHeader="Create a new one" [nzActive]="false">
+        <div class="dialog-container">
+            <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
+                Adding a new package
+            </nz-page-header-subtitle>
+            <form nz-form [formGroup]="docsForm">
+                <div class="package-box">
+                    <nz-form-item>
+                        <nz-form-label class="label-package">
+                            Package name
+                        </nz-form-label>
+                        <input class="input-package" nz-input name="packageName" type="text" id="packageName" required
+                            formControlName="name" placeholder={{packageName}} autofocus />
+                    </nz-form-item>
+                    <nz-form-item *ngIf="!packageName">
+                        <nz-form-label class="label-package-description">
+                            Description
+                        </nz-form-label>
+                        <input class="input-package-description" nz-input name="packageDescription" type="text"
+                            id="packageDescription" formControlName="description" />
+                    </nz-form-item>
+                    <nz-form-item nz-button nzType="primary">
+                        <div class="actions-popup-btn ">
+                            <button nz-button nzType="primary" (click)="save()"
+                                [disabled]="docsForm.invalid || packageName!== null">Save</button>
+                        </div>
+                    </nz-form-item>
                 </div>
-            </nz-form-item>
+            </form>
         </div>
-    </form>
-
-</div>
+    </nz-collapse-panel>
+</nz-collapse>
