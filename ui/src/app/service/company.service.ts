@@ -37,4 +37,8 @@ export class CompanyService {
       body
     );
   }
+
+  deleteCurrentCompany(companyId: string) {
+    return this.http.delete(`${environment.apiUrl}/company/${companyId}`);
+  }
 }

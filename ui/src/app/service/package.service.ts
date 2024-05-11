@@ -38,4 +38,8 @@ export class PackageService {
     };
     return this.http.post<void>(`${environment.apiUrl}/package/create`, body);
   }
+
+  deleteCurrentPackage(packageId: string) {
+    return this.http.delete(`${environment.apiUrl}/package/${packageId}`);
+  }
 }

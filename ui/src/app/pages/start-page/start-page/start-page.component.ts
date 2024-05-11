@@ -73,10 +73,10 @@ export class StartPageComponent implements OnInit {
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('company')),
+      tap(() => this.createSuccessMessage('company', 'added')),
       tap((data) => this.localStorage.saveCompany(data.id, data.name)),
       catchError((error: any) => {
-        this.createErrorMessage('company');
+        this.createErrorMessage('company', 'added');
         return throwError(() => error);
       })
     );
@@ -96,11 +96,12 @@ export class StartPageComponent implements OnInit {
             return data;
           }),
           tap((data) => {
-            this.createSuccessMessage('package');
+            this.createSuccessMessage('package', 'added');
             this.localStorage.savePackage(data.id, data.name);
+            this.getListPackageForCompany(companyId);
           }),
           catchError((error: any) => {
-            this.createErrorMessage('package');
+            this.createErrorMessage('package', 'added');
             return throwError(() => error);
           })
         );
@@ -112,14 +113,14 @@ export class StartPageComponent implements OnInit {
       .pipe(map((response) => response));
   }
 
-  createErrorMessage(type: string): void {
-    this.messageSrvice.error(`The ${type} wasn't added. Try it again`, {
+  createErrorMessage(type: string, action: string): void {
+    this.messageSrvice.error(`The ${type} wasn't ${action}. Try it again`, {
       nzDuration: 2000,
     });
   }
 
-  createSuccessMessage(type: string): void {
-    this.messageSrvice.success(`The ${type} was added.`, {
+  createSuccessMessage(type: string, action: string): void {
+    this.messageSrvice.success(`The ${type} was ${action}.`, {
       nzDuration: 2000,
     });
   }
@@ -131,12 +132,44 @@ export class StartPageComponent implements OnInit {
       .addDocumentForPackage(formData)
       .pipe(
         tap(() => {
-          this.createSuccessMessage('document');
+          this.createSuccessMessage('document', 'added');
           this.isUploadDoc$ = of(true);
         }),
         catchError((error: any) => {
           this.isUploadDoc$ = of(false);
-          this.createErrorMessage('document');
+          this.createErrorMessage('document', 'added');
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  onDeleteCompany(companyId: string) {
+    this.companyService
+      .deleteCurrentCompany(companyId)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('company', 'deleted'), this.getData();
+        }),
+        catchError((error: any) => {
+          this.isUploadDoc$ = of(false);
+          this.createErrorMessage('company', 'deleted');
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  onDeletePackage(packageId: string) {
+    this.packageService
+      .deleteCurrentPackage(packageId)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('package', 'deleted'), this.getData();
+        }),
+        catchError((error: any) => {
+          this.isUploadDoc$ = of(false);
+          this.createErrorMessage('package', 'deleted');
           return throwError(() => error);
         })
       )
