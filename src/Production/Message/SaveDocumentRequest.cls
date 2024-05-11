@@ -7,8 +7,6 @@ Property Name As %String(MAXLEN = "");
 
 Property Package As %String;
 
-Property TypeOfDoc As %String;
-
 Property Data As %CSP.BinaryStream;
 
 Storage Default
@@ -25,9 +23,6 @@ Storage Default
 <Value>Package</Value>
 </Value>
 <Value name="4">
-<Value>TypeOfDoc</Value>
-</Value>
-<Value name="5">
 <Value>Data</Value>
 </Value>
 </Data>

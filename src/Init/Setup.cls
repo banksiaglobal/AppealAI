@@ -1,7 +1,7 @@
-Class FHIR.Setup Extends %RegisteredObject
+Class Init.Setup
 {
 
-ClassMethod SetupFHIRServer(ns) As %Status
+ClassMethod SetupServer(ns) As %Status
 {
 
     zn "%SYS"
@@ -15,7 +15,6 @@ ClassMethod SetupFHIRServer(ns) As %Status
     
     set ns=$g(ns,$namespace)
     set ns="FHIRSERVER"
-
 
     zn "HSLIB"
 
@@ -43,12 +42,7 @@ ClassMethod SetupFHIRServer(ns) As %Status
     set config.DebugMode = 4
     do strategy.SaveServiceConfigData(config)
 
-    set dir=$System.Util.ManagerDirectory()_"dataFhir"
-    set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
-    if 'st write $System.Status.GetErrorText(st)
-
-
-    quit st
+    quit $$$OK
 }
 
 }

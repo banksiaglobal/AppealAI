@@ -8,13 +8,12 @@
       <Keywords>FHIR</Keywords>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
-      <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <Resource Name="Production.PKG"/>
-      <Resource Name="FHIR.PKG"/>
+      <Resource Name="Init.PKG"/>
       <Resource Name="Model.PKG"/>
       <Resource Name="REST.PKG"/>
       <Invokes>
-        <Invoke Class="FHIR.Setup" Method="SetupFHIRServer" Phase="Activate" When="After" ></Invoke>
+        <Invoke Class="Init.Setup" Method="SetupServer" Phase="Activate" When="After" ></Invoke>
       </Invokes>
       <CSPApplication
         Url="/api"

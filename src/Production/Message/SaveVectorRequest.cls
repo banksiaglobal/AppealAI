@@ -11,8 +11,6 @@ Property Name As %String(MAXLEN = 200);
 
 Property Package As %String;
 
-Property TypeOfDoc As %String;
-
 Storage Default
 {
 <Data name="SaveVectorRequestDefaultData">
@@ -31,9 +29,6 @@ Storage Default
 </Value>
 <Value name="5">
 <Value>Package</Value>
-</Value>
-<Value name="6">
-<Value>TypeOfDoc</Value>
 </Value>
 </Data>
 <DefaultData>SaveVectorRequestDefaultData</DefaultData>
