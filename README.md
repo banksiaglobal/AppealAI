@@ -2,7 +2,7 @@
 
 ## Summary
 
-The BG-AppealAI project demonstrates the integration of vector search and generative AI within applications developed using InterSystems technologies. This specific application aims to aid in drafting appeals against insurance company denials for hospital procedures.
+The BG-AppealAI project is an example of how vector search and generative AI can be used in applications developed using InterSystems technologies. The developed application is designed to assist in writing appeals against an insurance company's refusal to pay for hospital procedures.
 
 ### Technologies Used
 
@@ -11,17 +11,17 @@ The BG-AppealAI project demonstrates the integration of vector search and genera
 
 ## How to Run
 
-You can install the project using either git or zpm.
+You can use git or zpm to install our project.
 
 1. **Install via GitHub**
 
-- Clone this repository:
+- You should clone this repo:
 
 ```
 git clone https://github.com/banksiaglobal/AppealAI.git
 ```
 
-- Navigate to the directory and run:
+- Open a terminal in this directory and run:
 ```
 docker-compose up -d
 ```
@@ -29,37 +29,43 @@ docker-compose up -d
 
 2. **Install via ZPM**
 
-- Run the following command in the InterSystems terminal:
+- You should run this command in intersystems terminal:
 ```
 zpm "install bg-appealai"
 ```
 
-- After installing the project, create a new `.env` file in the root folder with the following variables:
+In both cases, after installing the project, create a new `.env` file in the root folder with the following variables:
 
 ```
 OPENAI_API_KEY="YOUR_API_KEY"
 PATH_SAVE_DOC="/opt/irisapp/"
 ```
 
-Follow the credential setup described in Step 2 of the article [Tutorial: Adding OpenAI Interoperability to Production](https://community.intersystems.com/post/tutorial-adding-openai-interoperability-production).
+and create credential as described in Step 2: Set up OpenAI Operation of the article [Tutorial: Adding OpenAI Interoperability to Production](https://community.intersystems.com/post/tutorial-adding-openai-interoperability-production).
+
+The frontend application is available at the link:
+
+```
+http://localhost:32783/appealai/index.html
+```
 
 ## Description of System
 
 ### 1. Features
 
-- Creation of insurance company profiles
-- Addition of service packages containing necessary documents: insurance contracts, rejection letters, and appeals
-- Management of insurance contracts: upload and download functionality
-- Management of rejection letters: upload and download functionality
-- Processing insurer rejections: system evaluates if an appeal is viable based on insurance contract, patient's medical data, and rejection letter. If possible, it generates a draft appeal letter which can be downloaded.
+- creating an insurance company profile;
+- adding a service package that includes all necessary documents: insurance contracts, rejection letters and appeals;
+- working with the insurance contract: the system allows you to upload and download the insurance contract;
+- working with the rejection letter: the system allows you to upload and download the rejection letter;
+-  processing insurer rejections: the system checks if an appeal is possible based on the insurance contract, patient's medical data and the rejection letter and if yes - it creates a draft appeal letter, the user can download this letter.
 
 ### 2. API
 
-You can test the application through a demo or using any web client like Postman. In the project root, find the file `AppealAI.postman_collection.json`, which can be imported into Postman for API testing. Note that queries in the collection are sequenced to reflect the logic of actions within the system, requiring sequential execution for correct testing.
-
+You can test our app in two ways: through a demo of our app or with any web client like Postman.
+In the root of the project you can find the file `AppealAI.postman_collection.json`, which you can import into Postman and test the application API. Please note that the queries in the collection are arranged according to the logic of performing actions inside the system, so for correct testing they should be executed sequentially.
 ### 3. Production
 
-The backend functionality of the application is primarily implemented using Interoperability Production. After successful installation locally, access the Production with the following URL: [Production](http://localhost:32783/csp/healthshare/appealai/EnsPortal.ProductionConfig.zen?PRODUCTION=Production.AppealAIApp)
+The main functionality of the backend part of the application is implemented using Interoperability Production. After successful installation the project locally, you can go to the Production with the following url: [Production](http://localhost:32783/csp/healthshare/appealai/EnsPortal.ProductionConfig.zen?PRODUCTION=Production.AppealAIApp)
 
 - **User**: ``_SYSTEM``
 - **Password**: ``SYS``
@@ -67,14 +73,14 @@ The backend functionality of the application is primarily implemented using Inte
 ![Image_1](./readme_image/image_1.png)
 
 The Production consist of the following elements:
-AppealIn - service that receives the rejection file and sends it for analysis.
-DocumentIn - service that receives the insurance contract file and sends it for vectorization.
-ConversionToVector - process that converts document text into vectors using LangChain, and invokes process GetText and operations SaveVector, SaveDocument for the corresponding actions.
-GetText - process that retrieves text from a document.
-VectorSearch - process that performs a vector search and looks for matches between documents, and invokes operations OpenAiOut to analyze an insurance rejection.
+- AppealIn - service that receives the rejection file and sends it for analysis.
+- DocumentIn - service that receives the insurance contract file and sends it for vectorization.
+- ConversionToVector - process that converts document text into vectors using LangChain, and invokes process GetText and operations SaveVector, SaveDocument for the corresponding actions.
+- GetText - process that retrieves text from a document.
+- VectorSearch - process that performs a vector search and looks for matches between documents, and invokes operations OpenAiOut to analyze an insurance rejection.
 OpenAiOut - operation that makes a request to a generative AI - OpenAI.
-SaveDocument - operation that stores the document file.
-SaveVector - operation that stores document vectors to the database.
+- SaveDocument - operation that stores the document file.
+- SaveVector - operation that stores document vectors to the database.
 
 The functioning of the system can be seen most clearly in the visual traces.
 Visual trace of taking an insurance contract, dividing it into vectors, and storing the vectors in a database (is invoked by requesting "upload insurance contract" from the postman collection, execution time ~ 30 minutes):
