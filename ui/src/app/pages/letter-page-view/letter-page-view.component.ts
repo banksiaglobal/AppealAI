@@ -67,6 +67,10 @@ export class LetterPageViewComponent {
 
   @Input() listDenialLetters: IDenialLetter[] | null;
 
+  @Input() listALLDenialLetters: IDenialLetter[] | null;
+
+  @Input() listALLAnswersAI: IAppealLetter[] | null;
+
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
   @Output() onSelectPackage = new EventEmitter<any>();
