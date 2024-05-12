@@ -42,9 +42,10 @@ export class StartPageComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     let upload = this.route.snapshot.queryParamMap.get('upload') ? true : false;
-    if (upload == true) {
-      this.getData();
+    if (upload !== true) {
+      this.localStorage.clean();
     }
+    this.getData();
   }
 
   listInsuranceOrg$: Observable<ICompany[]>;
