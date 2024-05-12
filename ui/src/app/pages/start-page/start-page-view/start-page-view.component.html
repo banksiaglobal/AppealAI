@@ -64,7 +64,7 @@
                         <tr *ngFor="let data of basicTable.data">
                             <td><a (click)="selectPackage.emit(data); current=1; index=2;">{{data.name}}</a></td>
                             <td>
-                                <a (click)="deletePackage.emit(data.id)">Delete</a>
+                                <a (click)="deletePackage.emit(data)">Delete</a>
                             </td>
                         </tr>
                     </tbody>

@@ -10,10 +10,8 @@ import { IAppealLetter } from '../interface/interfaces';
 export class LetterService {
   constructor(private http: HttpClient) {}
 
-  addnewFile(body: { text: string; packageId: string }): Observable<any> {
-    return this.http
-      .post<any>(`${environment.apiUrl}/appeal/upload`, body)
-      .pipe(map((response) => response));
+  addnewFile(body: { text: string; package: string }): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
   }
 
   /*get denial letters of package */

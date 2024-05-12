@@ -163,12 +163,13 @@ export class StartPageComponent implements OnInit {
       .subscribe();
   }
 
-  onDeletePackage(packageId: string) {
+  onDeletePackage(packageInfo: IResponseAddPackage) {
     this.packageService
-      .deleteCurrentPackage(packageId)
+      .deleteCurrentPackage(packageInfo.id)
       .pipe(
         tap(() => {
           this.createSuccessMessage('package', 'deleted'), this.getData();
+          this.getListPackageForCompany(packageInfo.companyId);
         }),
         catchError((error: any) => {
           this.isUploadDoc$ = of(false);

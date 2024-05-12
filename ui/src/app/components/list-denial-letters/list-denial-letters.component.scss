@@ -1,11 +1,12 @@
 nz-list {
-  max-width: 85%;
   margin: 0 auto;
   margin-bottom: 10px;
 }
 
 .list-docs-item {
   display: flex;
+  flex-direction: column;
+  gap: 5px;
 
   &__idx {
     margin-right: 5px;
@@ -22,6 +23,11 @@ nz-list {
 .ant-list-empty-text {
   max-height: 100px;
   padding: 0;
+}
+
+.bottom-side-letter-cell {
+  display: flex;
+  justify-content: space-between;
 }
 
 nz-empty {

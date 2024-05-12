@@ -56,13 +56,16 @@ export class LetterPageComponent {
   onUploadDenialLetter(info: any) {
     const body = {
       text: info.text,
-      packageId: info.package.id,
+      package: info.package.id,
     };
     this.answerAI$ = this.letterService.addnewFile(body).pipe(
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('denial letter', 'was added')),
+      tap(() => {
+        this.createSuccessMessage('denial letter', 'was added');
+        this.getListLetters(info.package.id);
+      }),
       catchError((error: any) => {
         tap(() => this.createErrorMessage('denial letter', "wasn't added"));
         return throwError(() => error);
@@ -150,7 +153,6 @@ export class LetterPageComponent {
       .pipe(
         map((result: any) => {
           console.log(result);
-          this.downloadFile(result);
           return result;
         }),
         tap(() => {
@@ -172,20 +174,6 @@ export class LetterPageComponent {
         })
       )
       .subscribe();
-  }
-
-  downloadFile(response: any) {
-    // console.log(response);
-    // let header_content = response.headers.get('content-disposition');
-    // let file = header_content.split('=')[1];
-    // file = file.substring(1, file.length - 1);
-    // let extension = file.split('.')[1].toLowerCase();
-    // let newVariable: any = window.navigator;
-    // let newBlob = new Blob([response.body], { type: extension });
-    // if (newVariable && newVariable.msSaveOrOpenBlob) {
-    //   newVariable.msSaveOrOpenBlob(newBlob);
-    //   return;
-    // }
   }
 
   getListLetters(packageId: string) {

@@ -4,14 +4,16 @@
         @for (item of listDenialLetters; track item; let i = $index) {
         <nz-list-item>
             <div class="list-docs-item">
-                <div nz-typography class="list-docs-item">{{i+1}}</div>
-                <div nz-typography>{{ item.id }}</div>
-            </div>
-            <div class="list-docs-item">
-                <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
-                <div class="delete-icon" (click)="deleteLetter(item)"></div>
+                <div nz-typography> <b>{{i+1}}).&nbsp;</b>{{item.denialText}}</div>
+                <div class="bottom-side-letter-cell">
+                    <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
+                    <div class="delete-icon" (click)="deleteLetter(item)"></div>
 
+                </div>
             </div>
+
+
+
         </nz-list-item>
         }
         @if (listDenialLetters?.length === 0) {

@@ -4,7 +4,7 @@
         @for (item of listDocsForPackage; track item; let i = $index) {
         <nz-list-item>
             <div class="list-docs-item">
-                <div nz-typography class="list-docs-item">{{i+1}}</div>
+                <div nz-typography class="list-docs-item"> <b>{{i+1}}).&nbsp; </b> </div>
                 <div nz-typography>{{ item.name }}</div>
             </div>
             <div class="list-docs-item">
