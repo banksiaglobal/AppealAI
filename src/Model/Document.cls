@@ -11,6 +11,27 @@ Property Package As Model.Package;
 
 Index IndexName On Name [ Unique ];
 
+ClassMethod %OnDelete(oid As %ObjectIdentity) As %Status [ Private, ServerOnly = 1 ]
+{
+    set status = $$$OK
+    set object = ..%Open(oid,,.status)
+    if $$$ISERR(status) return status
+    set tStatement = ##class(%SQL.Statement).%New()
+    set tStatus = tStatement.%Prepare("select ID from Model.DocumentChunk where Document->ID = ?")
+        if ($$$ISOK(tStatus)) { 
+            set tResult = tStatement.%Execute(object.%Id())
+            if (tResult.%SQLCODE=0) {
+                while tResult.%Next() {
+                   set status = ##class(Model.DocumentChunk).%DeleteId(tResult.ID) 
+                }
+            }
+        }
+        else {
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+        }
+    return status
+}
+
 // Retrieve a document by its name
 
 ClassMethod GetDocumentByName(name) As Model.Document

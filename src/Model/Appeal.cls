@@ -15,7 +15,7 @@ Property Appeal As %String(MAXLEN = "");
 
 Index IndexPackage On Package;
 
-// Retrieve all packages associated with a company
+// Retrieve all appeal letter associated with a company
 
 ClassMethod GetAllAppealLetterByPackage(package) As %Library.DynamicArray
 {
@@ -42,7 +42,7 @@ ClassMethod GetAllAppealLetterByPackage(package) As %Library.DynamicArray
     return letters
 }
 
-// Retrieve all packages associated with a company
+// Retrieve all denial letter associated with a company
 
 ClassMethod GetAllDenialByPackage(package) As %Library.DynamicArray
 {
@@ -91,6 +91,59 @@ ClassMethod GetAllByPackage(package) As %Status
         }
 
     return appeals
+}
+
+// Retrieve all denial letter 
+
+ClassMethod GetAllDenial() As %Library.DynamicArray
+{
+    set denials = []
+    set tStatement = ##class(%SQL.Statement).%New()
+    set tStatus = tStatement.%Prepare("select ID, DateTime, Package, DenialText from Model.Appeal")
+			if ($$$ISOK(tStatus)) { 
+				set tResult = tStatement.%Execute()
+				if (tResult.%SQLCODE=0) {
+					while tResult.%Next() {
+                        set denial = {}
+						set denial.package = tResult.Package
+                        set denial.denialText = tResult.DenialText
+                        set denial.id = tResult.ID
+                        set denial.createdDateTime = tResult.DateTime
+						do denials.%Push(denial)
+					}
+				}
+			}
+            else {
+                $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+            }
+    return denials
+}
+
+// Retrieve all appeal letter 
+
+ClassMethod GetAllAppealLetter() As %Library.DynamicArray
+{
+    set letters = []
+    set tStatement = ##class(%SQL.Statement).%New()
+    set tStatus = tStatement.%Prepare("select ID, DateTime, Package, Appeal, Prompt from Model.Appeal")
+			if ($$$ISOK(tStatus)) { 
+				set tResult = tStatement.%Execute()
+				if (tResult.%SQLCODE=0) {
+					while tResult.%Next() {
+                        set letter = {}
+						set letter.package = tResult.Package
+                        set letter.prompt = tResult.Prompt
+                        set letter.appeal = tResult.Appeal
+                        set letter.id = tResult.ID
+                        set letter.createdDateTime = tResult.DateTime
+						do letters.%Push(letter)
+					}
+				}
+			}
+            else {
+                $$$ThrowOnError($$$ERROR($$$GeneralError, "Not found"))
+            }
+    return letters
 }
 
 Storage Default

@@ -124,7 +124,7 @@ ClassMethod Delete(name) As %Status
         }
 
         // Delete data
-        set sc = ##class(Model.Document).%DeleteId(id)
+        set sc = ##class(Model.Document).%DeleteId(Document.%Id())
 
         if 'sc {
             set response={"error":-500}
