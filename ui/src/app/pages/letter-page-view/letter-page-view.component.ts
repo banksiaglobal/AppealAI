@@ -22,7 +22,7 @@ import { IResponseAddPackage } from '../../interface/package.interface';
 import { IDoc } from '../../interface/docs.interface';
 import { ListDocumentsComponent } from '../../components/list-documents/list-documents.component';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { IAppealLetter } from '../../interface/interfaces';
+import { IAppealLetter, IDenialLetter } from '../../interface/interfaces';
 import { ListDenialLettersComponent } from '../../components/list-denial-letters/list-denial-letters.component';
 import { ListAnswerAiComponent } from '../../components/list-answer-ai/list-answer-ai.component';
 
@@ -61,7 +61,9 @@ export class LetterPageViewComponent {
 
   @Input() answerAI: any[] | null;
 
-  @Input() listAnswersAI: any[] | null;
+  @Input() listAnswersAI: IAppealLetter[] | null;
+
+  @Input() listDenialLetters: IDenialLetter[] | null;
 
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
@@ -76,8 +78,6 @@ export class LetterPageViewComponent {
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
   @Output() saveDocument = new EventEmitter<any>();
-
-  @Input() listDenialLetters: IAppealLetter[] | null;
 
   packageName: string;
 

@@ -11,11 +11,12 @@ import { NzListModule } from 'ng-zorro-antd/list';
   styleUrl: './list-answer-ai.component.scss',
 })
 export class ListAnswerAiComponent {
-  @Input() listAnswersAI: any[] | null;
+  @Input() listAnswersAI: IAppealLetter[] | null;
 
   @Output() deleteAnswerAI = new EventEmitter<any>();
 
-  clickDeleteAnswerAI(item: any) {
+  clickDeleteAnswerAI(item: IAppealLetter) {
+    console.log(item);
     this.deleteAnswerAI.emit(item);
   }
 }

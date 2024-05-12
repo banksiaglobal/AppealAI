@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzListModule } from 'ng-zorro-antd/list';
-import { IAppealLetter } from '../../interface/interfaces';
+import { IAppealLetter, IDenialLetter } from '../../interface/interfaces';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-list-denial-letters',
@@ -10,11 +10,11 @@ import { CommonModule } from '@angular/common';
   styleUrl: './list-denial-letters.component.scss',
 })
 export class ListDenialLettersComponent {
-  @Input() listDenialLetters: IAppealLetter[] | null;
+  @Input() listDenialLetters: IDenialLetter[] | null;
 
   @Output() deleteLetter = new EventEmitter<any>();
 
-  clickDeleteLetter(item: IAppealLetter) {
+  clickDeleteLetter(item: IDenialLetter) {
     this.deleteLetter.emit(item);
   }
 }

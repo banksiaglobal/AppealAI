@@ -14,7 +14,7 @@ import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { DocsService } from '../../../service/docs.service';
 import { LetterService } from '../../../service/letter.service';
-import { IAppealLetter } from '../../../interface/interfaces';
+import { IDenialLetter } from '../../../interface/interfaces';
 
 @Component({
   selector: 'app-start-page',

@@ -6,13 +6,14 @@ import {
   of,
   shareReplay,
   switchMap,
+  take,
   tap,
   timer,
 } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IDoc } from '../interface/docs.interface';
-import { IAppealLetter } from '../interface/interfaces';
+import { IDenialLetter } from '../interface/interfaces';
 @Injectable({
   providedIn: 'root',
 })
@@ -32,6 +33,7 @@ export class DocsService {
             `${environment.apiUrl}/document/all/${packageId}`
           )
           .pipe(
+            take(3),
             map((response) => response.documents),
             tap(() => console.log('request updated')),
             shareReplay()
