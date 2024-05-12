@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/app/components/list-documents/list-documents.component.scss"],
-  "sourcesContent": ["nz-list {\n  margin: 0 auto;\n  margin-bottom: 10px;\n}\n\n.list-docs-item {\n  display: flex;\n\n  &__idx {\n    margin-right: 5px;\n  }\n}\n\n.delete-icon {\n  position: relative;\n  margin-left: 8px;\n  padding: 3px;\n  background: url(\"../../../assets/del.svg\") no-repeat center;\n}\n\n.ant-list-empty-text {\n  max-height: 100px;\n  padding: 0;\n}\n\nnz-empty {\n  margin: 0 0 !important;\n}\n\n@media screen and (max-width: 580px) {\n  nz-list {\n    min-width: 100%;\n  }\n}\n"],
+  "sourcesContent": ["nz-list {\r\n  margin: 0 auto;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.list-docs-item {\r\n  display: flex;\r\n\r\n  &__idx {\r\n    margin-right: 5px;\r\n  }\r\n}\r\n\r\n.delete-icon {\r\n  position: relative;\r\n  margin-left: 8px;\r\n  padding: 3px;\r\n  background: url(\"../../../assets/del.svg\") no-repeat center;\r\n}\r\n\r\n.ant-list-empty-text {\r\n  max-height: 100px;\r\n  padding: 0;\r\n}\r\n\r\nnz-empty {\r\n  margin: 0 0 !important;\r\n}\r\n\r\n@media screen and (max-width: 580px) {\r\n  nz-list {\r\n    min-width: 100%;\r\n  }\r\n}\r\n"],
   "mappings": ";AAAA;AACE,UAAA,EAAA;AACA,iBAAA;;AAGF,CAAA;AACE,WAAA;;AAEA,CAAA;AACE,gBAAA;;AAIJ,CAAA;AACE,YAAA;AACA,eAAA;AACA,WAAA;AACA,cAAA,uBAAA,UAAA;;AAGF,CAAA;AACE,cAAA;AACA,WAAA;;AAGF;AACE,UAAA,EAAA;;AAGF,OAAA,OAAA,IAAA,CAAA,SAAA,EAAA;AACE;AACE,eAAA;;;",
   "names": []
 }

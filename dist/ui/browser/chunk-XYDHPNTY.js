@@ -6,7 +6,7 @@ import {
   NzIconModule,
   Platform,
   WithConfig
-} from "./chunk-5A5HIE3N.js";
+} from "./chunk-6H6XYIWG.js";
 import {
   ANIMATION_MODULE_TYPE,
   CSP_NONCE,
@@ -744,4 +744,4 @@ export {
   NzButtonGroupComponent,
   NzButtonModule
 };
-//# sourceMappingURL=chunk-Y2PAPL5U.js.map
+//# sourceMappingURL=chunk-XYDHPNTY.js.map

@@ -1,7 +1,6 @@
 import {
   CompanyService,
   DocsService,
-  LetterService,
   NzColDirective,
   NzCollapseComponent,
   NzCollapseModule,
@@ -22,7 +21,7 @@ import {
   NzSpinComponent,
   NzSpinModule,
   PackageService
-} from "./chunk-6ONEQOLB.js";
+} from "./chunk-DIVX4RWM.js";
 import {
   MenuService,
   NzFlexDirective,
@@ -32,7 +31,7 @@ import {
   NzMenuDirective,
   NzMenuItemComponent,
   NzMenuModule
-} from "./chunk-2EKY2HRY.js";
+} from "./chunk-UHV536D3.js";
 import {
   FocusMonitor,
   FocusTrapFactory,
@@ -44,7 +43,7 @@ import {
   SessionStorageService,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader
-} from "./chunk-6GYC5COE.js";
+} from "./chunk-M73E4B3E.js";
 import {
   BasePortalOutlet,
   CdkFixedSizeVirtualScroll,
@@ -91,15 +90,16 @@ import {
   slideAlertMotion,
   slideMotion,
   ɵNgNoValidate
-} from "./chunk-YIQPJEGN.js";
+} from "./chunk-VEWB337I.js";
 import {
   NzButtonComponent,
   NzButtonGroupComponent,
   NzButtonModule,
   NzTransitionPatchDirective,
   NzWaveDirective
-} from "./chunk-Y2PAPL5U.js";
+} from "./chunk-XYDHPNTY.js";
 import {
+  ActivatedRoute,
   Directionality,
   DomSanitizer,
   HttpClient,
@@ -134,7 +134,7 @@ import {
   toDecimal,
   toNumber,
   warn
-} from "./chunk-5A5HIE3N.js";
+} from "./chunk-6H6XYIWG.js";
 import {
   AsyncPipe,
   CommonModule,
@@ -15070,7 +15070,7 @@ _CreateCompanyComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent(
 ], styles: ["\n\n.input-company[_ngcontent-%COMP%] {\n  margin-bottom: 10px;\n}\n/*# sourceMappingURL=create-company.component.css.map */"] });
 var CreateCompanyComponent = _CreateCompanyComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreateCompanyComponent, { className: "CreateCompanyComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreateCompanyComponent, { className: "CreateCompanyComponent", filePath: "src\\app\\components\\dialogs\\create-company\\create-company.component.ts", lineNumber: 27 });
 })();
 
 // src/app/components/dialogs/create-package/create-package.component.ts
@@ -15182,7 +15182,7 @@ _CreatePackageComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent(
 ], styles: ["\n\n.company-name[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin-left: 20px;\n  color: var(--primary-color);\n  font-weight: 600;\n}\n/*# sourceMappingURL=create-package.component.css.map */"] });
 var CreatePackageComponent = _CreatePackageComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePackageComponent, { className: "CreatePackageComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePackageComponent, { className: "CreatePackageComponent", filePath: "src\\app\\components\\dialogs\\create-package\\create-package.component.ts", lineNumber: 46 });
 })();
 
 // node_modules/ng-zorro-antd/fesm2022/ng-zorro-antd-alert.mjs
@@ -15676,7 +15676,7 @@ _UploadDocMessageComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineCompone
 }, dependencies: [NzSpinModule, NzAlertModule, NzAlertComponent], styles: ["\n\n.box-message[_ngcontent-%COMP%] {\n  display: flex;\n  margin: 0 auto;\n  margin-top: 5px;\n}\n.message[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n/*# sourceMappingURL=upload-doc-message.component.css.map */"] });
 var UploadDocMessageComponent = _UploadDocMessageComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(UploadDocMessageComponent, { className: "UploadDocMessageComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(UploadDocMessageComponent, { className: "UploadDocMessageComponent", filePath: "src\\app\\components\\upload-doc-message\\upload-doc-message.component.ts", lineNumber: 12 });
 })();
 
 // node_modules/ng-zorro-antd/fesm2022/ng-zorro-antd-upload.mjs
@@ -18149,21 +18149,24 @@ _StartPageViewComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent(
 ], styles: ["\n\n.steps-box[_ngcontent-%COMP%] {\n  position: relative;\n  margin-bottom: 20px;\n  height: 100%;\n}\n.cards-box[_ngcontent-%COMP%] {\n  display: flex;\n}\n.steps-action[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 0px;\n}\n.ant-steps[_ngcontent-%COMP%] {\n  margin-bottom: 30px;\n}\n.list-info-item[_ngcontent-%COMP%] {\n  margin-bottom: 20px;\n}\n.item-name-title[_ngcontent-%COMP%] {\n  margin-left: 10px;\n  color: var(--primary-color);\n  font-size: 18px;\n  text-transform: capitalize;\n}\n.download-input[_ngcontent-%COMP%] {\n  height: 50px;\n}\n.load-box[_ngcontent-%COMP%] {\n  margin-bottom: 20px;\n  cursor: pointer;\n}\n.load-box-btn[_ngcontent-%COMP%] {\n  display: flex;\n  margin: 0 auto;\n}\n.item-header-box[_ngcontent-%COMP%]   .ant-card-body[_ngcontent-%COMP%] {\n  padding: 10px !important;\n}\n.error-title[_ngcontent-%COMP%] {\n  text-align: center;\n  color: var(--warn-color);\n  font-size: 10px;\n}\n/*# sourceMappingURL=start-page-view.component.css.map */"] });
 var StartPageViewComponent = _StartPageViewComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(StartPageViewComponent, { className: "StartPageViewComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(StartPageViewComponent, { className: "StartPageViewComponent", filePath: "src\\app\\pages\\start-page\\start-page-view\\start-page-view.component.ts", lineNumber: 49 });
 })();
 
 // src/app/pages/start-page/start-page/start-page.component.ts
 var _StartPageComponent = class _StartPageComponent {
-  constructor(companyService, packageService, messageSrvice, localStorage, docsService, letterService) {
+  constructor(companyService, packageService, messageSrvice, localStorage, docsService, route) {
     this.companyService = companyService;
     this.packageService = packageService;
     this.messageSrvice = messageSrvice;
     this.localStorage = localStorage;
     this.docsService = docsService;
-    this.letterService = letterService;
+    this.route = route;
   }
   ngOnInit() {
-    this.getData();
+    let upload = this.route.snapshot.queryParamMap.get("upload") ? true : false;
+    if (upload == true) {
+      this.getData();
+    }
   }
   getData() {
     this.listInsuranceOrg$ = this.companyService.getCompanyList().pipe(map((data) => data));
@@ -18246,7 +18249,7 @@ var _StartPageComponent = class _StartPageComponent {
   }
 };
 _StartPageComponent.\u0275fac = function StartPageComponent_Factory(t) {
-  return new (t || _StartPageComponent)(\u0275\u0275directiveInject(CompanyService), \u0275\u0275directiveInject(PackageService), \u0275\u0275directiveInject(NzMessageService), \u0275\u0275directiveInject(SessionStorageService), \u0275\u0275directiveInject(DocsService), \u0275\u0275directiveInject(LetterService));
+  return new (t || _StartPageComponent)(\u0275\u0275directiveInject(CompanyService), \u0275\u0275directiveInject(PackageService), \u0275\u0275directiveInject(NzMessageService), \u0275\u0275directiveInject(SessionStorageService), \u0275\u0275directiveInject(DocsService), \u0275\u0275directiveInject(ActivatedRoute));
 };
 _StartPageComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _StartPageComponent, selectors: [["app-start-page"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 6, vars: 15, consts: [[3, "createNewCompany", "selectCompany", "selectPackage", "deleteCompany", "deletePackage", "createNewPackage", "sendDocs", "currentCompany", "newPackage", "isUploadDoc", "companiesList", "packagesList"]], template: function StartPageComponent_Template(rf, ctx) {
   if (rf & 1) {
@@ -18287,9 +18290,9 @@ _StartPageComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ ty
 ] });
 var StartPageComponent = _StartPageComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(StartPageComponent, { className: "StartPageComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(StartPageComponent, { className: "StartPageComponent", filePath: "src\\app\\pages\\start-page\\start-page\\start-page.component.ts", lineNumber: 34 });
 })();
 export {
   StartPageComponent
 };
-//# sourceMappingURL=chunk-LMXDUAXP.js.map
+//# sourceMappingURL=chunk-R3YKXYCC.js.map

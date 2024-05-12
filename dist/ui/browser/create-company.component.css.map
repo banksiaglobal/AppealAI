@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/app/components/dialogs/create-company/create-company.component.scss"],
-  "sourcesContent": [".input-company {\n  margin-bottom: 10px;\n}\n"],
+  "sourcesContent": [".input-company {\r\n  margin-bottom: 10px;\r\n}\r\n"],
   "mappings": ";AAAA,CAAA;AACE,iBAAA;;",
   "names": []
 }

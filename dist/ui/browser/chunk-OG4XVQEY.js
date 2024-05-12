@@ -74,9 +74,9 @@ _AboutPageComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ ty
 } });
 var AboutPageComponent = _AboutPageComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AboutPageComponent, { className: "AboutPageComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AboutPageComponent, { className: "AboutPageComponent", filePath: "src\\app\\pages\\about-page\\about-page.component.ts", lineNumber: 10 });
 })();
 export {
   AboutPageComponent
 };
-//# sourceMappingURL=chunk-WKG6DM6M.js.map
+//# sourceMappingURL=chunk-OG4XVQEY.js.map
