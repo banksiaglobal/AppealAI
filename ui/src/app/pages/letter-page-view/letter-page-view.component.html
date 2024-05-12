@@ -17,7 +17,7 @@
                         </nz-select>
                         <div class="create-obj-box">
                             <span>Didn't find the company? </span>
-                            <a class="link-text" routerLink="/start">
+                            <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }">
                                 Create a new one</a>
                         </div>
                     </nz-form-item>
@@ -29,7 +29,7 @@
                         </nz-select>
                         <div class="create-obj-box">
                             <span>Didn't find the package? </span>
-                            <a class="link-text" routerLink="/start">
+                            <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }">
                                 Create a new one
                             </a>
                         </div>
@@ -70,7 +70,8 @@
                             (deleteAnswerAI)="deleteAnswerAI.emit($event)" />
                     </div>
                 </div>
-                <p class="all-lists-title">Additionally, you will find all previous denial letters and appeal answers:
+                <p class="all-lists-title">Additionally, you will find all previous denial letters and appeal
+                    answers:
                 </p>
 
                 <nz-collapse>
