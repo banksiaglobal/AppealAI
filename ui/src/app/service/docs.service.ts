@@ -6,6 +6,7 @@ import {
   of,
   shareReplay,
   switchMap,
+  take,
   tap,
   timer,
 } from 'rxjs';
@@ -32,6 +33,7 @@ export class DocsService {
             `${environment.apiUrl}/document/all/${packageId}`
           )
           .pipe(
+            take(3),
             map((response) => response.documents),
             tap(() => console.log('request updated')),
             shareReplay()

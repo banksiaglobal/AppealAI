@@ -6,6 +6,7 @@ import {
   of,
   shareReplay,
   switchMap,
+  take,
   tap,
   timer,
 } from 'rxjs';
@@ -36,6 +37,7 @@ export class LetterService {
             `${environment.apiUrl}/appeal/denial/${packageId}`
           )
           .pipe(
+            take(5),
             map((response) => response.denials),
             tap(() => console.log('request updated')),
             shareReplay()
@@ -53,6 +55,7 @@ export class LetterService {
             `${environment.apiUrl}/appeal/letter/${packageId}`
           )
           .pipe(
+            take(5),
             map((response) => response.appealLetters),
             tap(() => console.log('request updated')),
             shareReplay()
