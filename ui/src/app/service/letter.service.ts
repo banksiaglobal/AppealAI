@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Observable,
-  catchError,
   map,
-  of,
   shareReplay,
   switchMap,
   take,
