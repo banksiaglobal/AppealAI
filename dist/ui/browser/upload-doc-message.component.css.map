@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/app/components/upload-doc-message/upload-doc-message.component.scss"],
-  "sourcesContent": [".box-message {\n  display: flex;\n  margin: 0 auto;\n  margin-top: 5px;\n}\n\n.message {\n  font-size: 14px;\n}\n"],
+  "sourcesContent": [".box-message {\r\n  display: flex;\r\n  margin: 0 auto;\r\n  margin-top: 5px;\r\n}\r\n\r\n.message {\r\n  font-size: 14px;\r\n}\r\n"],
   "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,UAAA,EAAA;AACA,cAAA;;AAGF,CAAA;AACE,aAAA;;",
   "names": []
 }
