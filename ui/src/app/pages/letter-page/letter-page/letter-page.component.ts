@@ -13,7 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';
 import { LetterService } from '../../../service/letter.service';
-import { IAppealLetter } from '../../../interface/interfaces';
+import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 
 @Component({
   selector: 'app-letter-page',
@@ -29,7 +29,6 @@ export class LetterPageComponent {
     private localStorage: SessionStorageService,
     private docsService: DocsService,
     private letterService: LetterService,
-    private router: Router,
     private messageService: NzMessageService
   ) {}
   ngOnInit(): void {
@@ -51,9 +50,9 @@ export class LetterPageComponent {
 
   answerAI$: Observable<any>;
 
-  public listDenialLetters$: Observable<IAppealLetter[]>;
+  public listDenialLetters$: Observable<IDenialLetter[]>;
 
-  public listAnswersAI$: Observable<any[]>;
+  public listAnswersAI$: Observable<IAppealLetter[]>;
 
   onUploadDenialLetter(info: any) {
     const body = {
@@ -133,41 +132,6 @@ export class LetterPageComponent {
     });
   }
 
-  deleteDocument(documentInfo: IDoc) {
-    this.docsService
-      .deleteDocumentForCurrentPackage(documentInfo.name)
-      .pipe(
-        tap(() => {
-          this.createSuccessMessage('document', 'was deleted');
-          this.getAllDocsForCurrentPackage(documentInfo.packageId);
-        }),
-        catchError((error: any) => {
-          this.createErrorMessage(
-            'document',
-            "wasn't deleted. Smth went wrong"
-          );
-          return throwError(() => error);
-        })
-      )
-      .subscribe();
-  }
-
-  deleteLetter(letterInfo: IAppealLetter) {
-    this.letterService
-      .deleteDenialLetter(letterInfo.id)
-      .pipe(
-        tap(() => {
-          this.createSuccessMessage('letter', 'was deleted');
-          this.getListDenialLetters(String(letterInfo.package));
-        }),
-        catchError((error: any) => {
-          this.createErrorMessage('letter', "wasn't deleted. Smth went wrong");
-          return throwError(() => error);
-        })
-      )
-      .subscribe();
-  }
-
   saveDocument(documentInfo: IDoc) {
     this.docsService
       .downloadDocument(documentInfo.name)
@@ -220,5 +184,61 @@ export class LetterPageComponent {
           return data;
         })
       );
+  }
+
+  deleteDocument(documentInfo: IDoc) {
+    this.docsService
+      .deleteDocumentForCurrentPackage(documentInfo.name)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document', 'was deleted');
+          this.getAllDocsForCurrentPackage(documentInfo.packageId);
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage(
+            'document',
+            "wasn't deleted. Smth went wrong"
+          );
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  deleteLetter(letterInfo: IDenialLetter) {
+    this.letterService
+      .deleteDenialLetter(letterInfo.id)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('letter', 'was deleted');
+          this.getListDenialLetters(String(letterInfo.package));
+          this.getListAppealsFromAI(String(letterInfo.package));
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage('letter', "wasn't deleted. Smth went wrong");
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  deleteAnswerAI(appealLetter: IAppealLetter) {
+    console.log(appealLetter.id);
+    this.letterService
+      .deleteAnswerAI(appealLetter.id)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('appeal letter', 'was deleted');
+          this.getListAppealsFromAI(String(appealLetter.package));
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage(
+            'appeal letter',
+            "wasn't deleted. Smth went wrong"
+          );
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
   }
 }

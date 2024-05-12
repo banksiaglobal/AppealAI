@@ -11,7 +11,7 @@ import {
 } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { IAppealLetter } from '../interface/interfaces';
+import { IAppealLetter, IDenialLetter } from '../interface/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,13 @@ export class LetterService {
   }
 
   /*get denial letters of package */
-  getListDenialLettersForPackage(packageId: string): Observable<any[]> {
+  getListDenialLettersForPackage(
+    packageId: string
+  ): Observable<IDenialLetter[]> {
     return timer(0, this.intervalMin).pipe(
       switchMap(() =>
         this.http
-          .get<{ denials: IAppealLetter[] }>(
+          .get<{ denials: IDenialLetter[] }>(
             `${environment.apiUrl}/appeal/denial/${packageId}`
           )
           .pipe(
@@ -43,7 +45,7 @@ export class LetterService {
   }
 
   /*get appeal letters of package  */
-  getAppealAnswersForPackage(packageId: string): Observable<any[]> {
+  getAppealAnswersForPackage(packageId: string): Observable<IAppealLetter[]> {
     return timer(0, this.intervalMin).pipe(
       switchMap(() =>
         this.http
@@ -61,5 +63,10 @@ export class LetterService {
 
   deleteDenialLetter(letterId: string) {
     return this.http.delete(`${environment.apiUrl}/appeal/${letterId}`);
+  }
+
+  deleteAnswerAI(appealId: string) {
+    console.log(appealId);
+    return this.http.delete(`${environment.apiUrl}/appeal/${appealId}`);
   }
 }

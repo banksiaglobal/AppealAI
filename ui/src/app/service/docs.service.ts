@@ -12,7 +12,7 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IDoc } from '../interface/docs.interface';
-import { IAppealLetter } from '../interface/interfaces';
+import { IDenialLetter } from '../interface/interfaces';
 @Injectable({
   providedIn: 'root',
 })

@@ -2,6 +2,6 @@
     (onSelectCompany)="onSelectCompany($event)" (onSelectPackage)="onSelectPackage($event)"
     (onUploadDenialLetter)="onUploadDenialLetter($event)" [listInsuranceOrg]="listInsuranceOrg$ | async"
     (deleteDocument)="deleteDocument($event)" (deleteLetter)="deleteLetter($event)"
-    (saveDocument)="saveDocument($event)" [answerAI]="answerAI$ |async"
+    (deleteAnswerAI)="deleteAnswerAI($event)" (saveDocument)="saveDocument($event)" [answerAI]="answerAI$ |async"
     [listDocsForPackage]="listDocsForPackage$ | async" [listDenialLetters]="listDenialLetters$ | async"
     [listAnswersAI]="listAnswersAI$ | async" />
