@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "89f36aa9-eb94-4c81-ba9c-7be39f720287",
 		"name": "AppealAI",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "21040840"
 	},
 	"item": [
@@ -20,61 +20,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:32783/api/company/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"company",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get info about company",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/company/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"company",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get all companies",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/company/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"company",
-						""
-					]
-				}
+				"url": "http://localhost:32783/api/company/create"
 			},
 			"response": []
 		},
@@ -92,62 +38,7 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "http://localhost:32783/api/package/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"package",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get info of package",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/package/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"package",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get list packages of company",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/package/all/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"package",
-						"all",
-						"1"
-					]
-				}
+				"url": "http://localhost:32783/api/package/create"
 			},
 			"response": []
 		},
@@ -171,84 +62,7 @@
 						}
 					]
 				},
-				"url": {
-					"raw": "http://localhost:32783/api/document/upload",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"document",
-						"upload"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get info about file",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/document/info/off-gold-80-hmo-ca-en.pdf",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"document",
-						"info",
-						"off-gold-80-hmo-ca-en.pdf"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get files of package",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/document/all/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"document",
-						"all",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "download file",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/document/off-gold-80-hmo-ca-en",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"document",
-						"off-gold-80-hmo-ca-en"
-					]
-				}
+				"url": "http://localhost:32783/api/document/upload"
 			},
 			"response": []
 		},
@@ -258,38 +72,132 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "document",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "visit",
-							"value": "albf3d4e-096f-11ef-9b39-0242ac180002",
-							"type": "text"
-						},
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/Users/mariagladkova/Desktop/rejection-letter.pdf"
+					"mode": "raw",
+					"raw": "{\n    \"text\":\"Guardian Shield Insurance\n123 Insurance Way Cityville, NY 12345 May 4, 2024\nJohn Doe\n456 Patient Street\nTownsville, NY 67890 Dear Mr. Doe,\nThank you for contacting Guardian Shield Insurance regarding your recent claim for medical procedures. We appreciate the opportunity to review your claim in detail.\nAfter careful consideration of the provided documentation and the terms outlined in your insurance policy, we regret to inform you that we are unable to approve coverage for the hospital procedures listed in your claim.\nYour policy, under the terms and conditions section, explicitly states that certain medical services may not be covered or may be subject to limitations and exclusions. Upon review, it has been determined that the procedures mentioned do not meet the criteria for covered services as outlined in your policy.\nWe understand that this may be disappointing news, and we encourage you to review your insurance policy in full for a detailed explanation of coverage and exclusions. Additionally, if you have any questions or would like to discuss this decision further, please do not hesitate to contact our customer service department at (800) 555-1234 or via email at customerservice@guardianshieldinsurance.com.\nThank you for your understanding in this matter. We remain committed to providing you with the best possible service.\nSincerely,\n[Your Name]\nClaims Manager\nGuardian Shield Insurance customerservice@guardianshieldinsurance.com\n(800) 555-1234\",\n    \"package\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					]
+					}
 				},
-				"url": {
-					"raw": "http://localhost:32783/api/document/appeal",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"document",
-						"appeal"
-					]
-				}
+				"url": "http://localhost:32783/api/appeal/upload"
+			},
+			"response": []
+		},
+		{
+			"name": "get appeal info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get info about company",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/company/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get all companies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/company/"
+			},
+			"response": []
+		},
+		{
+			"name": "get info of package",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/package/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get list packages of company",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/package/all/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get info about file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/document/info/off-gold-80-hmo-ca-en.pdf"
+			},
+			"response": []
+		},
+		{
+			"name": "get files of package",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/document/all/1"
+			},
+			"response": []
+		},
+		{
+			"name": "download file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/document/off-gold-80-hmo-ca-en.pdf"
+			},
+			"response": []
+		},
+		{
+			"name": "get rejection info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/denial/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get all rejections",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/all/denial/"
+			},
+			"response": []
+		},
+		{
+			"name": "get all appeals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/all/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get appeal letters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/letter/1"
+			},
+			"response": []
+		},
+		{
+			"name": "get all appeal letters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/all/letter/"
 			},
 			"response": []
 		},
@@ -298,19 +206,34 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "http://localhost:32783/api/document/off-gold-80-hmo-ca-en",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "32783",
-					"path": [
-						"api",
-						"document",
-						"off-gold-80-hmo-ca-en"
-					]
-				}
+				"url": "http://localhost:32783/api/document/1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete appeal",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:32783/api/appeal/1"
+			},
+			"response": []
+		},
+		{
+			"name": "delete package",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:32783/api/package/2"
+			},
+			"response": []
+		},
+		{
+			"name": "delete company",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:32783/api/company/1"
 			},
 			"response": []
 		}
