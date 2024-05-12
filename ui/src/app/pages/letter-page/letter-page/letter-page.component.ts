@@ -8,7 +8,6 @@ import { LetterPageViewComponent } from '../../letter-page-view/letter-page-view
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { DocsService } from '../../../service/docs.service';
-import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';

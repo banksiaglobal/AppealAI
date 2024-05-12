@@ -15,6 +15,7 @@ import { SessionStorageService } from '../../../service/localStorage.service';
 import { DocsService } from '../../../service/docs.service';
 import { LetterService } from '../../../service/letter.service';
 import { IDenialLetter } from '../../../interface/interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-start-page',
@@ -37,10 +38,13 @@ export class StartPageComponent implements OnInit {
     private messageSrvice: NzMessageService,
     private localStorage: SessionStorageService,
     private docsService: DocsService,
-    private letterService: LetterService
+    private route: ActivatedRoute
   ) {}
   ngOnInit(): void {
-    this.getData();
+    let upload = this.route.snapshot.queryParamMap.get('upload') ? true : false;
+    if (upload == true) {
+      this.getData();
+    }
   }
 
   listInsuranceOrg$: Observable<ICompany[]>;

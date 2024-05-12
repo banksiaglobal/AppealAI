@@ -20,8 +20,8 @@
     </nz-list>
     @if (listDocsForPackage?.length == 0) {
     <div class="create-obj-box">
-        <a class="link-text" routerLink="/start" nz-button nz-tooltip nzTooltipTitle="Add an insurance agreement"
-            nzTooltipColor="red">
+        <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button nz-tooltip
+            nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
             Upload
         </a>
     </div>
