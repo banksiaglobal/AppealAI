@@ -13,6 +13,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';
 import { LetterService } from '../../../service/letter.service';
+import { IAppealLetter } from '../../../interface/interfaces';
 
 @Component({
   selector: 'app-letter-page',
@@ -50,15 +51,20 @@ export class LetterPageComponent {
 
   answerAI$: Observable<any>;
 
-  onUploadDenialLetter(formData: any) {
-    this.answerAI$ = this.letterService.addnewFile(formData).pipe(
+  public listDenialLetters$: Observable<IAppealLetter[]>;
+
+  onUploadDenialLetter(info: any) {
+    const body = {
+      text: info.text,
+      packageId: info.package.id,
+    };
+    this.answerAI$ = this.letterService.addnewFile(body).pipe(
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('file', 'was added')),
-      tap(() => this.goToAIPage()),
+      tap(() => this.createSuccessMessage('denial letter', 'was added')),
       catchError((error: any) => {
-        tap(() => this.createErrorMessage('file', "wasn't added"));
+        tap(() => this.createErrorMessage('denial letter', "wasn't added"));
         return throwError(() => error);
       })
     );
@@ -78,16 +84,13 @@ export class LetterPageComponent {
     }
   }
 
-  onSelectPackage(packageName: string) {
-    let packageId: string;
+  onSelectPackage(packageInfo: IResponseAddPackage) {
     this.packagesList$
       .pipe(
         tap((data) => {
-          const filteredData = data.filter((el) => el.name === packageName);
-          filteredData.forEach((el) => {
-            (packageId = el.id), this.localStorage.savePackage(el.id, el.name);
-          });
-          this.getAllDocsForCurrentPackage(packageId);
+          this.localStorage.savePackage(packageInfo.id, packageInfo.name);
+          this.getAllDocsForCurrentPackage(packageInfo.id);
+          this.getListLetters(packageInfo.id);
         })
       )
       .subscribe();
@@ -108,10 +111,6 @@ export class LetterPageComponent {
   private saveCurrentCompany(company: ICompany) {
     this.currentCompany$ = of(company);
     this.localStorage.saveCompany(company.id, company.name);
-  }
-
-  goToAIPage() {
-    this.router.navigate(['/answer']);
   }
 
   createErrorMessage(type: string, action: string): void {
@@ -187,5 +186,10 @@ export class LetterPageComponent {
     //   newVariable.msSaveOrOpenBlob(newBlob);
     //   return;
     // }
+  }
+
+  getListLetters(packageId: string) {
+    this.listDenialLetters$ =
+      this.letterService.getListDenialLettersForPackage(packageId);
   }
 }

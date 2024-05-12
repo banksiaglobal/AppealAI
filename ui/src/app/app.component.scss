@@ -5,6 +5,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.logo-title {
+  background: url("../assets/title.svg") no-repeat;
+  height: 40px;
+  width: 170px;
+}
+
 .app-layout {
   min-height: 100vh;
 }
@@ -95,7 +101,7 @@ nz-header {
 .header-title {
   margin: auto;
   gap: 5px;
-  padding-top: 0.6em;
+  align-items: flex-end;
 }
 
 .description-logo {

@@ -13,6 +13,8 @@ import { ICompany } from '../../../interface/company.interface';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { DocsService } from '../../../service/docs.service';
+import { LetterService } from '../../../service/letter.service';
+import { IAppealLetter } from '../../../interface/interfaces';
 
 @Component({
   selector: 'app-start-page',
@@ -34,7 +36,8 @@ export class StartPageComponent implements OnInit {
     private packageService: PackageService,
     private messageSrvice: NzMessageService,
     private localStorage: SessionStorageService,
-    private docsService: DocsService
+    private docsService: DocsService,
+    private letterService: LetterService
   ) {}
   ngOnInit(): void {
     this.getData();

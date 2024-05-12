@@ -10,12 +10,7 @@ export class DocsService {
   constructor(private http: HttpClient) {}
 
   addDocumentForPackage(formData: FormData) {
-    return this.http
-      .post(`${environment.apiUrl}/document/upload`, formData)
-      .pipe(
-        map((response) => response),
-        catchError(() => of())
-      );
+    return this.http.post(`${environment.apiUrl}/document/upload`, formData);
   }
 
   getListDocsForCurrentPackage(packageId: string): Observable<IDoc[]> {
