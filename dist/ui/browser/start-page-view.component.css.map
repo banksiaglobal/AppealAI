@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/start-page/start-page-view/start-page-view.component.scss"],
+  "sourcesContent": [".steps-box {\n  position: relative;\n  margin-bottom: 20px;\n  height: 100%;\n}\n\n.cards-box {\n  display: flex;\n}\n\n.steps-action {\n  position: absolute;\n  bottom: 0px;\n}\n\n.ant-steps {\n  margin-bottom: 30px;\n}\n\n.list-info-item {\n  margin-bottom: 20px;\n}\n\n.item-name-title {\n  margin-left: 10px;\n  color: var(--primary-color);\n  font-size: 18px;\n  text-transform: capitalize;\n}\n\n.download-input {\n  height: 50px;\n}\n\n.load-box {\n  margin-bottom: 20px;\n  cursor: pointer;\n\n  &-btn {\n    display: flex;\n    margin: 0 auto;\n  }\n}\n\n.item-header-box .ant-card-body {\n  padding: 10px !important;\n}\n\n.error-title {\n  text-align: center;\n  color: var(--warn-color);\n  font-size: 10px;\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,YAAA;AACA,iBAAA;AACA,UAAA;;AAGF,CAAA;AACE,WAAA;;AAGF,CAAA;AACE,YAAA;AACA,UAAA;;AAGF,CAAA;AACE,iBAAA;;AAGF,CAAA;AACE,iBAAA;;AAGF,CAAA;AACE,eAAA;AACA,SAAA,IAAA;AACA,aAAA;AACA,kBAAA;;AAGF,CAAA;AACE,UAAA;;AAGF,CAAA;AACE,iBAAA;AACA,UAAA;;AAEA,CAAA;AACE,WAAA;AACA,UAAA,EAAA;;AAIJ,CAAA,gBAAA,CAAA;AACE,WAAA;;AAGF,CAAA;AACE,cAAA;AACA,SAAA,IAAA;AACA,aAAA;;",
+  "names": []
+}

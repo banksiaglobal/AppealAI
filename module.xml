@@ -24,10 +24,21 @@
         UseCookies="2"
         CookiePath="/api"
       />
+      <CSPApplication
+        Url="/appealai"
+        DispatchClass="REST.Registry"
+        MatchRoles=":%All"
+        DelegatedAuthEnabled="0"
+        Recurse="1"
+        UseCookies="2"
+        CookiePath="/appealai"
+      />
+      <SystemSetting Name="CSP.DefaultFileCharset" Value="UTF-8"/>
+      <CSPApplication Url="/appealai" SourcePath="/dist/ui/browser" DeployPath="{$cspdir}/appealai" ServeFiles="1" Recurse="1" CookiePath="/appealai"/>      
       <SystemRequirements Interoperability="enabled" />
       <Dependencies>
         <ModuleReference>
-          <Name>bg-openai</Name>
+          <Name>bg-appealai</Name>
           <Version>1.1.3</Version>
         </ModuleReference>
       </Dependencies>

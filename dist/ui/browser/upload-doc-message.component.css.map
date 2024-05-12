@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/upload-doc-message/upload-doc-message.component.scss"],
+  "sourcesContent": [".box-message {\n  display: flex;\n  margin: 0 auto;\n  margin-top: 5px;\n}\n\n.message {\n  font-size: 14px;\n}\n"],
+  "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,UAAA,EAAA;AACA,cAAA;;AAGF,CAAA;AACE,aAAA;;",
+  "names": []
+}
