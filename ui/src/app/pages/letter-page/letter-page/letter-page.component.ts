@@ -66,7 +66,7 @@ export class LetterPageComponent {
       }),
       tap(() => {
         this.createSuccessMessage('denial letter', 'was added');
-        this.getListLetters(info.package.id);
+        this.getListDenialLetters(info.package.id);
       }),
       catchError((error: any) => {
         tap(() => this.createErrorMessage('denial letter', "wasn't added"));
@@ -97,7 +97,7 @@ export class LetterPageComponent {
           tap((data) => {
             this.localStorage.savePackage(packageInfo.id, packageInfo.name);
             this.getAllDocsForCurrentPackage(packageInfo.id);
-            this.getListLetters(packageInfo.id);
+            this.getListDenialLetters(packageInfo.id);
           })
         )
         .subscribe();
@@ -158,7 +158,7 @@ export class LetterPageComponent {
       .pipe(
         tap(() => {
           this.createSuccessMessage('letter', 'was deleted');
-          this.getListLetters(String(letterInfo.package));
+          this.getListDenialLetters(String(letterInfo.package));
         }),
         catchError((error: any) => {
           this.createErrorMessage('letter', "wasn't deleted. Smth went wrong");
@@ -197,9 +197,24 @@ export class LetterPageComponent {
       .subscribe();
   }
 
-  getListLetters(packageId: string) {
+  getListDenialLetters(packageId: string) {
     this.listDenialLetters$ = this.letterService
       .getListDenialLettersForPackage(packageId)
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        tap((data) => {
+          if (data) {
+            this.getListAppealsFromAI(packageId);
+          }
+        })
+      );
+  }
+
+  getListAppealsFromAI(packageId: string) {
+    this.listAnswersAI$ = this.letterService
+      .getAppealAnswersForPackage(packageId)
       .pipe(
         map((data) => {
           return data;

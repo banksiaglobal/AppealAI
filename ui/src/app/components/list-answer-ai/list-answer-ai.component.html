@@ -1,10 +1,10 @@
 <nz-list nzItemLayout="horizontal">
     <nz-list nzBordered nzSize="small">
-        <nz-list-header>List of AI appeal letters:</nz-list-header>
+        <nz-list-header>List of denial letters:</nz-list-header>
         @for (item of listAnswersAI; track item; let i = $index) {
         <nz-list-item>
             <div class="list-docs-item">
-                <div nz-typography> <b>{{i+1}}).&nbsp;</b>{{item.denialText}}</div>
+                <div nz-typography> <b>{{i+1}}).&nbsp;</b>{{item.appeal}}</div>
                 <div class="bottom-side-letter-cell">
                     <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
                     <div class="delete-icon" (click)="clickDeleteAnswerAI(item)"></div>

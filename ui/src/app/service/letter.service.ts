@@ -26,17 +26,15 @@ export class LetterService {
   }
 
   /*get denial letters of package */
-  getListDenialLettersForPackage(
-    packageId: string
-  ): Observable<IAppealLetter[]> {
+  getListDenialLettersForPackage(packageId: string): Observable<any[]> {
     return timer(0, this.intervalMin).pipe(
       switchMap(() =>
         this.http
-          .get<{ appeals: IAppealLetter[] }>(
+          .get<{ denials: IAppealLetter[] }>(
             `${environment.apiUrl}/appeal/denial/${packageId}`
           )
           .pipe(
-            map((response) => response.appeals),
+            map((response) => response.denials),
             tap(() => console.log('request updated')),
             shareReplay()
           )
@@ -49,11 +47,11 @@ export class LetterService {
     return timer(0, this.intervalMin).pipe(
       switchMap(() =>
         this.http
-          .get<{ appeals: IAppealLetter[] }>(
+          .get<{ appealLetters: IAppealLetter[] }>(
             `${environment.apiUrl}/appeal/letter/${packageId}`
           )
           .pipe(
-            map((response) => response.appeals),
+            map((response) => response.appealLetters),
             tap(() => console.log('request updated')),
             shareReplay()
           )
