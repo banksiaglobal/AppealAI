@@ -89,7 +89,6 @@ export class LetterPageComponent {
   }
 
   onSelectPackage(packageInfo: IResponseAddPackage) {
-    console.log(packageInfo);
     if (packageInfo) {
       this.packagesList$
         .pipe(
@@ -223,7 +222,6 @@ export class LetterPageComponent {
   }
 
   deleteAnswerAI(appealLetter: IAppealLetter) {
-    console.log(appealLetter.id);
     this.letterService
       .deleteAnswerAI(appealLetter.id)
       .pipe(

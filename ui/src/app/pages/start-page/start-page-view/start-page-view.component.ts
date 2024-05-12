@@ -159,7 +159,6 @@ export class StartPageViewComponent implements OnInit, OnChanges {
       this.formData = new FormData();
       this.formData.append('file', file, file.name);
       this.filename = file.name;
-      console.log(this.filename);
     } else {
       console.error('No file selected');
     }

@@ -16,7 +16,6 @@ export class ListAnswerAiComponent {
   @Output() deleteAnswerAI = new EventEmitter<any>();
 
   clickDeleteAnswerAI(item: IAppealLetter) {
-    console.log(item);
     this.deleteAnswerAI.emit(item);
   }
 }

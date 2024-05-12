@@ -13,7 +13,7 @@
             </div>
         </nz-list-item>
         }
-        @if (listDenialLetters?.length === 0) {
+        @if (!listDenialLetters || listDenialLetters.length === 0) {
         <nz-list-empty />
         }
     </nz-list>
