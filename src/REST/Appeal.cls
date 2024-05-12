@@ -11,11 +11,49 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/letter/:package" Method="GET" Call="GetLetters" Cors="true"/>
     <Route Url="/:id" Method="GET" Call="GetAppealData" Cors="true"/>
     <Route Url="/all/:package" Method="GET" Call="GetAllAppealData" Cors="true"/>
+    <Route Url="/all/denial/" Method="GET" Call="GetDenialsAll" Cors="true"/>
+    <Route Url="/all/letter/" Method="GET" Call="GetLettersAll" Cors="true"/>
 
 </Routes>
 }
 
-/// Description
+/// Get all denial letter in a package
+ClassMethod GetLettersAll() As %Status
+{
+    set response = {}
+    set responseSC = $$$OK
+
+    try {  
+        set response.test = ##class(Model.Appeal).GetAllAppealLetter() 
+    }
+    catch ex {
+        if response.error="" set response.error=-404
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    
+    return ..Response(response, responseSC)
+}
+
+/// Get all denial letters
+ClassMethod GetDenialsAll() As %Status
+{
+    set response = {}
+    set responseSC = $$$OK
+
+    try {  
+        set response.denials = ##class(Model.Appeal).GetAllDenial() 
+    }
+    catch ex {
+        if response.error="" set response.error=-404
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+    
+    return ..Response(response, responseSC)
+}
+
+/// Delete appela data
 ClassMethod Delete(id) As %Status
 {
     set response = {}
@@ -44,6 +82,7 @@ ClassMethod Delete(id) As %Status
     return ..Response(response, responseSC)
 }
 
+/// Get all denial letter in a package
 ClassMethod GetLetters(package) As %Status
 {
     set response = {}

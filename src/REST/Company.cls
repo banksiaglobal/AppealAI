@@ -16,9 +16,30 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 /// Description
 ClassMethod Delete(id) As %Status
 {
-    Set sc = $$$OK
-    // do something
-    Return sc
+    set response = {}
+    set responseSC = $$$OK
+
+    tstart
+    try {
+
+        // Delete data
+        set sc = ##class(Model.Company).%DeleteId(id)
+
+        if 'sc {
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Company cannot be deleted"))
+        }
+
+        tcommit
+    }
+    catch ex {
+        trollback
+        if response.error="" set response.error=-500
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+
+    return ..Response(response, responseSC)
 }
 
 // Create a new company

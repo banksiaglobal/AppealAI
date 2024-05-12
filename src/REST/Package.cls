@@ -8,8 +8,38 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/create" Method="POST" Call="Create" Cors="true"/>
     <Route Url="/:id" Method="GET" Call="GetPackage" Cors="true"/>
     <Route Url="/all/:companyId" Method="GET" Call="GetAllPackages" Cors="true"/>
+    <Route Url="/:id" Method="DELETE" Call="Delete" Cors="true"/>
 
 </Routes>
+}
+
+/// Description
+ClassMethod Delete(id) As %Status
+{
+    set response = {}
+    set responseSC = $$$OK
+
+    tstart
+    try {
+
+        // Delete data
+        set sc = ##class(Model.Package).%DeleteId(id)
+
+        if 'sc {
+            set response={"error":-500}
+            $$$ThrowOnError($$$ERROR($$$GeneralError, "Package cannot be deleted"))
+        }
+
+        tcommit
+    }
+    catch ex {
+        trollback
+        if response.error="" set response.error=-500
+        set response.errorText=$System.Status.GetErrorText(ex.AsStatus())
+        set responseSC = $System.Status.GetErrorText(ex.AsStatus())
+    }
+
+    return ..Response(response, responseSC)
 }
 
 // Create a new package
