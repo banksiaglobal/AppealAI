@@ -7,8 +7,11 @@
   &-box {
     display: flex;
     flex-wrap: wrap;
-    align-items: self-start;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     gap: 20px !important;
+    width: 100%;
   }
 }
 
@@ -23,6 +26,25 @@ nz-select {
 nz-form-item {
   display: flex;
   flex-direction: column;
+}
+
+.nz-form-item-download {
+  width: 100%;
+}
+
+.left-side {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.right-side {
+  width: 100%;
+
+  .textarea {
+    width: 100%;
+  }
 }
 
 .btn-box {

@@ -19,7 +19,7 @@ import { IAppealLetter } from '../interface/interfaces';
 export class LetterService {
   constructor(private http: HttpClient) {}
 
-  private intervalMin = 5000;
+  private intervalMin = 10000;
 
   addnewFile(body: { text: string; package: string }): Observable<any> {
     return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
@@ -33,7 +33,24 @@ export class LetterService {
       switchMap(() =>
         this.http
           .get<{ appeals: IAppealLetter[] }>(
-            `${environment.apiUrl}/appeal/all/${packageId}`
+            `${environment.apiUrl}/appeal/denial/${packageId}`
+          )
+          .pipe(
+            map((response) => response.appeals),
+            tap(() => console.log('request updated')),
+            shareReplay()
+          )
+      )
+    );
+  }
+
+  /*get appeal letters of package  */
+  getAppealAnswersForPackage(packageId: string): Observable<any[]> {
+    return timer(0, this.intervalMin).pipe(
+      switchMap(() =>
+        this.http
+          .get<{ appeals: IAppealLetter[] }>(
+            `${environment.apiUrl}/appeal/letter/${packageId}`
           )
           .pipe(
             map((response) => response.appeals),

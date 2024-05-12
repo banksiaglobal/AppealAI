@@ -53,6 +53,8 @@ export class LetterPageComponent {
 
   public listDenialLetters$: Observable<IAppealLetter[]>;
 
+  public listAnswersAI$: Observable<any[]>;
+
   onUploadDenialLetter(info: any) {
     const body = {
       text: info.text,
@@ -88,15 +90,18 @@ export class LetterPageComponent {
   }
 
   onSelectPackage(packageInfo: IResponseAddPackage) {
-    this.packagesList$
-      .pipe(
-        tap((data) => {
-          this.localStorage.savePackage(packageInfo.id, packageInfo.name);
-          this.getAllDocsForCurrentPackage(packageInfo.id);
-          this.getListLetters(packageInfo.id);
-        })
-      )
-      .subscribe();
+    console.log(packageInfo);
+    if (packageInfo) {
+      this.packagesList$
+        .pipe(
+          tap((data) => {
+            this.localStorage.savePackage(packageInfo.id, packageInfo.name);
+            this.getAllDocsForCurrentPackage(packageInfo.id);
+            this.getListLetters(packageInfo.id);
+          })
+        )
+        .subscribe();
+    }
   }
 
   getAllDocsForCurrentPackage(packageId: string) {
@@ -130,7 +135,7 @@ export class LetterPageComponent {
 
   deleteDocument(documentInfo: IDoc) {
     this.docsService
-      .deleteDocumentForCurrentPackage(documentInfo.id)
+      .deleteDocumentForCurrentPackage(documentInfo.name)
       .pipe(
         tap(() => {
           this.createSuccessMessage('document', 'was deleted');
@@ -193,7 +198,12 @@ export class LetterPageComponent {
   }
 
   getListLetters(packageId: string) {
-    this.listDenialLetters$ =
-      this.letterService.getListDenialLettersForPackage(packageId);
+    this.listDenialLetters$ = this.letterService
+      .getListDenialLettersForPackage(packageId)
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
   }
 }

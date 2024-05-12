@@ -24,6 +24,7 @@ import { ListDocumentsComponent } from '../../components/list-documents/list-doc
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IAppealLetter } from '../../interface/interfaces';
 import { ListDenialLettersComponent } from '../../components/list-denial-letters/list-denial-letters.component';
+import { ListAnswerAiComponent } from '../../components/list-answer-ai/list-answer-ai.component';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -44,6 +45,7 @@ import { ListDenialLettersComponent } from '../../components/list-denial-letters
     ListDocumentsComponent,
     NzToolTipModule,
     ListDenialLettersComponent,
+    ListAnswerAiComponent,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -59,6 +61,8 @@ export class LetterPageViewComponent {
 
   @Input() answerAI: any[] | null;
 
+  @Input() listAnswersAI: any[] | null;
+
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
   @Output() onSelectPackage = new EventEmitter<any>();
@@ -66,6 +70,8 @@ export class LetterPageViewComponent {
   @Output() deleteDocument = new EventEmitter<any>();
 
   @Output() deleteLetter = new EventEmitter<any>();
+
+  @Output() deleteAnswerAI = new EventEmitter<any>();
 
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
