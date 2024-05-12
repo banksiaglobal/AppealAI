@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  map,
+  of,
+  shareReplay,
+  switchMap,
+  tap,
+  timer,
+} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IAppealLetter } from '../interface/interfaces';
@@ -10,6 +19,8 @@ import { IAppealLetter } from '../interface/interfaces';
 export class LetterService {
   constructor(private http: HttpClient) {}
 
+  private intervalMin = 5000;
+
   addnewFile(body: { text: string; package: string }): Observable<any> {
     return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
   }
@@ -18,13 +29,22 @@ export class LetterService {
   getListDenialLettersForPackage(
     packageId: string
   ): Observable<IAppealLetter[]> {
-    return this.http
-      .get<{ appeals: IAppealLetter[] }>(
-        `${environment.apiUrl}/appeal/all/${packageId}`
+    return timer(0, this.intervalMin).pipe(
+      switchMap(() =>
+        this.http
+          .get<{ appeals: IAppealLetter[] }>(
+            `${environment.apiUrl}/appeal/all/${packageId}`
+          )
+          .pipe(
+            map((response) => response.appeals),
+            tap(() => console.log('request updated')),
+            shareReplay()
+          )
       )
-      .pipe(
-        map((response) => response.appeals),
-        catchError(() => of())
-      );
+    );
+  }
+
+  deleteDenialLetter(letterId: string) {
+    return this.http.delete(`${environment.apiUrl}/appeal/${letterId}`);
   }
 }

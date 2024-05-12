@@ -7,17 +7,13 @@
                 <div nz-typography> <b>{{i+1}}).&nbsp;</b>{{item.denialText}}</div>
                 <div class="bottom-side-letter-cell">
                     <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
-                    <div class="delete-icon" (click)="deleteLetter(item)"></div>
+                    <div class="delete-icon" (click)="clickDeleteLetter(item)"></div>
 
                 </div>
             </div>
-
-
-
         </nz-list-item>
         }
         @if (listDenialLetters?.length === 0) {
         <nz-list-empty />
         }
-
     </nz-list>

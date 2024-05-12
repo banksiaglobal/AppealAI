@@ -65,6 +65,8 @@ export class LetterPageViewComponent {
 
   @Output() deleteDocument = new EventEmitter<any>();
 
+  @Output() deleteLetter = new EventEmitter<any>();
+
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
   @Output() saveDocument = new EventEmitter<any>();

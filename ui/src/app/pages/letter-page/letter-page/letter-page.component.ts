@@ -147,6 +147,22 @@ export class LetterPageComponent {
       .subscribe();
   }
 
+  deleteLetter(letterInfo: IAppealLetter) {
+    this.letterService
+      .deleteDenialLetter(letterInfo.id)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('letter', 'was deleted');
+          this.getListLetters(String(letterInfo.package));
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage('letter', "wasn't deleted. Smth went wrong");
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
   saveDocument(documentInfo: IDoc) {
     this.docsService
       .downloadDocument(documentInfo.name)

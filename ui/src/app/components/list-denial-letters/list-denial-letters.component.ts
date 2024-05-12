@@ -12,9 +12,9 @@ import { CommonModule } from '@angular/common';
 export class ListDenialLettersComponent {
   @Input() listDenialLetters: IAppealLetter[] | null;
 
-  @Output() deleteDocument = new EventEmitter<any>();
+  @Output() deleteLetter = new EventEmitter<any>();
 
-  deleteLetter(item: IAppealLetter) {
-    this.deleteDocument.emit(item);
+  clickDeleteLetter(item: IAppealLetter) {
+    this.deleteLetter.emit(item);
   }
 }
