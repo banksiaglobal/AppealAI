@@ -8,6 +8,7 @@ XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
     <Route Url="/create" Method="POST" Call="Create" Cors="true"/>
     <Route Url="/:id" Method="GET" Call="GetPackage" Cors="true"/>
     <Route Url="/all/:companyId" Method="GET" Call="GetAllPackages" Cors="true"/>
+    <Route Url="/:id" Method="DELETE" Call="Delete" Cors="true"/>
 
 </Routes>
 }
