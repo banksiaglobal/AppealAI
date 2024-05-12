@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="Cache" version="25">
-  <Document name="appeal-ai.ZPM">
+  <Document name="bg-appealai.ZPM">
     <Module>
-      <Name>appeal-ai</Name>
-      <Version>0.0.1</Version>
-      <Description>Application AI</Description>
-      <Keywords>FHIR</Keywords>
+      <Name>bg-appealai</Name>
+      <Version>0.0.2</Version>
+      <Description>Sample AI and Vector Search application</Description>
       <Packaging>module</Packaging>
       <SourcesRoot>src</SourcesRoot>
       <Resource Name="Production.PKG"/>
@@ -24,6 +23,9 @@
         UseCookies="2"
         CookiePath="/api"
       />
+
+      <SystemSetting Name="CSP.DefaultFileCharset" Value="UTF-8"/>
+      <CSPApplication Url="/appealai" SourcePath="/dist/ui/browser" DeployPath="{$cspdir}/appealai" ServeFiles="1" Recurse="1" CookiePath="/appealai"/>      
       <SystemRequirements Interoperability="enabled" />
       <Dependencies>
         <ModuleReference>

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/components/list-answer-ai/list-answer-ai.component.scss"],
+  "sourcesContent": ["nz-list {\n  margin: 0 auto;\n  margin-bottom: 10px;\n}\n\n.list-docs-item {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n\n  &__idx {\n    margin-right: 5px;\n  }\n}\n\n.delete-icon {\n  position: relative;\n  margin-left: 8px;\n  padding: 3px;\n  background: url(\"../../../assets/del.svg\") no-repeat center;\n}\n\n.ant-list-empty-text {\n  max-height: 100px;\n  padding: 0;\n}\n\n.bottom-side-letter-cell {\n  display: flex;\n  justify-content: space-between;\n}\n\nnz-empty {\n  margin: 0 0 !important;\n}\n\n@media screen and (max-width: 580px) {\n  nz-list {\n    min-width: 100%;\n  }\n}\n"],
+  "mappings": ";AAAA;AACE,UAAA,EAAA;AACA,iBAAA;;AAGF,CAAA;AACE,WAAA;AACA,kBAAA;AACA,OAAA;;AAEA,CAAA;AACE,gBAAA;;AAIJ,CAAA;AACE,YAAA;AACA,eAAA;AACA,WAAA;AACA,cAAA,uBAAA,UAAA;;AAGF,CAAA;AACE,cAAA;AACA,WAAA;;AAGF,CAAA;AACE,WAAA;AACA,mBAAA;;AAGF;AACE,UAAA,EAAA;;AAGF,OAAA,OAAA,IAAA,CAAA,SAAA,EAAA;AACE;AACE,eAAA;;;",
+  "names": []
+}
