@@ -54,6 +54,10 @@ export class LetterPageComponent {
 
   public listAnswersAI$: Observable<IAppealLetter[]>;
 
+  public listALLDenialLetters$: Observable<IDenialLetter[]>;
+
+  public listALLAnswersAI$: Observable<IAppealLetter[]>;
+
   onUploadDenialLetter(info: any) {
     const body = {
       text: info.text,
@@ -78,6 +82,8 @@ export class LetterPageComponent {
     this.listInsuranceOrg$ = this.companyService
       .getCompanyList()
       .pipe(map((data) => data));
+    this.getAllListDenialLetters();
+    this.getAllListAppealsFromAI();
   }
 
   onSelectCompany(company: ICompany) {
@@ -89,7 +95,6 @@ export class LetterPageComponent {
   }
 
   onSelectPackage(packageInfo: IResponseAddPackage) {
-    console.log(packageInfo);
     if (packageInfo) {
       this.packagesList$
         .pipe(
@@ -100,18 +105,6 @@ export class LetterPageComponent {
           })
         )
         .subscribe();
-    }
-  }
-
-  getAllDocsForCurrentPackage(packageId: string) {
-    if (packageId) {
-      this.listDocsForPackage$ = this.docsService
-        .getListDocsForCurrentPackage(packageId)
-        .pipe(
-          map((data) => {
-            return data;
-          })
-        );
     }
   }
 
@@ -161,6 +154,19 @@ export class LetterPageComponent {
       .subscribe();
   }
 
+  /*get lists info for current package*/
+  getAllDocsForCurrentPackage(packageId: string) {
+    if (packageId) {
+      this.listDocsForPackage$ = this.docsService
+        .getListDocsForCurrentPackage(packageId)
+        .pipe(
+          map((data) => {
+            return data;
+          })
+        );
+    }
+  }
+
   getListDenialLetters(packageId: string) {
     this.listDenialLetters$ = this.letterService
       .getListDenialLettersForPackage(packageId)
@@ -185,6 +191,33 @@ export class LetterPageComponent {
         })
       );
   }
+
+  /*get lists info for all cases*/
+
+  getAllListDenialLetters() {
+    this.listALLDenialLetters$ = this.letterService
+      .getAllListDenialLetters()
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        tap((data) => {
+          if (data) {
+            this.getAllListAppealsFromAI();
+          }
+        })
+      );
+  }
+
+  getAllListAppealsFromAI() {
+    this.listALLAnswersAI$ = this.letterService.getAllAppealAnswers().pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
+
+  /*deleting files from server*/
 
   deleteDocument(documentInfo: IDoc) {
     this.docsService
@@ -223,7 +256,6 @@ export class LetterPageComponent {
   }
 
   deleteAnswerAI(appealLetter: IAppealLetter) {
-    console.log(appealLetter.id);
     this.letterService
       .deleteAnswerAI(appealLetter.id)
       .pipe(

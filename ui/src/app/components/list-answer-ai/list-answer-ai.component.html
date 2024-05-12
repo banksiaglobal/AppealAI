@@ -12,7 +12,7 @@
             </div>
         </nz-list-item>
         }
-        @if (listAnswersAI?.length === 0) {
+        @if (!listAnswersAI || listAnswersAI.length === 0) {
         <nz-list-empty />
         }
     </nz-list>

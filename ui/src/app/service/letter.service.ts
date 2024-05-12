@@ -64,6 +64,42 @@ export class LetterService {
     );
   }
 
+  /*get denial letters for all cases */
+  getAllListDenialLetters(): Observable<IDenialLetter[]> {
+    return timer(0, this.intervalMin).pipe(
+      switchMap(() =>
+        this.http
+          .get<{ denials: IDenialLetter[] }>(
+            `${environment.apiUrl}/appeal/all/denial/`
+          )
+          .pipe(
+            take(5),
+            map((response) => response.denials),
+            tap(() => console.log('request updated')),
+            shareReplay()
+          )
+      )
+    );
+  }
+
+  /*get appeal letters for all cases */
+  getAllAppealAnswers(): Observable<IAppealLetter[]> {
+    return timer(0, this.intervalMin).pipe(
+      switchMap(() =>
+        this.http
+          .get<{ test: IAppealLetter[] }>(
+            `${environment.apiUrl}/appeal/all/letter/`
+          )
+          .pipe(
+            take(5),
+            map((response) => response.test),
+            tap(() => console.log('request updated')),
+            shareReplay()
+          )
+      )
+    );
+  }
+
   deleteDenialLetter(letterId: string) {
     return this.http.delete(`${environment.apiUrl}/appeal/${letterId}`);
   }

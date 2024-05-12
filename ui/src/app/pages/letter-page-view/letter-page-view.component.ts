@@ -25,6 +25,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IAppealLetter, IDenialLetter } from '../../interface/interfaces';
 import { ListDenialLettersComponent } from '../../components/list-denial-letters/list-denial-letters.component';
 import { ListAnswerAiComponent } from '../../components/list-answer-ai/list-answer-ai.component';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -46,6 +47,7 @@ import { ListAnswerAiComponent } from '../../components/list-answer-ai/list-answ
     NzToolTipModule,
     ListDenialLettersComponent,
     ListAnswerAiComponent,
+    NzCollapseModule,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -64,6 +66,10 @@ export class LetterPageViewComponent {
   @Input() listAnswersAI: IAppealLetter[] | null;
 
   @Input() listDenialLetters: IDenialLetter[] | null;
+
+  @Input() listALLDenialLetters: IDenialLetter[] | null;
+
+  @Input() listALLAnswersAI: IAppealLetter[] | null;
 
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 

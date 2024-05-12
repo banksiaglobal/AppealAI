@@ -70,6 +70,18 @@
                             (deleteAnswerAI)="deleteAnswerAI.emit($event)" />
                     </div>
                 </div>
+                <nz-collapse>
+                    <nz-collapse-panel nzHeader="All list of denial letters" nzActive="false">
+                        <app-list-denial-letters [listDenialLetters]="listALLDenialLetters"
+                            (deleteLetter)="deleteLetter.emit($event)" />
+                    </nz-collapse-panel>
+                </nz-collapse>
+                <nz-collapse>
+                    <nz-collapse-panel nzHeader="All list of appeal letters" nzActive="false">
+                        <app-list-answer-ai [listAnswersAI]="listALLAnswersAI"
+                            (deleteAnswerAI)="deleteAnswerAI.emit($event)" />
+                    </nz-collapse-panel>
+                </nz-collapse>
             </div>
         </form>
     </div>
