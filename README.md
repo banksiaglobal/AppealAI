@@ -1,8 +1,8 @@
-# AppealAI
+# BG-AppealAI
 
 ## Summary
 
-The AppealAI project demonstrates the integration of vector search and generative AI within applications developed using InterSystems technologies. This specific application aims to aid in drafting appeals against insurance company denials for hospital procedures.
+The BG-AppealAI project demonstrates the integration of vector search and generative AI within applications developed using InterSystems technologies. This specific application aims to aid in drafting appeals against insurance company denials for hospital procedures.
 
 ### Technologies Used
 
@@ -31,7 +31,7 @@ docker-compose up -d
 
 - Run the following command in the InterSystems terminal:
 ```
-zpm "install appeal-ai"
+zpm "install bg-appealai"
 ```
 
 - After installing the project, create a new `.env` file in the root folder with the following variables:
@@ -59,7 +59,7 @@ You can test the application through a demo or using any web client like Postman
 
 ### 3. Production
 
-The backend functionality of the application is primarily implemented using Interoperability Production. After successful installation locally, access the Production with the following URL: [http://localhost:32783/csp/healthshare/appealai/EnsPortal.ProductionConfig.zen?PRODUCTION=Production.AppealAIApp](http://localhost:32783/csp/healthshare/appealai/EnsPortal.ProductionConfig.zen?PRODUCTION=Production.AppealAIApp)
+The backend functionality of the application is primarily implemented using Interoperability Production. After successful installation locally, access the Production with the following URL: [Production](http://localhost:32783/csp/healthshare/appealai/EnsPortal.ProductionConfig.zen?PRODUCTION=Production.AppealAIApp)
 
 - **User**: ``_SYSTEM``
 - **Password**: ``SYS``
