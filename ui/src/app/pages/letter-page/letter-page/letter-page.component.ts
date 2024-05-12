@@ -53,16 +53,21 @@ export class LetterPageComponent {
 
   public listDenialLetters$: Observable<IAppealLetter[]>;
 
+  public listAnswersAI$: Observable<any[]>;
+
   onUploadDenialLetter(info: any) {
     const body = {
       text: info.text,
-      packageId: info.package.id,
+      package: info.package.id,
     };
     this.answerAI$ = this.letterService.addnewFile(body).pipe(
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('denial letter', 'was added')),
+      tap(() => {
+        this.createSuccessMessage('denial letter', 'was added');
+        this.getListDenialLetters(info.package.id);
+      }),
       catchError((error: any) => {
         tap(() => this.createErrorMessage('denial letter', "wasn't added"));
         return throwError(() => error);
@@ -85,15 +90,18 @@ export class LetterPageComponent {
   }
 
   onSelectPackage(packageInfo: IResponseAddPackage) {
-    this.packagesList$
-      .pipe(
-        tap((data) => {
-          this.localStorage.savePackage(packageInfo.id, packageInfo.name);
-          this.getAllDocsForCurrentPackage(packageInfo.id);
-          this.getListLetters(packageInfo.id);
-        })
-      )
-      .subscribe();
+    console.log(packageInfo);
+    if (packageInfo) {
+      this.packagesList$
+        .pipe(
+          tap((data) => {
+            this.localStorage.savePackage(packageInfo.id, packageInfo.name);
+            this.getAllDocsForCurrentPackage(packageInfo.id);
+            this.getListDenialLetters(packageInfo.id);
+          })
+        )
+        .subscribe();
+    }
   }
 
   getAllDocsForCurrentPackage(packageId: string) {
@@ -127,7 +135,7 @@ export class LetterPageComponent {
 
   deleteDocument(documentInfo: IDoc) {
     this.docsService
-      .deleteDocumentForCurrentPackage(documentInfo.id)
+      .deleteDocumentForCurrentPackage(documentInfo.name)
       .pipe(
         tap(() => {
           this.createSuccessMessage('document', 'was deleted');
@@ -144,13 +152,28 @@ export class LetterPageComponent {
       .subscribe();
   }
 
+  deleteLetter(letterInfo: IAppealLetter) {
+    this.letterService
+      .deleteDenialLetter(letterInfo.id)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('letter', 'was deleted');
+          this.getListDenialLetters(String(letterInfo.package));
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage('letter', "wasn't deleted. Smth went wrong");
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
   saveDocument(documentInfo: IDoc) {
     this.docsService
       .downloadDocument(documentInfo.name)
       .pipe(
         map((result: any) => {
           console.log(result);
-          this.downloadFile(result);
           return result;
         }),
         tap(() => {
@@ -174,22 +197,28 @@ export class LetterPageComponent {
       .subscribe();
   }
 
-  downloadFile(response: any) {
-    // console.log(response);
-    // let header_content = response.headers.get('content-disposition');
-    // let file = header_content.split('=')[1];
-    // file = file.substring(1, file.length - 1);
-    // let extension = file.split('.')[1].toLowerCase();
-    // let newVariable: any = window.navigator;
-    // let newBlob = new Blob([response.body], { type: extension });
-    // if (newVariable && newVariable.msSaveOrOpenBlob) {
-    //   newVariable.msSaveOrOpenBlob(newBlob);
-    //   return;
-    // }
+  getListDenialLetters(packageId: string) {
+    this.listDenialLetters$ = this.letterService
+      .getListDenialLettersForPackage(packageId)
+      .pipe(
+        map((data) => {
+          return data;
+        }),
+        tap((data) => {
+          if (data) {
+            this.getListAppealsFromAI(packageId);
+          }
+        })
+      );
   }
 
-  getListLetters(packageId: string) {
-    this.listDenialLetters$ =
-      this.letterService.getListDenialLettersForPackage(packageId);
+  getListAppealsFromAI(packageId: string) {
+    this.listAnswersAI$ = this.letterService
+      .getAppealAnswersForPackage(packageId)
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
   }
 }

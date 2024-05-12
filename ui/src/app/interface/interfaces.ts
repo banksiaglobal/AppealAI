@@ -3,4 +3,5 @@ export interface IAppealLetter {
   package: number;
   denialText: string;
   createdDateTime: string;
+  prompt: string;
 }
