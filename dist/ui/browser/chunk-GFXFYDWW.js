@@ -1,7 +1,6 @@
 import {
   CompanyService,
   DocsService,
-  LetterService,
   NzColDirective,
   NzCollapseComponent,
   NzCollapseModule,
@@ -21,13 +20,14 @@ import {
   NzSelectModule,
   NzSpinComponent,
   NzSpinModule,
-  PackageService
-} from "./chunk-6ONEQOLB.js";
+  PackageService,
+  environment
+} from "./chunk-DIVX4RWM.js";
 import {
   NzFlexDirective,
   NzFlexModule,
   NzLayoutModule
-} from "./chunk-2EKY2HRY.js";
+} from "./chunk-UHV536D3.js";
 import {
   NzAutosizeDirective,
   NzInputDirective,
@@ -35,7 +35,7 @@ import {
   NzToolTipModule,
   NzTooltipDirective,
   SessionStorageService
-} from "./chunk-6GYC5COE.js";
+} from "./chunk-M73E4B3E.js";
 import {
   DefaultValueAccessor,
   FormControlName,
@@ -48,15 +48,16 @@ import {
   ReactiveFormsModule,
   Validators,
   ɵNgNoValidate
-} from "./chunk-YIQPJEGN.js";
+} from "./chunk-VEWB337I.js";
 import {
   NzButtonComponent,
   NzButtonModule,
   NzTransitionPatchDirective,
   NzWaveDirective
-} from "./chunk-Y2PAPL5U.js";
+} from "./chunk-XYDHPNTY.js";
 import {
   Directionality,
+  HttpClient,
   InputBoolean,
   InputNumber,
   NzConfigService,
@@ -68,7 +69,7 @@ import {
   PlatformModule,
   RouterLink,
   WithConfig
-} from "./chunk-5A5HIE3N.js";
+} from "./chunk-6H6XYIWG.js";
 import {
   AsyncPipe,
   CommonModule,
@@ -105,10 +106,14 @@ import {
   mergeMap,
   of,
   setClassMetadata,
+  shareReplay,
   startWith,
+  switchMap,
+  take,
   takeUntil,
   tap,
   throwError,
+  timer,
   ɵsetClassDebugInfo,
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
@@ -120,6 +125,7 @@ import {
   ɵɵcontentQuery,
   ɵɵdefineComponent,
   ɵɵdefineDirective,
+  ɵɵdefineInjectable,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdirectiveInject,
@@ -130,6 +136,7 @@ import {
   ɵɵelementEnd,
   ɵɵelementStart,
   ɵɵgetCurrentView,
+  ɵɵinject,
   ɵɵlistener,
   ɵɵloadQuery,
   ɵɵnextContext,
@@ -139,6 +146,7 @@ import {
   ɵɵprojection,
   ɵɵprojectionDef,
   ɵɵproperty,
+  ɵɵpureFunction0,
   ɵɵpureFunction2,
   ɵɵqueryRefresh,
   ɵɵreference,
@@ -2580,6 +2588,7 @@ var NzListModule = _NzListModule;
 })();
 
 // src/app/components/list-documents/list-documents.component.ts
+var _c04 = () => ({ upload: true });
 function ListDocumentsComponent_For_5_Template(rf, ctx) {
   if (rf & 1) {
     const _r1 = \u0275\u0275getCurrentView();
@@ -2630,6 +2639,10 @@ function ListDocumentsComponent_Conditional_7_Template(rf, ctx) {
     \u0275\u0275text(2, " Upload ");
     \u0275\u0275elementEnd()();
   }
+  if (rf & 2) {
+    \u0275\u0275advance();
+    \u0275\u0275property("queryParams", \u0275\u0275pureFunction0(1, _c04));
+  }
 }
 var _ListDocumentsComponent = class _ListDocumentsComponent {
   constructor() {
@@ -2646,7 +2659,7 @@ var _ListDocumentsComponent = class _ListDocumentsComponent {
 _ListDocumentsComponent.\u0275fac = function ListDocumentsComponent_Factory(t) {
   return new (t || _ListDocumentsComponent)();
 };
-_ListDocumentsComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ListDocumentsComponent, selectors: [["app-list-documents"]], inputs: { listDocsForPackage: "listDocsForPackage" }, outputs: { deleteDocument: "deleteDocument", saveDocument: "saveDocument" }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 8, vars: 2, consts: [["nzItemLayout", "horizontal"], ["nzBordered", "", "nzSize", "small"], [1, "create-obj-box"], [1, "list-docs-item"], ["nz-typography", "", 1, "list-docs-item"], ["nz-typography", ""], [1, "download-icon", 3, "click"], [1, "delete-icon", 3, "click"], ["routerLink", "/start", "nz-button", "", "nz-tooltip", "", "nzTooltipTitle", "Add an insurance agreement", "nzTooltipColor", "red", 1, "link-text"]], template: function ListDocumentsComponent_Template(rf, ctx) {
+_ListDocumentsComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ListDocumentsComponent, selectors: [["app-list-documents"]], inputs: { listDocsForPackage: "listDocsForPackage" }, outputs: { deleteDocument: "deleteDocument", saveDocument: "saveDocument" }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 8, vars: 2, consts: [["nzItemLayout", "horizontal"], ["nzBordered", "", "nzSize", "small"], [1, "create-obj-box"], [1, "list-docs-item"], ["nz-typography", "", 1, "list-docs-item"], ["nz-typography", ""], [1, "download-icon", 3, "click"], [1, "delete-icon", 3, "click"], ["routerLink", "/start", "nz-button", "", "nz-tooltip", "", "nzTooltipTitle", "Add an insurance agreement", "nzTooltipColor", "red", 1, "link-text", 3, "queryParams"]], template: function ListDocumentsComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "nz-list", 0)(1, "nz-list", 1)(2, "nz-list-header");
     \u0275\u0275text(3, "List of documents:");
@@ -2654,7 +2667,7 @@ _ListDocumentsComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent(
     \u0275\u0275repeaterCreate(4, ListDocumentsComponent_For_5_Template, 13, 6, "nz-list-item", null, \u0275\u0275repeaterTrackByIdentity);
     \u0275\u0275template(6, ListDocumentsComponent_Conditional_6_Template, 1, 0, "nz-list-empty");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(7, ListDocumentsComponent_Conditional_7_Template, 3, 0, "div", 2);
+    \u0275\u0275template(7, ListDocumentsComponent_Conditional_7_Template, 3, 2, "div", 2);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -2668,7 +2681,7 @@ _ListDocumentsComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent(
 }, dependencies: [NzListModule, NzListComponent, NzListHeaderComponent, NzListEmptyComponent, NzListItemComponent, CommonModule, DatePipe, RouterLink, NzToolTipModule, NzTooltipDirective], styles: ['\n\nnz-list[_ngcontent-%COMP%] {\n  margin: 0 auto;\n  margin-bottom: 10px;\n}\n.list-docs-item[_ngcontent-%COMP%] {\n  display: flex;\n}\n.list-docs-item__idx[_ngcontent-%COMP%] {\n  margin-right: 5px;\n}\n.delete-icon[_ngcontent-%COMP%] {\n  position: relative;\n  margin-left: 8px;\n  padding: 3px;\n  background: url("./media/del.svg") no-repeat center;\n}\n.ant-list-empty-text[_ngcontent-%COMP%] {\n  max-height: 100px;\n  padding: 0;\n}\nnz-empty[_ngcontent-%COMP%] {\n  margin: 0 0 !important;\n}\n@media screen and (max-width: 580px) {\n  nz-list[_ngcontent-%COMP%] {\n    min-width: 100%;\n  }\n}\n/*# sourceMappingURL=list-documents.component.css.map */'] });
 var ListDocumentsComponent = _ListDocumentsComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ListDocumentsComponent, { className: "ListDocumentsComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ListDocumentsComponent, { className: "ListDocumentsComponent", filePath: "src\\app\\components\\list-documents\\list-documents.component.ts", lineNumber: 15 });
 })();
 
 // src/app/components/list-denial-letters/list-denial-letters.component.ts
@@ -2737,7 +2750,7 @@ _ListDenialLettersComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineCompon
 }, dependencies: [NzListModule, NzListComponent, NzListHeaderComponent, NzListEmptyComponent, NzListItemComponent, CommonModule, DatePipe], styles: ['\n\nnz-list[_ngcontent-%COMP%] {\n  margin: 0 auto;\n  margin-bottom: 10px;\n}\n.list-docs-item[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n}\n.list-docs-item__idx[_ngcontent-%COMP%] {\n  margin-right: 5px;\n}\n.delete-icon[_ngcontent-%COMP%] {\n  position: relative;\n  margin-left: 8px;\n  padding: 3px;\n  background: url("./media/del.svg") no-repeat center;\n}\n.ant-list-empty-text[_ngcontent-%COMP%] {\n  max-height: 100px;\n  padding: 0;\n}\n.bottom-side-letter-cell[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n}\nnz-empty[_ngcontent-%COMP%] {\n  margin: 0 0 !important;\n}\n@media screen and (max-width: 580px) {\n  nz-list[_ngcontent-%COMP%] {\n    min-width: 100%;\n  }\n}\n/*# sourceMappingURL=list-denial-letters.component.css.map */'] });
 var ListDenialLettersComponent = _ListDenialLettersComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ListDenialLettersComponent, { className: "ListDenialLettersComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ListDenialLettersComponent, { className: "ListDenialLettersComponent", filePath: "src\\app\\components\\list-denial-letters\\list-denial-letters.component.ts", lineNumber: 12 });
 })();
 
 // src/app/components/list-answer-ai/list-answer-ai.component.ts
@@ -2806,10 +2819,11 @@ _ListAnswerAiComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({
 }, dependencies: [NzListModule, NzListComponent, NzListHeaderComponent, NzListEmptyComponent, NzListItemComponent, CommonModule, DatePipe], styles: ['\n\nnz-list[_ngcontent-%COMP%] {\n  margin: 0 auto;\n  margin-bottom: 10px;\n}\n.list-docs-item[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 5px;\n}\n.list-docs-item__idx[_ngcontent-%COMP%] {\n  margin-right: 5px;\n}\n.delete-icon[_ngcontent-%COMP%] {\n  position: relative;\n  margin-left: 8px;\n  padding: 3px;\n  background: url("./media/del.svg") no-repeat center;\n}\n.ant-list-empty-text[_ngcontent-%COMP%] {\n  max-height: 100px;\n  padding: 0;\n}\n.bottom-side-letter-cell[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n}\nnz-empty[_ngcontent-%COMP%] {\n  margin: 0 0 !important;\n}\n@media screen and (max-width: 580px) {\n  nz-list[_ngcontent-%COMP%] {\n    min-width: 100%;\n  }\n}\n/*# sourceMappingURL=list-answer-ai.component.css.map */'] });
 var ListAnswerAiComponent = _ListAnswerAiComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ListAnswerAiComponent, { className: "ListAnswerAiComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ListAnswerAiComponent, { className: "ListAnswerAiComponent", filePath: "src\\app\\components\\list-answer-ai\\list-answer-ai.component.ts", lineNumber: 13 });
 })();
 
 // src/app/pages/letter-page-view/letter-page-view.component.ts
+var _c05 = () => ({ upload: true });
 function LetterPageViewComponent_nz_option_9_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275element(0, "nz-option", 16);
@@ -3005,7 +3019,7 @@ var _LetterPageViewComponent = class _LetterPageViewComponent {
 _LetterPageViewComponent.\u0275fac = function LetterPageViewComponent_Factory(t) {
   return new (t || _LetterPageViewComponent)(\u0275\u0275directiveInject(NonNullableFormBuilder), \u0275\u0275directiveInject(SessionStorageService));
 };
-_LetterPageViewComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LetterPageViewComponent, selectors: [["app-letter-page-view"]], inputs: { currentCompany: "currentCompany", listInsuranceOrg: "listInsuranceOrg", packagesList: "packagesList", listDocsForPackage: "listDocsForPackage", answerAI: "answerAI", listAnswersAI: "listAnswersAI", listDenialLetters: "listDenialLetters", listALLDenialLetters: "listALLDenialLetters", listALLAnswersAI: "listALLAnswersAI" }, outputs: { onSelectCompany: "onSelectCompany", onSelectPackage: "onSelectPackage", deleteDocument: "deleteDocument", deleteLetter: "deleteLetter", deleteAnswerAI: "deleteAnswerAI", onUploadDenialLetter: "onUploadDenialLetter", saveDocument: "saveDocument" }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 32, vars: 10, consts: [[1, "page"], [1, "container-page"], ["nz-form", "", 1, "form", 3, "nzLayout", "formGroup"], ["nz-flex", "", 1, "form-box", 3, "nzAlign", "nzJustify"], [1, "left-side"], ["nzPlaceHolder", "Select an insurance company", "nzAllowClear", "", "formControlName", "company", 3, "ngModelChange"], [3, "nzValue", "nzLabel", 4, "ngFor", "ngForOf"], [1, "create-obj-box"], ["routerLink", "/start", 1, "link-text"], ["nzPlaceHolder", "Select insurance packages", "nzAllowClear", "", "formControlName", "package", 3, "nzOpenChange", "nzDisabled"], ["class", "list-docs-box", 4, "ngIf"], [1, "all-lists-title"], ["nzHeader", "All list of denial letters", "nzActive", "false"], [3, "deleteLetter", "listDenialLetters"], ["nzHeader", "All list of appeal letters", "nzActive", "false"], [3, "deleteAnswerAI", "listAnswersAI"], [3, "nzValue", "nzLabel"], [1, "list-docs-box"], ["class", "list-info-item", 4, "ngIf"], [1, "right-side"], ["class", "nz-form-item-download download", "nz-button", "", "nzType", "primary", 4, "ngIf"], [4, "ngIf"], [1, "list-info-item"], ["nz-typography", ""], [1, "list-info-item-name"], [1, "delete-icon", 3, "click"], ["nz-button", "", "nzType", "primary", 1, "nz-form-item-download", "download"], ["nz-input", "", "placeholder", "Enter your denial letter text", "nzAutosize", "", "formControlName", "text", "type", "text", 1, "textarea"], ["nz-flex", "", 1, "btn-box", 3, "nzAlign"], ["type", "submit", "nz-button", "", "nzType", "primary", 1, "btn-submit", 3, "click", "disabled"], [3, "deleteDocument", "listDocsForPackage"]], template: function LetterPageViewComponent_Template(rf, ctx) {
+_LetterPageViewComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _LetterPageViewComponent, selectors: [["app-letter-page-view"]], inputs: { currentCompany: "currentCompany", listInsuranceOrg: "listInsuranceOrg", packagesList: "packagesList", listDocsForPackage: "listDocsForPackage", answerAI: "answerAI", listAnswersAI: "listAnswersAI", listDenialLetters: "listDenialLetters", listALLDenialLetters: "listALLDenialLetters", listALLAnswersAI: "listALLAnswersAI" }, outputs: { onSelectCompany: "onSelectCompany", onSelectPackage: "onSelectPackage", deleteDocument: "deleteDocument", deleteLetter: "deleteLetter", deleteAnswerAI: "deleteAnswerAI", onUploadDenialLetter: "onUploadDenialLetter", saveDocument: "saveDocument" }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 32, vars: 14, consts: [[1, "page"], [1, "container-page"], ["nz-form", "", 1, "form", 3, "nzLayout", "formGroup"], ["nz-flex", "", 1, "form-box", 3, "nzAlign", "nzJustify"], [1, "left-side"], ["nzPlaceHolder", "Select an insurance company", "nzAllowClear", "", "formControlName", "company", 3, "ngModelChange"], [3, "nzValue", "nzLabel", 4, "ngFor", "ngForOf"], [1, "create-obj-box"], ["routerLink", "/start", 1, "link-text", 3, "queryParams"], ["nzPlaceHolder", "Select insurance packages", "nzAllowClear", "", "formControlName", "package", 3, "nzOpenChange", "nzDisabled"], ["class", "list-docs-box", 4, "ngIf"], [1, "all-lists-title"], ["nzHeader", "All list of denial letters", "nzActive", "false"], [3, "deleteLetter", "listDenialLetters"], ["nzHeader", "All list of appeal letters", "nzActive", "false"], [3, "deleteAnswerAI", "listAnswersAI"], [3, "nzValue", "nzLabel"], [1, "list-docs-box"], ["class", "list-info-item", 4, "ngIf"], [1, "right-side"], ["class", "nz-form-item-download download", "nz-button", "", "nzType", "primary", 4, "ngIf"], [4, "ngIf"], [1, "list-info-item"], ["nz-typography", ""], [1, "list-info-item-name"], [1, "delete-icon", 3, "click"], ["nz-button", "", "nzType", "primary", 1, "nz-form-item-download", "download"], ["nz-input", "", "placeholder", "Enter your denial letter text", "nzAutosize", "", "formControlName", "text", "type", "text", 1, "textarea"], ["nz-flex", "", 1, "btn-box", 3, "nzAlign"], ["type", "submit", "nz-button", "", "nzType", "primary", 1, "btn-submit", 3, "click", "disabled"], [3, "deleteDocument", "listDocsForPackage"]], template: function LetterPageViewComponent_Template(rf, ctx) {
   if (rf & 1) {
     \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "p");
     \u0275\u0275text(3, "On this page, you can see the AI Attorney in action. First, you choose an insurance company and a policy you set up on a previous step. Then, you upload an isurance denial letter and wait for your appeal to be generated. ");
@@ -3056,11 +3070,15 @@ _LetterPageViewComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent
     \u0275\u0275property("nzAlign", "center")("nzJustify", "center");
     \u0275\u0275advance(4);
     \u0275\u0275property("ngForOf", ctx.listInsuranceOrg);
-    \u0275\u0275advance(7);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("queryParams", \u0275\u0275pureFunction0(12, _c05));
+    \u0275\u0275advance(3);
     \u0275\u0275property("nzDisabled", !(ctx.currentCompany == null ? null : ctx.currentCompany.id));
     \u0275\u0275advance();
     \u0275\u0275property("ngForOf", ctx.packagesList);
-    \u0275\u0275advance(6);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("queryParams", \u0275\u0275pureFunction0(13, _c05));
+    \u0275\u0275advance(2);
     \u0275\u0275property("ngIf", ctx.documentsForm.value.company || (ctx.documentsForm.value == null ? null : ctx.documentsForm.value.package));
     \u0275\u0275advance(5);
     \u0275\u0275property("listDenialLetters", ctx.listALLDenialLetters);
@@ -3108,8 +3126,47 @@ _LetterPageViewComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent
 ], styles: ["\n\n.form[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  gap: 10px;\n}\n.form-box[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  flex-direction: column;\n  justify-content: center;\n  gap: 20px !important;\n  width: 100%;\n}\n.title[_ngcontent-%COMP%] {\n  margin-bottom: 20px;\n}\nnz-select[_ngcontent-%COMP%] {\n  width: 250px;\n}\nnz-form-item[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.nz-form-item-download[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.left-side[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap;\n  gap: 5px;\n  width: 100%;\n}\n.right-side[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.right-side[_ngcontent-%COMP%]   .textarea[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 300px;\n}\n.btn-box[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n}\n.btn-submit[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: center;\n  margin-top: 5px;\n}\n.list-docs-box[_ngcontent-%COMP%] {\n  margin: 0 auto;\n  width: 100%;\n}\n.list-info-item[_ngcontent-%COMP%] {\n  margin-bottom: 10px;\n}\n.list-info-item-name[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: var(--primary-color);\n  font-weight: 600;\n}\n.dialog-contauner[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 100px;\n}\n.ant-form-item[_ngcontent-%COMP%] {\n  margin-bottom: 0;\n}\n.download[_ngcontent-%COMP%] {\n  margin-bottom: 5px;\n  gap: 0;\n}\nnz-collapse[_ngcontent-%COMP%] {\n  width: 100%;\n}\n.all-lists-title[_ngcontent-%COMP%] {\n  align-self: flex-start;\n}\n/*# sourceMappingURL=letter-page-view.component.css.map */"] });
 var LetterPageViewComponent = _LetterPageViewComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LetterPageViewComponent, { className: "LetterPageViewComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LetterPageViewComponent, { className: "LetterPageViewComponent", filePath: "src\\app\\pages\\letter-page-view\\letter-page-view.component.ts", lineNumber: 55 });
 })();
+
+// src/app/service/letter.service.ts
+var _LetterService = class _LetterService {
+  constructor(http) {
+    this.http = http;
+    this.intervalMin = 1e4;
+  }
+  addnewFile(body) {
+    return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
+  }
+  /*get denial letters of package */
+  getListDenialLettersForPackage(packageId) {
+    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/denial/${packageId}`).pipe(take(5), map((response) => response.denials), tap(() => console.log("request updated")), shareReplay())));
+  }
+  /*get appeal letters of package  */
+  getAppealAnswersForPackage(packageId) {
+    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/letter/${packageId}`).pipe(take(5), map((response) => response.appealLetters), tap(() => console.log("request updated")), shareReplay())));
+  }
+  /*get denial letters for all cases */
+  getAllListDenialLetters() {
+    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/all/denial/`).pipe(take(5), map((response) => response.denials), tap(() => console.log("request updated")), shareReplay())));
+  }
+  /*get appeal letters for all cases */
+  getAllAppealAnswers() {
+    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/all/letter/`).pipe(take(5), map((response) => response.test), tap(() => console.log("request updated")), shareReplay())));
+  }
+  deleteDenialLetter(letterId) {
+    return this.http.delete(`${environment.apiUrl}/appeal/${letterId}`);
+  }
+  deleteAnswerAI(appealId) {
+    console.log(appealId);
+    return this.http.delete(`${environment.apiUrl}/appeal/${appealId}`);
+  }
+};
+_LetterService.\u0275fac = function LetterService_Factory(t) {
+  return new (t || _LetterService)(\u0275\u0275inject(HttpClient));
+};
+_LetterService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _LetterService, factory: _LetterService.\u0275fac, providedIn: "root" });
+var LetterService = _LetterService;
 
 // src/app/pages/letter-page/letter-page/letter-page.component.ts
 var _LetterPageComponent = class _LetterPageComponent {
@@ -3294,9 +3351,9 @@ _LetterPageComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ t
 }, dependencies: [CommonModule, AsyncPipe, LetterPageViewComponent, NzMessageModule] });
 var LetterPageComponent = _LetterPageComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LetterPageComponent, { className: "LetterPageComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(LetterPageComponent, { className: "LetterPageComponent", filePath: "src\\app\\pages\\letter-page\\letter-page\\letter-page.component.ts", lineNumber: 24 });
 })();
 export {
   LetterPageComponent
 };
-//# sourceMappingURL=chunk-FALZDIXG.js.map
+//# sourceMappingURL=chunk-GFXFYDWW.js.map

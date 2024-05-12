@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["src/app/components/dialogs/create-package/create-package.component.scss"],
-  "sourcesContent": [".company-name {\n  display: inline-block;\n  margin-left: 20px;\n  color: var(--primary-color);\n  font-weight: 600;\n}\n"],
+  "sourcesContent": [".company-name {\r\n  display: inline-block;\r\n  margin-left: 20px;\r\n  color: var(--primary-color);\r\n  font-weight: 600;\r\n}\r\n"],
   "mappings": ";AAAA,CAAA;AACE,WAAA;AACA,eAAA;AACA,SAAA,IAAA;AACA,eAAA;;",
   "names": []
 }

@@ -12637,6 +12637,7 @@ export {
   bootstrapApplication,
   DomSanitizer,
   NavigationEnd,
+  ActivatedRoute,
   RouterOutlet,
   Router,
   RouterLink,
@@ -12723,4 +12724,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-5A5HIE3N.js.map
+//# sourceMappingURL=chunk-6H6XYIWG.js.map

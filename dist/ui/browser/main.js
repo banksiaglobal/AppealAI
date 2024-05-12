@@ -10,12 +10,12 @@ import {
   NzMenuItemComponent,
   NzMenuModule,
   NzSiderComponent
-} from "./chunk-2EKY2HRY.js";
+} from "./chunk-UHV536D3.js";
 import {
   FormsModule,
   en_US,
   provideNzI18n
-} from "./chunk-YIQPJEGN.js";
+} from "./chunk-VEWB337I.js";
 import {
   DashboardOutline,
   DomRendererFactory2,
@@ -29,7 +29,7 @@ import {
   provideHttpClient,
   provideRouter,
   withHashLocation
-} from "./chunk-5A5HIE3N.js";
+} from "./chunk-6H6XYIWG.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -68,28 +68,28 @@ var routes = [
   { path: "", pathMatch: "full", redirectTo: "/welcome" },
   {
     path: "welcome",
-    loadComponent: () => import("./chunk-4NDTFRHT.js").then((m) => m.WelcomeComponent),
+    loadComponent: () => import("./chunk-JOGE5VLH.js").then((m) => m.WelcomeComponent),
     title: "Welcome"
   },
   {
     path: "start",
-    loadComponent: () => import("./chunk-LMXDUAXP.js").then((m) => m.StartPageComponent),
+    loadComponent: () => import("./chunk-R3YKXYCC.js").then((m) => m.StartPageComponent),
     title: "Start"
   },
   {
     path: "about",
-    loadComponent: () => import("./chunk-WKG6DM6M.js").then((m) => m.AboutPageComponent),
+    loadComponent: () => import("./chunk-OG4XVQEY.js").then((m) => m.AboutPageComponent),
     title: "About"
   },
   {
     path: "letter",
-    loadComponent: () => import("./chunk-FALZDIXG.js").then((m) => m.LetterPageComponent),
+    loadComponent: () => import("./chunk-GFXFYDWW.js").then((m) => m.LetterPageComponent),
     title: "Docs",
     pathMatch: "full"
   },
   {
     path: "answer",
-    loadComponent: () => import("./chunk-RIFHYJ2I.js").then((m) => m.AiComponent),
+    loadComponent: () => import("./chunk-7NXPAAPT.js").then((m) => m.AiComponent),
     title: "AI",
     pathMatch: "full"
   },
@@ -427,7 +427,7 @@ _AppComponent.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _A
 ], styles: ['\n\n[_nghost-%COMP%] {\n  display: flex;\n  text-rendering: optimizeLegibility;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.logo-title[_ngcontent-%COMP%] {\n  background: url("./media/title.svg") no-repeat;\n  height: 40px;\n  width: 170px;\n}\n.app-layout[_ngcontent-%COMP%] {\n  min-height: 100vh;\n}\n.horizontal-header-var[_ngcontent-%COMP%] {\n  display: none;\n}\n.menu-sidebar[_ngcontent-%COMP%] {\n  position: relative;\n  z-index: 10;\n  min-height: 100vh;\n  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);\n}\n.header-trigger[_ngcontent-%COMP%] {\n  align-self: center;\n  height: 64px;\n  padding: 0 24px;\n  font-size: 20px;\n  cursor: pointer;\n  transition: all 0.3s, padding 0s;\n}\n.trigger[_ngcontent-%COMP%]:hover {\n  color: #1890ff;\n}\n.sidebar-logo[_ngcontent-%COMP%] {\n  position: relative;\n  height: 64px;\n  padding-left: 24px;\n  overflow: hidden;\n  line-height: 64px;\n  background: #001529;\n  transition: all 0.3s;\n}\n.sidebar-logo[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  display: inline-block;\n  height: 32px;\n  width: 32px;\n  vertical-align: middle;\n}\n.sidebar-logo[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  display: inline-block;\n  margin: 0 0 0 20px;\n  color: #fff;\n  font-weight: 600;\n  font-size: 14px;\n  font-family:\n    Avenir,\n    Helvetica Neue,\n    Arial,\n    Helvetica,\n    sans-serif;\n  vertical-align: middle;\n}\nnz-header[_ngcontent-%COMP%] {\n  padding: 0;\n  height: 64px;\n  width: 100%;\n  z-index: 2;\n}\n.app-header[_ngcontent-%COMP%] {\n  position: relative;\n  background: #fff;\n  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);\n}\n.inner-content[_ngcontent-%COMP%] {\n  padding: 24px;\n  background: #fff;\n  height: 100%;\n}\n.logo-bg[_ngcontent-%COMP%] {\n  height: 50px;\n  width: 200px;\n  margin-left: 10px;\n  background: url("./media/logo-bg.svg") 50% no-repeat;\n}\n.h2[_ngcontent-%COMP%] {\n  font-size: 30px;\n  color: var(--primary-color);\n  margin: 0;\n}\n.header-title[_ngcontent-%COMP%] {\n  margin: auto;\n  gap: 5px;\n  align-items: flex-end;\n}\n.description-logo[_ngcontent-%COMP%] {\n  margin-left: 10px;\n  color: var(--dark-bg-color);\n}\nnz-footer[_ngcontent-%COMP%] {\n  text-align: center;\n  background-color: #fff;\n}\n@media screen and (max-width: 680px) {\n  .menu-sidebar[_ngcontent-%COMP%], .description-logo[_ngcontent-%COMP%], .logo-bg[_ngcontent-%COMP%], .header-trigger[_ngcontent-%COMP%], .vertical-header-var[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .horizontal-header-var[_ngcontent-%COMP%] {\n    display: flex;\n  }\n  .logo[_ngcontent-%COMP%] {\n    margin-right: 20px;\n  }\n}\n@media screen and (max-width: 580px) {\n  .horizontal-header-var[_ngcontent-%COMP%] {\n    justify-content: center;\n  }\n  .logo[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n@media screen and (max-width: 440px) {\n  .horizontal-header-var[_ngcontent-%COMP%]   .ant-menu-item[_ngcontent-%COMP%] {\n    padding: 0 10px;\n  }\n}\n/*# sourceMappingURL=app.component.css.map */'] });
 var AppComponent = _AppComponent;
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent" });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 24 });
 })();
 
 // src/main.ts

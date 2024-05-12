@@ -5,7 +5,7 @@ import {
   NzFormPatchModule,
   NzFormStatusService,
   NzTooltipDirective
-} from "./chunk-6GYC5COE.js";
+} from "./chunk-M73E4B3E.js";
 import {
   AbstractControl,
   BACKSPACE,
@@ -52,7 +52,7 @@ import {
   moveUpMotion,
   reqAnimFrame,
   slideMotion
-} from "./chunk-YIQPJEGN.js";
+} from "./chunk-VEWB337I.js";
 import {
   Directionality,
   HttpClient,
@@ -70,7 +70,7 @@ import {
   isNotNil,
   toBoolean,
   toCssPixel
-} from "./chunk-5A5HIE3N.js";
+} from "./chunk-6H6XYIWG.js";
 import {
   NgClass,
   NgForOf,
@@ -865,45 +865,6 @@ _DocsService.\u0275fac = function DocsService_Factory(t) {
 };
 _DocsService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _DocsService, factory: _DocsService.\u0275fac, providedIn: "root" });
 var DocsService = _DocsService;
-
-// src/app/service/letter.service.ts
-var _LetterService = class _LetterService {
-  constructor(http) {
-    this.http = http;
-    this.intervalMin = 1e4;
-  }
-  addnewFile(body) {
-    return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
-  }
-  /*get denial letters of package */
-  getListDenialLettersForPackage(packageId) {
-    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/denial/${packageId}`).pipe(take(5), map((response) => response.denials), tap(() => console.log("request updated")), shareReplay())));
-  }
-  /*get appeal letters of package  */
-  getAppealAnswersForPackage(packageId) {
-    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/letter/${packageId}`).pipe(take(5), map((response) => response.appealLetters), tap(() => console.log("request updated")), shareReplay())));
-  }
-  /*get denial letters for all cases */
-  getAllListDenialLetters() {
-    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/all/denial/`).pipe(take(5), map((response) => response.denials), tap(() => console.log("request updated")), shareReplay())));
-  }
-  /*get appeal letters for all cases */
-  getAllAppealAnswers() {
-    return timer(0, this.intervalMin).pipe(switchMap(() => this.http.get(`${environment.apiUrl}/appeal/all/letter/`).pipe(take(5), map((response) => response.test), tap(() => console.log("request updated")), shareReplay())));
-  }
-  deleteDenialLetter(letterId) {
-    return this.http.delete(`${environment.apiUrl}/appeal/${letterId}`);
-  }
-  deleteAnswerAI(appealId) {
-    console.log(appealId);
-    return this.http.delete(`${environment.apiUrl}/appeal/${appealId}`);
-  }
-};
-_LetterService.\u0275fac = function LetterService_Factory(t) {
-  return new (t || _LetterService)(\u0275\u0275inject(HttpClient));
-};
-_LetterService.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _LetterService, factory: _LetterService.\u0275fac, providedIn: "root" });
-var LetterService = _LetterService;
 
 // node_modules/ng-zorro-antd/fesm2022/ng-zorro-antd-empty.mjs
 function NzEmptyComponent_Conditional_1_ng_container_0_Template(rf, ctx) {
@@ -6709,9 +6670,9 @@ export {
   NzFormModule,
   NzMessageModule,
   NzMessageService,
+  environment,
   CompanyService,
   PackageService,
-  DocsService,
-  LetterService
+  DocsService
 };
-//# sourceMappingURL=chunk-6ONEQOLB.js.map
+//# sourceMappingURL=chunk-DIVX4RWM.js.map
