@@ -97,6 +97,10 @@ All business processes in the system are implemented as BPL, which helps to unde
 ![Image_5](./readme_image/image_5.png)
 ![Image_3](./readme_image/image_3.png)
 
+## Video
+
+[BG-Appeal-AI](https://www.youtube.com/watch?v=0p6FvZpzaaA)
+
 ## Developers of Project
 
 - [Maria Nesterenko](https://community.intersystems.com/user/maria-nesterenko): Backend Developer
