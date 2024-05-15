@@ -93,12 +93,12 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <sync name='Wait call' calls='Call Ai for get appeal letter' type='all' xpos='740' ypos='1150' />
 </true>
 <false>
-<assign name="Set result" property="response.Result" value="&quot;The denial of insurance coverage cannot be contested. Currently, there are not enough reasons to initiate an appeal process.&quot;" action="set" languageOverride="objectscript" xpos='470' ypos='950' />
+<assign name="Set result" property="context.textAppeal" value="&quot;The denial of insurance coverage cannot be contested. Currently, there are not enough reasons to initiate an appeal process.&quot;" action="set" languageOverride="objectscript" xpos='470' ypos='950' />
 </false>
 </if>
 </true>
 <false>
-<assign name="Set result" property="response.Result" value="&quot;No matches have been found in the contract for the formulation of an appeal.&quot;" action="set" languageOverride="objectscript" xpos='200' ypos='600' />
+<assign name="Set result" property="context.textAppeal" value="&quot;No matches have been found in the contract for the formulation of an appeal.&quot;" action="set" languageOverride="objectscript" xpos='200' ypos='600' />
 </false>
 </if>
 <call name='Save appeal data' target='SaveAppeal' async='0' languageOverride="objectscript" xpos='200' ypos='1450' >
