@@ -61,7 +61,7 @@ export class LetterPageViewComponent {
 
   @Input() listDocsForPackage: IDoc[] | null;
 
-  @Input() answerAI: any[] | null;
+  @Input() isUploadDoc: boolean | null;
 
   @Input() listAnswersAI: IAppealLetter[] | null;
 
