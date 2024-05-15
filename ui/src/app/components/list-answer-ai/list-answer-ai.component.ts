@@ -18,4 +18,12 @@ export class ListAnswerAiComponent {
   clickDeleteAnswerAI(item: IAppealLetter) {
     this.deleteAnswerAI.emit(item);
   }
+
+  isImpossibleAppeal(text: string): boolean {
+    return text.includes(
+      'The denial of insurance coverage cannot be contested.'
+    )
+      ? true
+      : false;
+  }
 }

@@ -13,8 +13,6 @@ import { ICompany } from '../../../interface/company.interface';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { DocsService } from '../../../service/docs.service';
-import { LetterService } from '../../../service/letter.service';
-import { IDenialLetter } from '../../../interface/interfaces';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

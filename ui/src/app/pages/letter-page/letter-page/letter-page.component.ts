@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
@@ -13,11 +13,17 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { IDoc } from '../../../interface/docs.interface';
 import { LetterService } from '../../../service/letter.service';
 import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 @Component({
   selector: 'app-letter-page',
   standalone: true,
-  imports: [CommonModule, LetterPageViewComponent, NzMessageModule],
+  imports: [
+    CommonModule,
+    LetterPageViewComponent,
+    NzMessageModule,
+    NzModalModule,
+  ],
   templateUrl: './letter-page.component.html',
   styleUrl: './letter-page.component.scss',
 })
@@ -28,7 +34,9 @@ export class LetterPageComponent {
     private localStorage: SessionStorageService,
     private docsService: DocsService,
     private letterService: LetterService,
-    private messageService: NzMessageService
+    private messageService: NzMessageService,
+    private cdr: ChangeDetectorRef,
+    private modal: NzModalService
   ) {}
   ngOnInit(): void {
     this.localStorage.clean();
@@ -47,7 +55,7 @@ export class LetterPageComponent {
 
   listDocsForPackage$: Observable<IDoc[]>;
 
-  answerAI$: Observable<any>;
+  public isUploadDoc$: Observable<boolean>;
 
   public listDenialLetters$: Observable<IDenialLetter[]>;
 
@@ -62,19 +70,25 @@ export class LetterPageComponent {
       text: info.text,
       package: info.package.id,
     };
-    this.answerAI$ = this.letterService.addnewFile(body).pipe(
-      map((data) => {
-        return data;
-      }),
-      tap(() => {
-        this.createSuccessMessage('denial letter', 'was added');
-        this.getListDenialLetters(info.package.id);
-      }),
-      catchError((error: any) => {
-        tap(() => this.createErrorMessage('denial letter', "wasn't added"));
-        return throwError(() => error);
-      })
-    );
+    this.letterService
+      .addnewFile(body)
+      .pipe(
+        tap(() => {
+          this.getListDenialLetters(info.package.id);
+          this.modal.success({
+            nzTitle: 'Great, the document is currently being uploaded.',
+            nzContent:
+              'In a few minutes, the uploaded email and response will appear on this page',
+          });
+        }),
+
+        catchError((error: any) => {
+          tap(() => this.createErrorMessage('denial letter', "wasn't added"));
+          this.isUploadDoc$ = of(false);
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
   }
 
   private getData() {
@@ -83,6 +97,7 @@ export class LetterPageComponent {
       .pipe(map((data) => data));
     this.getAllListDenialLetters();
     this.getAllListAppealsFromAI();
+    this.cdr.markForCheck();
   }
 
   onSelectCompany(company: ICompany) {
