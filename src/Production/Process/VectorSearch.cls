@@ -64,7 +64,7 @@ WHERE Document->Package = :request.Package
 ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DESC
 ]]>
 </sql>
-<if name='The search a is match' condition='context.resultSearch &apos;=""' languageOverride="objectscript" xpos='200' ypos='450' xend='200' yend='1450' >
+<if name='The search a is match' condition='context.resultSearch &apos;=""' languageOverride="objectscript" xpos='200' ypos='450' xend='200' yend='1350' >
 <true>
 <call name='Call Ai for an analysis ' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='470' ypos='600' >
 <request type='Banksia.OpenAi.Msg.SimplePrompt.Request' >
@@ -77,7 +77,7 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 </response>
 </call>
 <sync name='Wait call' calls='Call Ai for an analysis ' type='all' xpos='470' ypos='700' />
-<if name='An appeal is possible' condition='$ZCONVERT(context.appealIspossible, "t") = "YES"' languageOverride="objectscript" xpos='470' ypos='800' xend='470' yend='1350' >
+<if name='An appeal is possible' condition='$ZCONVERT(context.appealIspossible, "t") = "YES"' languageOverride="objectscript" xpos='470' ypos='800' xend='470' yend='1250' >
 <true>
 <assign name="Add denial letter to prompt" property="context.prompt" value="context.prompt_request.DenialText_&quot; \n And based on contract part&quot;_context.resultSearch" action="set" languageOverride="objectscript" xpos='740' ypos='950' />
 <call name='Call Ai for get appeal letter' target='OpenAiOut' async='1' languageOverride="objectscript" xpos='740' ypos='1050' >
@@ -91,7 +91,17 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 </response>
 </call>
 <sync name='Wait call' calls='Call Ai for get appeal letter' type='all' xpos='740' ypos='1150' />
-<call name='Save appeal data' target='SaveAppeal' async='0' languageOverride="objectscript" xpos='740' ypos='1250' >
+</true>
+<false>
+<assign name="Set result" property="response.Result" value="&quot;The denial of insurance coverage cannot be contested. Currently, there are not enough reasons to initiate an appeal process.&quot;" action="set" languageOverride="objectscript" xpos='470' ypos='950' />
+</false>
+</if>
+</true>
+<false>
+<assign name="Set result" property="response.Result" value="&quot;No matches have been found in the contract for the formulation of an appeal.&quot;" action="set" languageOverride="objectscript" xpos='200' ypos='600' />
+</false>
+</if>
+<call name='Save appeal data' target='SaveAppeal' async='0' languageOverride="objectscript" xpos='200' ypos='1450' >
 <request type='Production.Message.SaveAppealRequest' >
 <assign property="callrequest.Package" value="request.Package" action="set" languageOverride="" />
 <assign property="callrequest.DenialText" value="request.DenialText" action="set" languageOverride="" />
@@ -103,16 +113,6 @@ ORDER BY VECTOR_DOT_PRODUCT(Vector, TO_VECTOR(:context.vector, double, 200)) DES
 <assign property="response.Result" value="&quot;Letter created&quot;" action="set" languageOverride="" />
 </response>
 </call>
-</true>
-<false>
-<assign name="Set result" property="response.Result" value="&quot;A denial of insurance service cannot be challenged&quot;" action="set" languageOverride="objectscript" xpos='470' ypos='950' />
-</false>
-</if>
-</true>
-<false>
-<assign name="Set result" property="response.Result" value="&quot;No matches found&quot;" action="set" languageOverride="objectscript" xpos='200' ypos='600' />
-</false>
-</if>
 </sequence>
 </process>
 }
