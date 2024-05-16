@@ -102,7 +102,7 @@
                 <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
                     <span>Previous</span>
                 </button>
-                <button nz-button nzType="default" (click)="next()" *ngIf="current < 2"
+                <button nz-button nzType="primary" (click)="next()" *ngIf="current < 2"
                     [disabled]="!companyName && !currentCompany?.id">
                     <span>Next</span>
                 </button>
