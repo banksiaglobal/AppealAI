@@ -79,8 +79,12 @@ export class StartPageComponent implements OnInit {
       map((data) => {
         return data;
       }),
-      tap(() => this.createSuccessMessage('company', 'added')),
-      tap((data) => this.localStorage.saveCompany(data.id, data.name)),
+      tap((data) => {
+        this.createSuccessMessage('company', 'added'),
+          this.localStorage.saveCompany(data.id, data.name),
+          this.getData();
+      }),
+
       catchError((error: any) => {
         this.createErrorMessage('company', 'added');
         return throwError(() => error);
