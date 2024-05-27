@@ -3,7 +3,6 @@ Class Init.Setup
 
 ClassMethod SetupServer(ns) As %Status
 {
-
     zn "%SYS"
     do ##class(Security.Users).UnExpireUserPasswords("*")
     do ##class(Security.Services).Get("%Service_CallIn",.prop)
@@ -42,7 +41,12 @@ ClassMethod SetupServer(ns) As %Status
     set config.DebugMode = 4
     do strategy.SaveServiceConfigData(config)
 
-    quit $$$OK
+    set dir=$System.Util.ManagerDirectory()_"dataFhir"
+    set st=##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles(dir, "FHIRServer", appKey)
+    if 'st write $System.Status.GetErrorText(st)
+    quit st
+
+    quit st
 }
 
 }

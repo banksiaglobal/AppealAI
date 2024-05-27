@@ -11,6 +11,7 @@
       <Resource Name="Init.PKG"/>
       <Resource Name="Model.PKG"/>
       <Resource Name="REST.PKG"/>
+      <FileCopy Name="data/fhir/" Target="${mgrdir}dataFhir/"/>
       <Invokes>
         <Invoke Class="Init.Setup" Method="SetupServer" Phase="Activate" When="After" ></Invoke>
       </Invokes>
