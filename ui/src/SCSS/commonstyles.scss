@@ -140,6 +140,21 @@ html {
   }
 }
 
+.delete-icon-basket {
+  height: 20px;
+  width: 20px;
+  margin-left: auto;
+  padding: 3px;
+  border-radius: 2px;
+  background: url("../assets/delete.svg") no-repeat center;
+
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: rgba(24, 144, 255, 0.2) 0px 0px 0px 1px inset;
+  }
+}
+
 .ant-layout-footer {
   padding: 10px 40px;
 }
@@ -153,8 +168,28 @@ input[type="file"] {
   width: 100%;
 }
 
+/*list*/
+
+nz-list {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
 nz-empty {
   margin: 5px !important;
+}
+
+.ant-list-empty-text {
+  max-height: 100px;
+  padding: 0;
+}
+
+.bottom-side-item-cell {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  align-items: center;
+  border-top: 1px var(--white-color) solid;
 }
 
 .section {

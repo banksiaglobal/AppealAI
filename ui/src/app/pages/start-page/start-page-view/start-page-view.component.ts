@@ -23,7 +23,7 @@ import { UploadDocMessageComponent } from '../../../components/upload-doc-messag
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IResponseAddPackage } from '../../../interface/package.interface';
-import { IDenialLetter } from '../../../interface/interfaces';
+import { ListCompaniesComponent } from '../../../components/list-companies/list-companies.component';
 
 @Component({
   selector: 'app-start-page-view',
@@ -42,6 +42,7 @@ import { IDenialLetter } from '../../../interface/interfaces';
     UploadDocMessageComponent,
     NzUploadModule,
     NzToolTipModule,
+    ListCompaniesComponent,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',

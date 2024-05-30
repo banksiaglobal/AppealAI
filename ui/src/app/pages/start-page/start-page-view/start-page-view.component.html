@@ -28,22 +28,7 @@
                 one
                 below.
                 <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
-                <nz-table #basicTable [nzData]="companiesList" *ngIf="companiesList ">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td><a (click)="selectCompany.emit(data); current=1; index=2;">{{data.name}}</a></td>
-                            <td>
-                                <a (click)="deleteCompany.emit(data.id)">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
+                <app-list-companies [companiesList]="companiesList" (selectCompany)="selectCompany.emit($event)" />
             </div>
             }
 
@@ -84,7 +69,7 @@
                     </label>
                 </div>
 
-                <div class=" list-info-item" *ngIf="filename">
+                <div class="list-info-item" *ngIf="filename">
                     <div nz-typography> Doc: </div>
                     <div class="item-name-title">{{ filename }}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>

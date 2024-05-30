@@ -1,0 +1,10 @@
+.list-companies-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  &-name:hover {
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+}

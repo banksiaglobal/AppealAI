@@ -46,8 +46,9 @@ export class StartPageComponent implements OnInit {
     this.getData();
   }
 
-  listInsuranceOrg$: Observable<ICompany[]>;
-  packagesList$: Observable<IResponseAddPackage[]>;
+  public listInsuranceOrg$: Observable<ICompany[]>;
+  public packagesList$: Observable<IResponseAddPackage[]>;
+  public documentsList$: Observable<any[]>;
   public currentCompany$: Observable<ICompany>;
   public newPackage$: Observable<IResponseAddPackage>;
   public isUploadDoc$: Observable<boolean>;
@@ -122,6 +123,8 @@ export class StartPageComponent implements OnInit {
       .getListPackagesForCurrentCompany(companyId)
       .pipe(map((response) => response));
   }
+
+  getListDocsForPackage(packageId: string) {}
 
   createErrorMessage(type: string, action: string): void {
     this.messageSrvice.error(`The ${type} wasn't ${action}. Try it again`, {
