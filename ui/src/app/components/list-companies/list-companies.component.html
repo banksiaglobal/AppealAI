@@ -9,7 +9,7 @@
                             <b>{{i+1}}).&nbsp;</b>{{item.name}}
                         </div>
                         <div class="bottom-side-item-cell">
-                            <div class="delete-icon-basket" (click)="clickDeleteCompany(item)"></div>
+                            <div class="delete-icon-basket" (click)="deleteCompany.emit(item.id)"></div>
                         </div>
                     </div>
                 </nz-list-item>

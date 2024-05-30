@@ -14,10 +14,6 @@ import { ICompany } from '../../interface/company.interface';
 export class ListCompaniesComponent {
   @Input() companiesList: ICompany[] | null;
 
-  @Output() deleteCompany = new EventEmitter<any>();
-  @Output() selectCompany = new EventEmitter<any>();
-
-  clickDeleteCompany(item: any) {
-    this.deleteCompany.emit(item);
-  }
+  @Output() deleteCompany = new EventEmitter<string>();
+  @Output() selectCompany = new EventEmitter<ICompany>();
 }

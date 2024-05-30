@@ -151,7 +151,7 @@ html {
   cursor: pointer;
 
   &:hover {
-    box-shadow: rgba(24, 144, 255, 0.2) 0px 0px 0px 1px inset;
+    background: url("../assets/delete-red.svg") no-repeat center;
   }
 }
 

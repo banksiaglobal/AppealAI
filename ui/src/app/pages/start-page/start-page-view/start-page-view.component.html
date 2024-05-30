@@ -28,7 +28,8 @@
                 one
                 below.
                 <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
-                <app-list-companies [companiesList]="companiesList" (selectCompany)="selectCompany.emit($event)" />
+                <app-list-companies [companiesList]="companiesList" (selectCompany)="selectCompany.emit($event)"
+                    (deleteCompany)="deleteCompany.emit($event)" />
             </div>
             }
 
