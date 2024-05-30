@@ -1,9 +1,9 @@
-<nz-collapse class="create-company-box">
-    <nz-collapse-panel nzHeader="Create a new one" [nzActive]="false">
+<nz-collapse class="collapse-panel" [nzBordered]="false">
+    <nz-collapse-panel class="collapse-panel-title" nzHeader="Create a new one" [nzActive]="false">
         <div class="dialog-container">
             <div class="company-box">
                 <nz-page-header-subtitle class="dialog-title" nz-flex [nzAlign]="'center'" [nzJustify]="'start'">
-                    Adding a new company
+                    Enter a company name
                 </nz-page-header-subtitle>
                 <input class="input-company" nz-input name="companyName" type="text" id="companyName" required
                     placeholder={{companyName}} [(ngModel)]="newCompanyName" autoFocus autocomplete="off"

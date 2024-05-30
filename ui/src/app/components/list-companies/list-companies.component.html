@@ -1,6 +1,6 @@
-<nz-collapse>
-    <nz-collapse-panel nzHeader="Choose a company" [nzActive]="false">
-        <nz-list nzItemLayout="horizontal">
+<nz-collapse class="collapse-panel" [nzBordered]="false">
+    <nz-collapse-panel class="collapse-panel-title" nzHeader="Choose a company" [nzActive]="false">
+        <nz-list nzItemLayout="horizontal" nzBordered="true">
             <nz-list nzSize="small">
                 @for (item of companiesList; track item; let i = $index) {
                 <nz-list-item>

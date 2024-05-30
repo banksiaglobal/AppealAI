@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ICompany } from '../../interface/company.interface';
 import { CommonModule } from '@angular/common';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -17,4 +16,11 @@ export class ListPackagesComponent {
 
   @Output() deletePackage = new EventEmitter<IResponseAddPackage>();
   @Output() selectPackage = new EventEmitter<any>();
+
+  nzActive = false;
+
+  clickSelectPackage(item: IResponseAddPackage) {
+    this.nzActive = false;
+    this.selectPackage.emit(item);
+  }
 }

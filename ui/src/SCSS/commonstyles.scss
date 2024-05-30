@@ -71,7 +71,7 @@ html {
 .dialog-title {
   margin-bottom: 10px;
   text-align: center;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--dark-bg-color);
   font-weight: 600;
 }
@@ -195,6 +195,19 @@ nz-empty {
 .section {
   margin-bottom: 15px;
   text-align: justify;
+}
+
+.ant-form-item {
+  margin-bottom: 10px;
+}
+
+.collapse-panel {
+  margin-top: 20px 0;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
 }
 
 @media screen and (max-width: 580px) {
