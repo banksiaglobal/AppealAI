@@ -187,7 +187,7 @@ nz-empty {
 .bottom-side-item-cell {
   display: flex;
   justify-content: space-between;
-  margin-top: 5px;
+  padding: 5px 0;
   align-items: center;
   border-top: 1px var(--white-color) solid;
 }
