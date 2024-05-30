@@ -17,7 +17,7 @@ export class ListPackagesComponent {
   @Output() deletePackage = new EventEmitter<IResponseAddPackage>();
   @Output() selectPackage = new EventEmitter<any>();
 
-  nzActive = false;
+  nzActive = true;
 
   clickSelectPackage(item: IResponseAddPackage) {
     this.nzActive = false;

@@ -2,9 +2,10 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  color: var(--primary-color);
 
   &-name:hover {
-    color: var(--primary-color);
+    color: var(--hover-primary-color);
     cursor: pointer;
   }
 }

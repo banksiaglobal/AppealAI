@@ -124,7 +124,17 @@ export class StartPageComponent implements OnInit {
       .pipe(map((response) => response));
   }
 
-  getListDocsForPackage(packageId: string) {}
+  getAllDocsForCurrentPackage(packageId: string) {
+    if (packageId) {
+      this.documentsList$ = this.docsService
+        .getListDocsForCurrentPackage(packageId)
+        .pipe(
+          map((data) => {
+            return data;
+          })
+        );
+    }
+  }
 
   createErrorMessage(type: string, action: string): void {
     this.messageSrvice.error(`The ${type} wasn't ${action}. Try it again`, {

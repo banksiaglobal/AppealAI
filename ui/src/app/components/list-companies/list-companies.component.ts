@@ -16,4 +16,10 @@ export class ListCompaniesComponent {
 
   @Output() deleteCompany = new EventEmitter<string>();
   @Output() selectCompany = new EventEmitter<ICompany>();
+
+  nzActive = true;
+  clickSelectCompany(company: ICompany) {
+    this.selectCompany.emit(company);
+    this.nzActive = false;
+  }
 }

@@ -25,6 +25,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { ListCompaniesComponent } from '../../../components/list-companies/list-companies.component';
 import { ListPackagesComponent } from '../../../components/list-packages/list-packages.component';
+import { IDoc } from '../../../interface/docs.interface';
 
 @Component({
   selector: 'app-start-page-view',
@@ -74,6 +75,7 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   @Input() companiesList: ICompany[] | null;
   @Input() packagesList: IResponseAddPackage[] | null;
   @Input() newPackage: IResponseAddPackage | null;
+  @Input() documentsList: IDoc[] | null;
   @Input() isUploadDoc: boolean | null;
 
   companyName: string | null = null;

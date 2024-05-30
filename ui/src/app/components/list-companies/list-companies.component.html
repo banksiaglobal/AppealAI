@@ -1,12 +1,12 @@
-<nz-collapse class="collapse-panel" [nzBordered]="false">
-    <nz-collapse-panel class="collapse-panel-title" nzHeader="Choose a company" [nzActive]="false">
-        <nz-list nzItemLayout="horizontal" nzBordered="true">
+<nz-collapse class="collapse-panel">
+    <nz-collapse-panel class="collapse-panel-title" nzHeader="Choose a company" [nzActive]="nzActive">
+        <nz-list nzItemLayout="horizontal" nzBordered="false">
             <nz-list nzSize="small">
                 @for (item of companiesList; track item; let i = $index) {
                 <nz-list-item>
                     <div class="list-companies-item">
-                        <div class="list-companies-item-name" nz-typography (click)="selectCompany.emit(item)">
-                            <b>{{i+1}}).&nbsp;</b>{{item.name}}
+                        <div class="list-companies-item-name" nz-typography (click)="clickSelectCompany(item)">
+                            {{item.name}}
                         </div>
                         <div class="delete-icon-basket" (click)="deleteCompany.emit(item.id)"></div>
                     </div>
