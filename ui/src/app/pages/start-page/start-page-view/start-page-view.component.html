@@ -38,23 +38,9 @@
                 Second, we need to define an insurance package. You can choose one of existing packages or create a
                 new one below.
                 <app-create-package (createNewPackage)="createNewPackage.emit($event)" [packageName]="packageName" />
-                <nz-table #basicTable [nzData]="packagesList"
-                    *ngIf="packagesList && (companyName || currentCompany?.name)">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td><a (click)="selectPackage.emit(data); current=1; index=2;">{{data.name}}</a></td>
-                            <td>
-                                <a (click)="deletePackage.emit(data)">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
+
+                <app-list-packages [packagesList]="packagesList" (selectPackage)="selectPackage.emit($event)"
+                    (deletePackage)="deletePackage.emit($event)" />
             </div>
             }
             @if (index===3) {

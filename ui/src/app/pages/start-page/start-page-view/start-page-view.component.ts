@@ -24,6 +24,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { ListCompaniesComponent } from '../../../components/list-companies/list-companies.component';
+import { ListPackagesComponent } from '../../../components/list-packages/list-packages.component';
 
 @Component({
   selector: 'app-start-page-view',
@@ -43,6 +44,7 @@ import { ListCompaniesComponent } from '../../../components/list-companies/list-
     NzUploadModule,
     NzToolTipModule,
     ListCompaniesComponent,
+    ListPackagesComponent,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',
