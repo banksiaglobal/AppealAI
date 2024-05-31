@@ -53,7 +53,7 @@ export class LetterPageComponent {
 
   listInsuranceOrg$: Observable<ICompany[]>;
 
-  listDocsForPackage$: Observable<IDoc[]>;
+  documentsList$: Observable<IDoc[]>;
 
   public isUploadDoc$: Observable<boolean>;
 
@@ -171,7 +171,7 @@ export class LetterPageComponent {
   /*get lists info for current package*/
   getAllDocsForCurrentPackage(packageId: string) {
     if (packageId) {
-      this.listDocsForPackage$ = this.docsService
+      this.documentsList$ = this.docsService
         .getListDocsForCurrentPackage(packageId)
         .pipe(
           map((data) => {

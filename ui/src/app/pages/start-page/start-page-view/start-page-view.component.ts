@@ -26,6 +26,7 @@ import { IResponseAddPackage } from '../../../interface/package.interface';
 import { ListCompaniesComponent } from '../../../components/list-companies/list-companies.component';
 import { ListPackagesComponent } from '../../../components/list-packages/list-packages.component';
 import { IDoc } from '../../../interface/docs.interface';
+import { ListDocumentsComponent } from '../../../components/list-documents/list-documents.component';
 
 @Component({
   selector: 'app-start-page-view',
@@ -45,6 +46,7 @@ import { IDoc } from '../../../interface/docs.interface';
     NzToolTipModule,
     ListCompaniesComponent,
     ListPackagesComponent,
+    ListDocumentsComponent,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',
@@ -69,6 +71,7 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   @Output() sendDocs = new EventEmitter<any>();
   @Output() deleteCompany = new EventEmitter<any>();
   @Output() deletePackage = new EventEmitter<any>();
+  @Output() deleteDocument = new EventEmitter<any>();
 
   @Input() currentCompany: ICompany | null;
   @Input() companiesList: ICompany[] | null;
@@ -170,6 +173,9 @@ export class StartPageViewComponent implements OnInit, OnChanges {
 
   downloadDocs() {
     this.sendDocs.emit(this.formData);
+    this.filename = null;
+    this.formData.delete('file');
+    this.isUploadDoc = false;
   }
 
   private clearPackageInfo() {

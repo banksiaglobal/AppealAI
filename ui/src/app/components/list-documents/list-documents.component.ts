@@ -4,16 +4,23 @@ import { IDoc } from '../../interface/docs.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 @Component({
   selector: 'app-list-documents',
   standalone: true,
-  imports: [NzListModule, CommonModule, RouterLink, NzToolTipModule],
+  imports: [
+    NzListModule,
+    CommonModule,
+    RouterLink,
+    NzToolTipModule,
+    NzCollapseModule,
+  ],
   templateUrl: './list-documents.component.html',
   styleUrl: './list-documents.component.scss',
 })
 export class ListDocumentsComponent {
-  @Input() listDocsForPackage: IDoc[] | null;
+  @Input() documentsList: IDoc[] | null;
 
   @Output() deleteDocument = new EventEmitter<any>();
 

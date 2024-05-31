@@ -14,6 +14,7 @@ import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { DocsService } from '../../../service/docs.service';
 import { ActivatedRoute } from '@angular/router';
+import { IDoc } from '../../../interface/docs.interface';
 
 @Component({
   selector: 'app-start-page',
@@ -70,9 +71,8 @@ export class StartPageComponent implements OnInit {
   onSelectPackage(packageInfo: IResponseAddPackage) {
     this.newPackage$ = of(packageInfo);
     this.localStorage.savePackage(packageInfo.id, packageInfo.name);
-    this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
-      packageInfo.companyId
-    );
+
+    this.getAllDocsForCurrentPackage(packageInfo.id);
   }
 
   createNewCompany(companyName: string) {
@@ -119,9 +119,8 @@ export class StartPageComponent implements OnInit {
   }
 
   getListPackageForCompany(companyId: string) {
-    this.packagesList$ = this.packageService
-      .getListPackagesForCurrentCompany(companyId)
-      .pipe(map((response) => response));
+    this.packagesList$ =
+      this.packageService.getListPackagesForCurrentCompany(companyId);
   }
 
   getAllDocsForCurrentPackage(packageId: string) {
@@ -157,6 +156,7 @@ export class StartPageComponent implements OnInit {
         tap(() => {
           this.createSuccessMessage('document', 'added');
           this.isUploadDoc$ = of(true);
+          if (packageId) this.getAllDocsForCurrentPackage(packageId);
         }),
         catchError((error: any) => {
           this.isUploadDoc$ = of(false);
@@ -194,6 +194,27 @@ export class StartPageComponent implements OnInit {
         catchError((error: any) => {
           this.isUploadDoc$ = of(false);
           this.createErrorMessage('package', 'deleted');
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  /*deleting files from server*/
+
+  onDeleteDocument(documentInfo: IDoc) {
+    this.docsService
+      .deleteDocumentForCurrentPackage(documentInfo.name)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document', 'was deleted');
+          this.getAllDocsForCurrentPackage(documentInfo.packageId);
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage(
+            'document',
+            "wasn't deleted. Smth went wrong"
+          );
           return throwError(() => error);
         })
       )

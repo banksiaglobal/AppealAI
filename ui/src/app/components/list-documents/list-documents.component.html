@@ -1,27 +1,37 @@
-<nz-list nzItemLayout="horizontal">
-    <nz-list nzSize="small">
-        @for (item of listDocsForPackage; track item; let i = $index) {
-        <nz-list-item>
-            <div class="list-docs-item">
-                <div nz-typography class="list-docs-item"> <b>{{i+1}}).&nbsp; </b> </div>
-                <div nz-typography>{{ item.name }}</div>
+<nz-collapse>
+    <nz-collapse-panel nzHeader="Documents" nzActive="true">
+        <nz-list nzItemLayout="horizontal">
+            <nz-list nzSize="small">
+                @for (item of documentsList; track item; let i = $index) {
+                <nz-list-item>
+                    <div class="list-docs-item">
+                        <div nz-typography> <b>{{i+1}}).&nbsp;</b>{{item.name}}</div>
+                        <div class="bottom-side-item-cell">
+                            <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
+                            <div class="delete-icon-basket" (click)="deleteInfoItem(item)"></div>
+
+                        </div>
+                    </div>
+                </nz-list-item>
+                <div class=" create-obj-box">
+                    <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button nz-tooltip
+                        nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
+                        Upload
+                    </a>
+                </div>
+                }
+                @if (documentsList?.length === 0) {
+                <nz-list-empty />
+                }
+            </nz-list>
+            @if (documentsList?.length == 0) {
+            <div class=" create-obj-box">
+                <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button nz-tooltip
+                    nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
+                    Upload
+                </a>
             </div>
-            <div class="list-docs-item">
-                <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
-                <div class="download-icon" (click)="downloadItem(item)"></div>
-                <div class="delete-icon" (click)="deleteInfoItem(item)"></div>
-            </div>
-        </nz-list-item>
-        }
-        @if (listDocsForPackage?.length === 0) {
-        <nz-list-empty />
-        }
-    </nz-list>
-    @if (listDocsForPackage?.length == 0) {
-    <div class="create-obj-box">
-        <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button nz-tooltip
-            nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
-            Upload
-        </a>
-    </div>
-    }
+            }
+        </nz-list>
+    </nz-collapse-panel>
+</nz-collapse>

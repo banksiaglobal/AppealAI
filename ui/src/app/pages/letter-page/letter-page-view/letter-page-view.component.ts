@@ -59,7 +59,7 @@ export class LetterPageViewComponent {
 
   @Input() packagesList: IResponseAddPackage[] | null;
 
-  @Input() listDocsForPackage: IDoc[] | null;
+  @Input() documentsList: IDoc[] | null;
 
   @Input() isUploadDoc: boolean | null;
 
