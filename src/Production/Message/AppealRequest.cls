@@ -5,6 +5,8 @@ Property Package As %String;
 
 Property DenialText As %String(MAXLEN = "");
 
+Property Encounter As %String;
+
 Storage Default
 {
 <Data name="AppealRequestDefaultData">
@@ -17,6 +19,9 @@ Storage Default
 </Value>
 <Value name="3">
 <Value>Package</Value>
+</Value>
+<Value name="4">
+<Value>Encounter</Value>
 </Value>
 </Data>
 <DefaultData>AppealRequestDefaultData</DefaultData>

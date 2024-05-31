@@ -71,7 +71,7 @@ ClassMethod GetListEncounterByPatient(patient) As %Status
        
         set requestFhir = ##class(Production.Message.FhirRequest).%New()
         set requestFhir.Path = "/Encounter"
-        set requestFhir.Parameters = "?Patient="_patient
+        set requestFhir.Parameters = "?patient="_patient
 
         do ##class(Production.Utils).StartProduction("Production.AppealAIApp")
         
