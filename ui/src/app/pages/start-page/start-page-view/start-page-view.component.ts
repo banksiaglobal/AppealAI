@@ -39,7 +39,6 @@ import { IDoc } from '../../../interface/docs.interface';
     CreateCompanyComponent,
     CreatePackageComponent,
     NzHeaderComponent,
-    NzLayoutModule,
     NzFlexModule,
     UploadDocMessageComponent,
     NzUploadModule,

@@ -20,8 +20,6 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzSelectModule } from 'ng-zorro-antd/select';
-import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 @Component({
   selector: 'app-create-package',
@@ -36,16 +34,14 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
     FormsModule,
     NzButtonModule,
     NzFormModule,
-    NzSelectModule,
     ReactiveFormsModule,
-    NzCollapseModule,
   ],
   templateUrl: './create-package.component.html',
   styleUrl: './create-package.component.scss',
 })
 export class CreatePackageComponent implements OnChanges {
   constructor(private fb: NonNullableFormBuilder) {}
-
+  isVisible = false;
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['packageName'].currentValue) {
       const isPackage = changes['packageName'].currentValue !== null;
@@ -71,11 +67,20 @@ export class CreatePackageComponent implements OnChanges {
     description: [''],
   });
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
   save() {
     const { name } = this.docsForm.value;
-    console.log(this.docsForm.value);
+
     if (name !== undefined) {
       this.createNewPackage.emit(this.docsForm.value);
     }
+    this.isVisible = false;
   }
 }
