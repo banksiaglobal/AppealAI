@@ -27,6 +27,10 @@ XData ProductionDefinition
   </Item>
   <Item Name="SaveAppeal" Category="" ClassName="Production.Operation.SaveAppeal" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="FhirOut" Category="" ClassName="Production.Operation.FhirOut" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="FhirIn" Category="" ClassName="Production.Service.FhirIn" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
