@@ -9,8 +9,7 @@
 }
 
 .steps-action {
-  position: absolute;
-  bottom: 0px;
+  margin-top: 20px;
 }
 
 .ant-steps {
@@ -39,6 +38,7 @@
   &-btn {
     display: flex;
     margin: 0 auto;
+    margin-bottom: 10px;
   }
 }
 

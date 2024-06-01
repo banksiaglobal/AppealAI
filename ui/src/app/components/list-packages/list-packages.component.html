@@ -1,0 +1,21 @@
+<nz-collapse class="collapse-panel" [nzBordered]="true">
+    <nz-collapse-panel class="collapse-panel-title" nzHeader="Choose an insurance package" [nzActive]="nzActive">
+        <nz-list nzItemLayout="horizontal" nzBordered="false">
+            <nz-list nzSize="small">
+                @for (item of packagesList; track item; let i = $index) {
+                <nz-list-item>
+                    <div class="list-packages-item">
+
+                        <div class="list-packages-item-name" nz-typography (click)="clickSelectPackage(item)">
+                            <b>{{i+1}}).&nbsp;</b> {{item.name}}
+                        </div>
+                        <div class="delete-icon-basket" (click)="deletePackage.emit(item)"></div>
+                    </div>
+                </nz-list-item>
+                }
+                @if (!packagesList || packagesList.length === 0) {
+                <nz-list-empty />
+                }
+            </nz-list>
+        </nz-list>
+    </nz-collapse-panel></nz-collapse>

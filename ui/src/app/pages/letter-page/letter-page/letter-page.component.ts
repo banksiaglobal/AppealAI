@@ -4,7 +4,6 @@ import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
 import { CommonModule } from '@angular/common';
-import { LetterPageViewComponent } from '../../letter-page-view/letter-page-view.component';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { DocsService } from '../../../service/docs.service';
@@ -14,6 +13,7 @@ import { IDoc } from '../../../interface/docs.interface';
 import { LetterService } from '../../../service/letter.service';
 import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { LetterPageViewComponent } from '../letter-page-view/letter-page-view.component';
 
 @Component({
   selector: 'app-letter-page',
@@ -53,7 +53,7 @@ export class LetterPageComponent {
 
   listInsuranceOrg$: Observable<ICompany[]>;
 
-  listDocsForPackage$: Observable<IDoc[]>;
+  documentsList$: Observable<IDoc[]>;
 
   public isUploadDoc$: Observable<boolean>;
 
@@ -171,7 +171,7 @@ export class LetterPageComponent {
   /*get lists info for current package*/
   getAllDocsForCurrentPackage(packageId: string) {
     if (packageId) {
-      this.listDocsForPackage$ = this.docsService
+      this.documentsList$ = this.docsService
         .getListDocsForCurrentPackage(packageId)
         .pipe(
           map((data) => {

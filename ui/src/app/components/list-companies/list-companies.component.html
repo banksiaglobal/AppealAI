@@ -1,0 +1,21 @@
+<nz-collapse class="collapse-panel">
+    <nz-collapse-panel class="collapse-panel-title" nzHeader="Choose a company" [nzActive]="nzActive">
+        <nz-list nzItemLayout="horizontal" nzBordered="false">
+            <nz-list nzSize="small">
+                @for (item of companiesList; track item; let i = $index) {
+                <nz-list-item>
+                    <div class="list-companies-item">
+                        <div class="list-companies-item-name" nz-typography (click)="clickSelectCompany(item)">
+                            {{item.name}}
+                        </div>
+                        <div class="delete-icon-basket" (click)="deleteCompany.emit(item.id)"></div>
+                    </div>
+                </nz-list-item>
+                }
+                @if (!companiesList || companiesList.length === 0) {
+                <nz-list-empty />
+                }
+            </nz-list>
+        </nz-list>
+    </nz-collapse-panel>
+</nz-collapse>

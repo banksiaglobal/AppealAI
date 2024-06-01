@@ -27,12 +27,12 @@ export const routes: Routes = [
     title: 'About',
   },
   {
-    path: 'letter',
+    path: 'run',
     loadComponent: () =>
       import('./pages/letter-page/letter-page/letter-page.component').then(
         (m) => m.LetterPageComponent
       ),
-    title: 'Docs',
+    title: 'Run',
     pathMatch: 'full',
   },
   {

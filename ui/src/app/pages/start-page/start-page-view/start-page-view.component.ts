@@ -23,7 +23,11 @@ import { UploadDocMessageComponent } from '../../../components/upload-doc-messag
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { IResponseAddPackage } from '../../../interface/package.interface';
-import { IDenialLetter } from '../../../interface/interfaces';
+import { ListCompaniesComponent } from '../../../components/list-companies/list-companies.component';
+import { ListPackagesComponent } from '../../../components/list-packages/list-packages.component';
+import { IDoc } from '../../../interface/docs.interface';
+import { ListDocumentsComponent } from '../../../components/list-documents/list-documents.component';
+import { TruncatePipe } from '../../../pipes/truncate-doc.pipe';
 
 @Component({
   selector: 'app-start-page-view',
@@ -37,11 +41,14 @@ import { IDenialLetter } from '../../../interface/interfaces';
     CreateCompanyComponent,
     CreatePackageComponent,
     NzHeaderComponent,
-    NzLayoutModule,
     NzFlexModule,
     UploadDocMessageComponent,
     NzUploadModule,
     NzToolTipModule,
+    ListCompaniesComponent,
+    ListPackagesComponent,
+    ListDocumentsComponent,
+    TruncatePipe,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',
@@ -66,11 +73,13 @@ export class StartPageViewComponent implements OnInit, OnChanges {
   @Output() sendDocs = new EventEmitter<any>();
   @Output() deleteCompany = new EventEmitter<any>();
   @Output() deletePackage = new EventEmitter<any>();
+  @Output() deleteDocument = new EventEmitter<any>();
 
   @Input() currentCompany: ICompany | null;
   @Input() companiesList: ICompany[] | null;
   @Input() packagesList: IResponseAddPackage[] | null;
   @Input() newPackage: IResponseAddPackage | null;
+  @Input() documentsList: IDoc[] | null;
   @Input() isUploadDoc: boolean | null;
 
   companyName: string | null = null;
@@ -166,6 +175,9 @@ export class StartPageViewComponent implements OnInit, OnChanges {
 
   downloadDocs() {
     this.sendDocs.emit(this.formData);
+    this.filename = null;
+    this.formData.delete('file');
+    this.isUploadDoc = false;
   }
 
   private clearPackageInfo() {

@@ -1,0 +1,14 @@
+.list-companies-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: var(--primary-color);
+
+  &-name:hover {
+    color: var(--hover-primary-color);
+    cursor: pointer;
+  }
+}
+.collapse-panel-title {
+  transition: height 0.3s ease;
+}

@@ -26,20 +26,15 @@ export class DocsService {
   }
 
   getListDocsForCurrentPackage(packageId: string): Observable<IDoc[]> {
-    return timer(0, this.intervalMin).pipe(
-      switchMap(() =>
-        this.http
-          .get<{ documents: IDoc[] }>(
-            `${environment.apiUrl}/document/all/${packageId}`
-          )
-          .pipe(
-            take(3),
-            map((response) => response.documents),
-            tap(() => console.log('request updated')),
-            shareReplay()
-          )
+    return this.http
+      .get<{ documents: IDoc[] }>(
+        `${environment.apiUrl}/document/all/${packageId}`
       )
-    );
+      .pipe(
+        map((response) => response.documents),
+        tap(() => console.log('request updated')),
+        shareReplay()
+      );
   }
 
   /*download file from server */

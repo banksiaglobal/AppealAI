@@ -14,6 +14,7 @@ import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { DocsService } from '../../../service/docs.service';
 import { ActivatedRoute } from '@angular/router';
+import { IDoc } from '../../../interface/docs.interface';
 
 @Component({
   selector: 'app-start-page',
@@ -46,8 +47,9 @@ export class StartPageComponent implements OnInit {
     this.getData();
   }
 
-  listInsuranceOrg$: Observable<ICompany[]>;
-  packagesList$: Observable<IResponseAddPackage[]>;
+  public listInsuranceOrg$: Observable<ICompany[]>;
+  public packagesList$: Observable<IResponseAddPackage[]>;
+  public documentsList$: Observable<IDoc[]>;
   public currentCompany$: Observable<ICompany>;
   public newPackage$: Observable<IResponseAddPackage>;
   public isUploadDoc$: Observable<boolean>;
@@ -59,6 +61,7 @@ export class StartPageComponent implements OnInit {
   }
 
   onSelectCompany(company: ICompany) {
+    this.newPackage$ = of();
     this.currentCompany$ = of(company);
     this.localStorage.saveCompany(company.id, company.name);
     this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
@@ -69,9 +72,8 @@ export class StartPageComponent implements OnInit {
   onSelectPackage(packageInfo: IResponseAddPackage) {
     this.newPackage$ = of(packageInfo);
     this.localStorage.savePackage(packageInfo.id, packageInfo.name);
-    this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
-      packageInfo.companyId
-    );
+
+    this.getAllDocsForCurrentPackage(packageInfo.id);
   }
 
   createNewCompany(companyName: string) {
@@ -118,9 +120,20 @@ export class StartPageComponent implements OnInit {
   }
 
   getListPackageForCompany(companyId: string) {
-    this.packagesList$ = this.packageService
-      .getListPackagesForCurrentCompany(companyId)
-      .pipe(map((response) => response));
+    this.packagesList$ =
+      this.packageService.getListPackagesForCurrentCompany(companyId);
+  }
+
+  getAllDocsForCurrentPackage(packageId: string) {
+    if (packageId) {
+      this.documentsList$ = this.docsService
+        .getListDocsForCurrentPackage(packageId)
+        .pipe(
+          map((data) => {
+            return data;
+          })
+        );
+    }
   }
 
   createErrorMessage(type: string, action: string): void {
@@ -142,8 +155,8 @@ export class StartPageComponent implements OnInit {
       .addDocumentForPackage(formData)
       .pipe(
         tap(() => {
-          this.createSuccessMessage('document', 'added');
           this.isUploadDoc$ = of(true);
+          if (packageId) this.getAllDocsForCurrentPackage(packageId);
         }),
         catchError((error: any) => {
           this.isUploadDoc$ = of(false);
@@ -181,6 +194,27 @@ export class StartPageComponent implements OnInit {
         catchError((error: any) => {
           this.isUploadDoc$ = of(false);
           this.createErrorMessage('package', 'deleted');
+          return throwError(() => error);
+        })
+      )
+      .subscribe();
+  }
+
+  /*deleting files from server*/
+
+  onDeleteDocument(documentInfo: IDoc) {
+    this.docsService
+      .deleteDocumentForCurrentPackage(documentInfo.name)
+      .pipe(
+        tap(() => {
+          this.createSuccessMessage('document', 'was deleted');
+          this.getAllDocsForCurrentPackage(documentInfo.packageId);
+        }),
+        catchError((error: any) => {
+          this.createErrorMessage(
+            'document',
+            "wasn't deleted. Smth went wrong"
+          );
           return throwError(() => error);
         })
       )

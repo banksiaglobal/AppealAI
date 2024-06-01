@@ -45,7 +45,7 @@ html {
 
 /*adding org & package*/
 .create-obj-box {
-  margin-top: 5px;
+  margin: 5px 0;
   text-align: center;
   font-size: 12px;
 }
@@ -71,25 +71,18 @@ html {
 .dialog-title {
   margin-bottom: 10px;
   text-align: center;
-  font-size: 22px;
+  font-size: 18px;
   color: var(--dark-bg-color);
   font-weight: 600;
 }
 
 .dialog-container {
-  max-width: 70%;
-  padding: 5px;
-  display: flex;
-  margin: 0 auto;
-  flex-direction: column;
-  background: white;
-  gap: 3px;
+  padding: 10px;
 }
 
 .actions-popup-btn {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
 }
 
 /*upload*/
@@ -140,6 +133,21 @@ html {
   }
 }
 
+.delete-icon-basket {
+  height: 20px;
+  width: 20px;
+  margin-left: auto;
+  padding: 3px;
+  border-radius: 2px;
+  background: url("../assets/delete.svg") no-repeat center;
+
+  cursor: pointer;
+
+  &:hover {
+    background: url("../assets/delete-red.svg") no-repeat center;
+  }
+}
+
 .ant-layout-footer {
   padding: 10px 40px;
 }
@@ -153,8 +161,31 @@ input[type="file"] {
   width: 100%;
 }
 
+/*list*/
+
+nz-list {
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
 nz-empty {
   margin: 5px !important;
+}
+.ant-list-sm .ant-list-item {
+  padding: 5px 0;
+}
+
+.ant-list-empty-text {
+  max-height: 100px;
+  padding: 0;
+}
+
+.bottom-side-item-cell {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  align-items: center;
+  border-top: 1px var(--white-color) solid;
 }
 
 .section {
@@ -162,14 +193,26 @@ nz-empty {
   text-align: justify;
 }
 
-@media screen and (max-width: 580px) {
-  .list-info-item {
-    min-width: 100%;
+.ant-form-item {
+  margin-bottom: 10px;
+}
+
+.collapse-panel {
+  margin-top: 20px !important;
+
+  &-title {
+    font-size: 18px;
+    font-weight: 600;
   }
 }
 
 @media screen and (max-width: 620px) {
   .dialog-container {
     max-width: 100%;
+  }
+}
+@media screen and (max-width: 580px) {
+  .list-info-item {
+    min-width: 100%;
   }
 }

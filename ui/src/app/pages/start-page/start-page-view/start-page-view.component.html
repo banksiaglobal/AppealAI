@@ -28,22 +28,9 @@
                 one
                 below.
                 <app-create-company (createNewCompany)="createNewCompany.emit($event)" [companyName]="companyName" />
-                <nz-table #basicTable [nzData]="companiesList" *ngIf="companiesList ">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td><a (click)="selectCompany.emit(data); current=1; index=2;">{{data.name}}</a></td>
-                            <td>
-                                <a (click)="deleteCompany.emit(data.id)">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
+                <app-list-companies [companiesList]="companiesList" (selectCompany)="selectCompany.emit($event)"
+                    (deleteCompany)="deleteCompany.emit($event)" />
+
             </div>
             }
 
@@ -52,23 +39,9 @@
                 Second, we need to define an insurance package. You can choose one of existing packages or create a
                 new one below.
                 <app-create-package (createNewPackage)="createNewPackage.emit($event)" [packageName]="packageName" />
-                <nz-table #basicTable [nzData]="packagesList"
-                    *ngIf="packagesList && (companyName || currentCompany?.name)">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let data of basicTable.data">
-                            <td><a (click)="selectPackage.emit(data); current=1; index=2;">{{data.name}}</a></td>
-                            <td>
-                                <a (click)="deletePackage.emit(data)">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </nz-table>
+
+                <app-list-packages [packagesList]="packagesList" (selectPackage)="selectPackage.emit($event)"
+                    (deletePackage)="deletePackage.emit($event)" />
             </div>
             }
             @if (index===3) {
@@ -76,7 +49,7 @@
                 <div class="load-box" *ngIf="!isUploadDoc">
                     <label for="inputLetter" nz-tooltip nzTooltipTitle="adding an isurance contract"
                         nzTooltipColor="geekblue" nzTooltipPlacement="bottom">
-                        <div class="btn-download">Add a contract </div>
+                        <div class="btn-download">Add needed documents </div>
                         <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)"
                             [disabled]="!newPackage?.name && !packageName" />
                         <p class="error-title" *ngIf="!newPackage?.name && !packageName">first, add an insurance package
@@ -84,14 +57,16 @@
                     </label>
                 </div>
 
-                <div class=" list-info-item" *ngIf="filename">
+                <div class="list-info-item" *ngIf="filename">
                     <div nz-typography> Doc: </div>
-                    <div class="item-name-title">{{ filename }}</div>
+                    <div class="item-name-title">{{ filename | truncate:30 }}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
-                <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
-                    [disabled]="!newPackage && !filename">Upload</button>
             </div>
+            <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
+                [disabled]="!filename">Upload</button>
+            <app-list-documents [documentsList]="documentsList" (deleteDocument)="deleteDocument.emit($event)" />
+
             <ng-container *ngIf="isUploadDoc">
                 <div class="error-box-notification">
                     <app-upload-doc-message></app-upload-doc-message>

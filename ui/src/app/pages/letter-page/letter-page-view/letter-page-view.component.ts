@@ -15,17 +15,17 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzHeaderComponent, NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { ICompany } from '../../interface/company.interface';
 import { RouterLink } from '@angular/router';
-import { SessionStorageService } from '../../service/localStorage.service';
-import { IResponseAddPackage } from '../../interface/package.interface';
-import { IDoc } from '../../interface/docs.interface';
-import { ListDocumentsComponent } from '../../components/list-documents/list-documents.component';
-import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { IAppealLetter, IDenialLetter } from '../../interface/interfaces';
-import { ListDenialLettersComponent } from '../../components/list-denial-letters/list-denial-letters.component';
-import { ListAnswerAiComponent } from '../../components/list-answer-ai/list-answer-ai.component';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { ListAnswerAiComponent } from '../../../components/list-answer-ai/list-answer-ai.component';
+import { ListDenialLettersComponent } from '../../../components/list-denial-letters/list-denial-letters.component';
+import { ListDocumentsComponent } from '../../../components/list-documents/list-documents.component';
+import { ICompany } from '../../../interface/company.interface';
+import { IDoc } from '../../../interface/docs.interface';
+import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
+import { IResponseAddPackage } from '../../../interface/package.interface';
+import { SessionStorageService } from '../../../service/localStorage.service';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -59,7 +59,7 @@ export class LetterPageViewComponent {
 
   @Input() packagesList: IResponseAddPackage[] | null;
 
-  @Input() listDocsForPackage: IDoc[] | null;
+  @Input() documentsList: IDoc[] | null;
 
   @Input() isUploadDoc: boolean | null;
 
