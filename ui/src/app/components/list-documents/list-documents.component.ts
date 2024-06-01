@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { TruncatePipe } from '../../pipes/truncate-doc.pipe';
 
 @Component({
   selector: 'app-list-documents',
@@ -15,6 +16,7 @@ import { NzCollapseModule } from 'ng-zorro-antd/collapse';
     RouterLink,
     NzToolTipModule,
     NzCollapseModule,
+    TruncatePipe,
   ],
   templateUrl: './list-documents.component.html',
   styleUrl: './list-documents.component.scss',

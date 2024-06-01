@@ -27,6 +27,7 @@ import { ListCompaniesComponent } from '../../../components/list-companies/list-
 import { ListPackagesComponent } from '../../../components/list-packages/list-packages.component';
 import { IDoc } from '../../../interface/docs.interface';
 import { ListDocumentsComponent } from '../../../components/list-documents/list-documents.component';
+import { TruncatePipe } from '../../../pipes/truncate-doc.pipe';
 
 @Component({
   selector: 'app-start-page-view',
@@ -47,6 +48,7 @@ import { ListDocumentsComponent } from '../../../components/list-documents/list-
     ListCompaniesComponent,
     ListPackagesComponent,
     ListDocumentsComponent,
+    TruncatePipe,
   ],
   templateUrl: './start-page-view.component.html',
   styleUrl: './start-page-view.component.scss',

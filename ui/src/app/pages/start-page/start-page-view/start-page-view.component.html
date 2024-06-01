@@ -59,7 +59,7 @@
 
                 <div class="list-info-item" *ngIf="filename">
                     <div nz-typography> Doc: </div>
-                    <div class="item-name-title">{{ filename }}</div>
+                    <div class="item-name-title">{{ filename | truncate:30 }}</div>
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
             </div>
