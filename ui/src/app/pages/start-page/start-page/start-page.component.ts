@@ -49,7 +49,7 @@ export class StartPageComponent implements OnInit {
 
   public listInsuranceOrg$: Observable<ICompany[]>;
   public packagesList$: Observable<IResponseAddPackage[]>;
-  public documentsList$: Observable<any[]>;
+  public documentsList$: Observable<IDoc[]>;
   public currentCompany$: Observable<ICompany>;
   public newPackage$: Observable<IResponseAddPackage>;
   public isUploadDoc$: Observable<boolean>;
@@ -61,6 +61,7 @@ export class StartPageComponent implements OnInit {
   }
 
   onSelectCompany(company: ICompany) {
+    this.newPackage$ = of();
     this.currentCompany$ = of(company);
     this.localStorage.saveCompany(company.id, company.name);
     this.packagesList$ = this.packageService.getListPackagesForCurrentCompany(
