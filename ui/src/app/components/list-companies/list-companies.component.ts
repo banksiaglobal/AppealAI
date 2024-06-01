@@ -18,6 +18,7 @@ export class ListCompaniesComponent {
   @Output() selectCompany = new EventEmitter<ICompany>();
 
   nzActive = true;
+
   clickSelectCompany(company: ICompany) {
     this.selectCompany.emit(company);
     this.nzActive = false;

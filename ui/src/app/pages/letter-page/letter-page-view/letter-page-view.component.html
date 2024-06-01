@@ -63,7 +63,14 @@
 
                         <app-list-documents [documentsList]="documentsList"
                             (deleteDocument)="deleteDocument.emit($event)" />
-
+                        @if(documentsList?.length ==0){
+                        <div class="create-obj-box">
+                            <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button
+                                nz-tooltip nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
+                                Upload
+                            </a>
+                        </div>
+                        }
                         <nz-collapse>
                             <nz-collapse-panel nzHeader="Letters of denial" nzActive="false">
                                 <app-list-denial-letters [listDenialLetters]="listDenialLetters"
