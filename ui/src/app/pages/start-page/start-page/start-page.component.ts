@@ -155,7 +155,6 @@ export class StartPageComponent implements OnInit {
       .addDocumentForPackage(formData)
       .pipe(
         tap(() => {
-          this.createSuccessMessage('document', 'added');
           this.isUploadDoc$ = of(true);
           if (packageId) this.getAllDocsForCurrentPackage(packageId);
         }),
