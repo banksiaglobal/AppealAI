@@ -9,29 +9,15 @@
                         <div class="bottom-side-item-cell">
                             <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>
                             <div class="delete-icon-basket" (click)="deleteInfoItem(item)"></div>
-
                         </div>
                     </div>
                 </nz-list-item>
-                <div class=" create-obj-box">
-                    <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button nz-tooltip
-                        nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
-                        Upload
-                    </a>
-                </div>
                 }
                 @if (documentsList?.length === 0) {
                 <nz-list-empty />
                 }
             </nz-list>
-            @if (documentsList?.length == 0) {
-            <div class=" create-obj-box">
-                <a class="link-text" routerLink="/start" [queryParams]="{ upload: true }" nz-button nz-tooltip
-                    nzTooltipTitle="Add an insurance agreement" nzTooltipColor="red">
-                    Upload
-                </a>
-            </div>
-            }
+
         </nz-list>
     </nz-collapse-panel>
 </nz-collapse>

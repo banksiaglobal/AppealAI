@@ -46,16 +46,16 @@
             }
             @if (index===3) {
             <div class="steps-content">
-                <!-- <div class="load-box" *ngIf="!isUploadDoc">
+                <div class="load-box" *ngIf="!isUploadDoc">
                     <label for="inputLetter" nz-tooltip nzTooltipTitle="adding an isurance contract"
                         nzTooltipColor="geekblue" nzTooltipPlacement="bottom">
-                        <div class="btn-download">Add a contract </div>
+                        <div class="btn-download">Add needed documents </div>
                         <input class="download-input" type="file" id="inputLetter" (change)="addPackageDoc($event)"
                             [disabled]="!newPackage?.name && !packageName" />
                         <p class="error-title" *ngIf="!newPackage?.name && !packageName">first, add an insurance package
                         </p>
                     </label>
-                </div> -->
+                </div>
 
                 <div class="list-info-item" *ngIf="filename">
                     <div nz-typography> Doc: </div>
@@ -63,7 +63,8 @@
                     <div class="delete-icon" (click)="deleteInfoItem('letter')"></div>
                 </div>
             </div>
-
+            <button class="load-box-btn" nz-button nzType="primary" (click)="downloadDocs()"
+                [disabled]="!filename">Upload</button>
             <app-list-documents [documentsList]="documentsList" (deleteDocument)="deleteDocument.emit($event)" />
 
             <ng-container *ngIf="isUploadDoc">
