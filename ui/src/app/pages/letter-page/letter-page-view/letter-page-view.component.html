@@ -34,18 +34,18 @@
                             </a>
                         </div>
                     </nz-form-item>
+                    <nz-form-item>
+                        <nz-select nzShowSearch nzServerSearch nzPlaceHolder="patient ID" formControlName="patientID"
+                            nzAllowClear [nzShowArrow]="false" [nzFilterOption]="nzFilterOption"
+                            (nzOnSearch)="search($event)">
+                            <nz-option *ngFor="let o of filteredPeople" [nzLabel]="o.name" [nzValue]="o.id"></nz-option>
+                        </nz-select>
+                        <div class="create-obj-box">
+                            <span>Current patient </span>
+                        </div>
+                    </nz-form-item>
                 </div>
                 <div class="list-docs-box" *ngIf="documentsForm.value.company  || documentsForm.value?.package">
-                    <div class="list-info-item" *ngIf="documentsForm.value.company">
-                        <div nz-typography>Company: </div>
-                        <div class="list-info-item-name"> {{currentCompany?.name}}</div>
-                        <div class="delete-icon" (click)="deleteInfoItem('company')"></div>
-                    </div>
-                    <div class="list-info-item" *ngIf="documentsForm.value.package">
-                        <div nz-typography> Package: </div>
-                        <div class="list-info-item-name">{{packageName}} </div>
-                        <div class="delete-icon" (click)="deleteInfoItem('package')"></div>
-                    </div>
                     <div class="right-side">
                         <nz-form-item class="nz-form-item-download download" nz-button nzType="primary"
                             *ngIf="documentsForm.value.package">

@@ -14,6 +14,8 @@ import { LetterService } from '../../../service/letter.service';
 import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { LetterPageViewComponent } from '../letter-page-view/letter-page-view.component';
+import { PatientService } from '../../../service/patient.service';
+import { IPatient } from '../../../interface/patient.interface';
 
 @Component({
   selector: 'app-letter-page',
@@ -36,7 +38,8 @@ export class LetterPageComponent {
     private letterService: LetterService,
     private messageService: NzMessageService,
     private cdr: ChangeDetectorRef,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private patient: PatientService
   ) {}
   ngOnInit(): void {
     this.localStorage.clean();
@@ -64,6 +67,8 @@ export class LetterPageComponent {
   public listALLDenialLetters$: Observable<IDenialLetter[]>;
 
   public listALLAnswersAI$: Observable<IAppealLetter[]>;
+
+  public listPatients$: Observable<IPatient[]>;
 
   onUploadDenialLetter(info: any) {
     const body = {
@@ -95,6 +100,7 @@ export class LetterPageComponent {
     this.listInsuranceOrg$ = this.companyService
       .getCompanyList()
       .pipe(map((data) => data));
+    this.getListPatients();
     this.getAllListDenialLetters();
     this.getAllListAppealsFromAI();
     this.cdr.markForCheck();
@@ -166,6 +172,10 @@ export class LetterPageComponent {
         })
       )
       .subscribe();
+  }
+
+  getListPatients() {
+    this.listPatients$ = this.patient.getListPactients();
   }
 
   /*get lists info for current package*/

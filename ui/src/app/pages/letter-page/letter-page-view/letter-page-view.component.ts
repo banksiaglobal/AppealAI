@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   NonNullableFormBuilder,
   FormGroup,
@@ -26,6 +26,8 @@ import { IDoc } from '../../../interface/docs.interface';
 import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { IPatient } from '../../../interface/patient.interface';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -48,6 +50,7 @@ import { SessionStorageService } from '../../../service/localStorage.service';
     ListDenialLettersComponent,
     ListAnswerAiComponent,
     NzCollapseModule,
+    NzListModule,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -71,6 +74,8 @@ export class LetterPageViewComponent {
 
   @Input() listALLAnswersAI: IAppealLetter[] | null;
 
+  @Input() listPatients: IPatient[] | null = [];
+
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
   @Output() onSelectPackage = new EventEmitter<any>();
@@ -86,6 +91,8 @@ export class LetterPageViewComponent {
   @Output() saveDocument = new EventEmitter<any>();
 
   packageName: string;
+  filteredPeople: IPatient[] = [];
+  nzFilterOption = (): boolean => true;
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -96,10 +103,12 @@ export class LetterPageViewComponent {
     company: FormControl<string>;
     package: FormControl<any>;
     text: FormControl<string>;
+    patientID: FormControl<string>;
   }> = this.fb.group({
     company: ['', [Validators.required]],
     package: ['', [Validators.required]],
     text: ['', [Validators.required]],
+    patientID: ['', [Validators.required]],
   });
 
   submitForm() {
@@ -134,6 +143,15 @@ export class LetterPageViewComponent {
         break;
       case 'letter':
         break;
+    }
+  }
+  search(value: string): void {
+    if (!value.trim()) {
+      this.filteredPeople = [];
+    } else if (this.listPatients) {
+      this.filteredPeople = this.listPatients.filter((person) =>
+        person.id.includes(value)
+      );
     }
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { IPatient } from '../interface/patient.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -9,11 +10,13 @@ import { environment } from '../environments/environment';
 export class PatientService {
   constructor(private http: HttpClient) {}
 
-  getListPactients(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/fhir/patients`).pipe(
-      map((response) => response),
-      catchError(() => of())
-    );
+  getListPactients(): Observable<IPatient[]> {
+    return this.http
+      .get<{ patients: IPatient[] }>(`${environment.apiUrl}/fhir/patients`)
+      .pipe(
+        map((response) => response.patients),
+        catchError(() => of())
+      );
   }
 
   getListAppointmentsForPatiens(patientID: string): Observable<any[]> {
