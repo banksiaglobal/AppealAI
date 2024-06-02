@@ -5,4 +5,5 @@
     (deleteAnswerAI)="deleteAnswerAI($event)" (saveDocument)="saveDocument($event)" [isUploadDoc]="isUploadDoc$ |async"
     [documentsList]="documentsList$ | async" [listDenialLetters]="listDenialLetters$ | async"
     [listAnswersAI]="listAnswersAI$ | async" [listALLDenialLetters]="listALLDenialLetters$ | async"
-    [listALLAnswersAI]="listALLAnswersAI$ | async" />
+    [listALLAnswersAI]="listALLAnswersAI$ | async" [listPatients]="listPatients$ | async"
+    [listPatientEncounters]="listPatientEncounters$ | async" (showListEncounters)="getListPatientEncounters($event)" />

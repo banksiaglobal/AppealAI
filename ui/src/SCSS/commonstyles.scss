@@ -45,7 +45,7 @@ html {
 
 /*adding org & package*/
 .create-obj-box {
-  margin: 5px 0;
+  margin: 2px 0;
   text-align: center;
   font-size: 12px;
 }
@@ -159,6 +159,11 @@ input[type="file"] {
   top: 0;
   bottom: 0;
   width: 100%;
+}
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item,
+.ant-select-single .ant-select-selector .ant-select-selection-item {
+  color: var(--primary-color);
 }
 
 /*list*/
