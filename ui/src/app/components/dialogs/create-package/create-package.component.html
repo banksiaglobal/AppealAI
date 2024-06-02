@@ -4,7 +4,7 @@
 
 <div class="dialog-container">
     <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Create a new one ></span></button>
-    <nz-modal [(nzVisible)]="isVisible" nzTitle="Adding a new company"
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Adding a new package"
         [nzOkDisabled]="docsForm.invalid || packageName!== null" (nzOnCancel)="handleCancel()" (nzOnOk)="save()">
         <ng-container *nzModalContent>
             <form nz-form [formGroup]="docsForm">
