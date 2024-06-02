@@ -10,7 +10,7 @@ import { IPatient } from '../interface/patient.interface';
 export class PatientService {
   constructor(private http: HttpClient) {}
 
-  getListPactients(): Observable<IPatient[]> {
+  getListPacients(): Observable<IPatient[]> {
     return this.http
       .get<{ patients: IPatient[] }>(`${environment.apiUrl}/fhir/patients`)
       .pipe(
@@ -21,9 +21,11 @@ export class PatientService {
 
   getListAppointmentsForPatiens(patientID: string): Observable<any[]> {
     return this.http
-      .get<any[]>(`${environment.apiUrl}/fhir/encounters/${patientID}`)
+      .get<{ encounters: any[] }>(
+        `${environment.apiUrl}/fhir/encounters/${patientID}`
+      )
       .pipe(
-        map((response) => response),
+        map((response) => response.encounters),
         catchError(() => of())
       );
   }

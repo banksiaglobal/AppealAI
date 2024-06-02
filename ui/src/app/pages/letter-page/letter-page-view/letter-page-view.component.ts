@@ -76,6 +76,8 @@ export class LetterPageViewComponent {
 
   @Input() listPatients: IPatient[] | null = [];
 
+  @Input() listPatientEncounters: any[] | null = [];
+
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
   @Output() onSelectPackage = new EventEmitter<any>();
@@ -89,6 +91,8 @@ export class LetterPageViewComponent {
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
   @Output() saveDocument = new EventEmitter<any>();
+
+  @Output() showListEncounters = new EventEmitter<any>();
 
   packageName: string;
   filteredPeople: IPatient[] = [];
@@ -104,11 +108,13 @@ export class LetterPageViewComponent {
     package: FormControl<any>;
     text: FormControl<string>;
     patientID: FormControl<string>;
+    patientEncounter: FormControl<string>;
   }> = this.fb.group({
     company: ['', [Validators.required]],
     package: ['', [Validators.required]],
     text: ['', [Validators.required]],
     patientID: ['', [Validators.required]],
+    patientEncounter: ['', [Validators.required]],
   });
 
   submitForm() {
@@ -145,7 +151,7 @@ export class LetterPageViewComponent {
         break;
     }
   }
-  search(value: string): void {
+  searchPatient(value: string): void {
     if (!value.trim()) {
       this.filteredPeople = [];
     } else if (this.listPatients) {
@@ -153,5 +159,10 @@ export class LetterPageViewComponent {
         person.id.includes(value)
       );
     }
+    if (value !== null && this.documentsForm.value.patientID) {
+      this.showListEncounters.emit(this.documentsForm.value.patientID);
+    }
   }
+
+  searchEncounter(value: string) {}
 }

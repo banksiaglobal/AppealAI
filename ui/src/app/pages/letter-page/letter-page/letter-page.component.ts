@@ -70,6 +70,8 @@ export class LetterPageComponent {
 
   public listPatients$: Observable<IPatient[]>;
 
+  public listPatientEncounters$: Observable<any[]>;
+
   onUploadDenialLetter(info: any) {
     const body = {
       text: info.text,
@@ -175,7 +177,12 @@ export class LetterPageComponent {
   }
 
   getListPatients() {
-    this.listPatients$ = this.patient.getListPactients();
+    this.listPatients$ = this.patient.getListPacients();
+  }
+
+  getListPatientEncounters(patientID: string) {
+    this.listPatientEncounters$ =
+      this.patient.getListAppointmentsForPatiens(patientID);
   }
 
   /*get lists info for current package*/
