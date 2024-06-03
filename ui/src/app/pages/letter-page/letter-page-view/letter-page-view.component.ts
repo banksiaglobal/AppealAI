@@ -156,7 +156,7 @@ export class LetterPageViewComponent {
       this.filteredPeople = [];
     } else if (this.listPatients) {
       this.filteredPeople = this.listPatients.filter((person) =>
-        person.id.includes(value)
+        person.id.startsWith(value)
       );
     }
     if (value !== null && this.documentsForm.value.patientID) {
