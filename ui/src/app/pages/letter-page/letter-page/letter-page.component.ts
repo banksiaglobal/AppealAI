@@ -82,9 +82,12 @@ export class LetterPageComponent {
   public listPatientEncounters$: Observable<IPatientVisit[]>;
 
   onUploadDenialLetter(info: any) {
+    console.log(info);
     const body = {
       text: info.text,
       package: info.package.id,
+      patientName: info.patientEncounter.patient.fullName,
+      encounter: info.patientEncounter.id,
     };
     this.letterService
       .addnewFile(body)
@@ -284,6 +287,8 @@ export class LetterPageComponent {
           this.createSuccessMessage('letter', 'was deleted');
           this.getListDenialLetters(String(letterInfo.package));
           this.getListAppealsFromAI(String(letterInfo.package));
+          this.getAllListDenialLetters();
+          this.getAllListAppealsFromAI();
         }),
         catchError((error: any) => {
           this.createErrorMessage('letter', "wasn't deleted. Smth went wrong");
@@ -300,6 +305,7 @@ export class LetterPageComponent {
         tap(() => {
           this.createSuccessMessage('appeal letter', 'was deleted');
           this.getListAppealsFromAI(String(appealLetter.package));
+          this.getAllListAppealsFromAI();
         }),
         catchError((error: any) => {
           this.createErrorMessage(
