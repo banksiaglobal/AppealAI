@@ -59,7 +59,7 @@
                         </div>
                     </nz-form-item>
                 </div>
-                <div class="list-docs-box" *ngIf="documentsForm.value.company  || documentsForm.value?.package">
+                <div class="list-docs-box" *ngIf="documentsForm.value.patientEncounter">
                     <div class="right-side">
                         <nz-form-item class="nz-form-item-download download" nz-button nzType="primary"
                             *ngIf="documentsForm.value.package">
@@ -73,7 +73,7 @@
                             </div>
                         </nz-form-item>
                     </div>
-                    <div *ngIf="documentsForm.value.package">
+                    <div *ngIf="documentsForm.value.patientEncounter">
 
                         <app-list-documents [documentsList]="documentsList"
                             (deleteDocument)="deleteDocument.emit($event)" />

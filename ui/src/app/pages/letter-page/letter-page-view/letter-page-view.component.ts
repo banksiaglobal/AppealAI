@@ -133,7 +133,7 @@ export class LetterPageViewComponent {
   }
 
   public selectPackage(e: any) {
-    this.packageName = this.documentsForm.value.package.name;
+    this.packageName = this.documentsForm.value.package;
     this.onSelectPackage.emit(this.documentsForm.value.package);
     this.deleteInfoItem('letter');
   }

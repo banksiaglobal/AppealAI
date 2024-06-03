@@ -231,21 +231,12 @@ export class LetterPageComponent {
       .pipe(
         map((data) => {
           return data;
-        }),
-        tap((data) => {
-          if (data) {
-            this.getAllListAppealsFromAI();
-          }
         })
       );
   }
 
   getAllListAppealsFromAI() {
-    this.listALLAnswersAI$ = this.letterService.getAllAppealAnswers().pipe(
-      map((data) => {
-        return data;
-      })
-    );
+    this.listALLAnswersAI$ = this.letterService.getAllAppealAnswers();
   }
 
   /*deleting files from server*/

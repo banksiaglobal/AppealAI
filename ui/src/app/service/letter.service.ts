@@ -18,7 +18,7 @@ import { IAppealLetter, IDenialLetter } from '../interface/interfaces';
 export class LetterService {
   constructor(private http: HttpClient) {}
 
-  private intervalMin = 10000;
+  private intervalMin = 50000;
 
   addnewFile(body: { text: string; package: string }): Observable<any> {
     return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
@@ -64,38 +64,28 @@ export class LetterService {
 
   /*get denial letters for all cases */
   getAllListDenialLetters(): Observable<IDenialLetter[]> {
-    return timer(0, this.intervalMin).pipe(
-      switchMap(() =>
-        this.http
-          .get<{ denials: IDenialLetter[] }>(
-            `${environment.apiUrl}/appeal/all/denial/`
-          )
-          .pipe(
-            take(5),
-            map((response) => response.denials),
-            tap(() => console.log('request updated')),
-            shareReplay()
-          )
+    return this.http
+      .get<{ denials: IDenialLetter[] }>(
+        `${environment.apiUrl}/appeal/all/denial/`
       )
-    );
+      .pipe(
+        map((response) => response.denials),
+        tap(() => console.log('request updated')),
+        shareReplay()
+      );
   }
 
   /*get appeal letters for all cases */
   getAllAppealAnswers(): Observable<IAppealLetter[]> {
-    return timer(0, this.intervalMin).pipe(
-      switchMap(() =>
-        this.http
-          .get<{ test: IAppealLetter[] }>(
-            `${environment.apiUrl}/appeal/all/letter/`
-          )
-          .pipe(
-            take(5),
-            map((response) => response.test),
-            tap(() => console.log('request updated')),
-            shareReplay()
-          )
+    return this.http
+      .get<{ test: IAppealLetter[] }>(
+        `${environment.apiUrl}/appeal/all/letter/`
       )
-    );
+      .pipe(
+        map((response) => response.test),
+        tap(() => console.log('request updated')),
+        shareReplay()
+      );
   }
 
   deleteDenialLetter(letterId: string) {
@@ -103,7 +93,6 @@ export class LetterService {
   }
 
   deleteAnswerAI(appealId: string) {
-    console.log(appealId);
     return this.http.delete(`${environment.apiUrl}/appeal/${appealId}`);
   }
 }
