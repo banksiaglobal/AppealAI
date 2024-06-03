@@ -31,6 +31,8 @@ XData ProductionDefinition
   </Item>
   <Item Name="FhirIn" Category="" ClassName="Production.Service.FhirIn" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
+  <Item Name="GetFhirData" Category="" ClassName="Production.Process.GetFhirData" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
