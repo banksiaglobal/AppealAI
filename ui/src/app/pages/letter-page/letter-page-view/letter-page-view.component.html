@@ -50,9 +50,9 @@
                             [nzFilterOption]="nzFilterOption" (ngModelChange)="searchEncounter($event)"
                             [nzDisabled]="!documentsForm.value.patientID" nzCustomContent="true">
                             <nz-option *ngFor="let encounters of listPatientEncounters" [nzValue]="encounters.id"
-                                nzCustomContent="true"
-                                [nzLabel]="encounters.period.end |  date:'medium'">{{encounters.type | truncate:15}} -
-                                {{encounters.period.start | date:'short'}}</nz-option>
+                                nzCustomContent="true" [nzLabel]="encounters.period.end |  date:'medium'">
+                                {{encounters.period.start | date:'MM/dd/yyyy HH:mm'}}, {{encounters.type | truncate:15}}
+                            </nz-option>
                         </nz-select>
                         <div class="create-obj-box">
                             <span>Visit by patient </span>
