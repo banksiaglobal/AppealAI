@@ -15,7 +15,7 @@ import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { LetterPageViewComponent } from '../letter-page-view/letter-page-view.component';
 import { PatientService } from '../../../service/patient.service';
-import { IPatient } from '../../../interface/patient.interface';
+import { IPatient, IPatientVisit } from '../../../interface/patient.interface';
 
 @Component({
   selector: 'app-letter-page',
@@ -70,7 +70,7 @@ export class LetterPageComponent {
 
   public listPatients$: Observable<IPatient[]>;
 
-  public listPatientEncounters$: Observable<any[]>;
+  public listPatientEncounters$: Observable<IPatientVisit[]>;
 
   onUploadDenialLetter(info: any) {
     const body = {

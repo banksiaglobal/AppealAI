@@ -48,9 +48,11 @@
                         <nz-select nzShowSearch nzServerSearch nzPlaceHolder="patient's visit"
                             formControlName="patientEncounter" nzAllowClear [nzShowArrow]="false"
                             [nzFilterOption]="nzFilterOption" (ngModelChange)="searchEncounter($event)"
-                            [nzDisabled]="!documentsForm.value.patientID">
-                            <nz-option *ngFor="let o of listPatientEncounters" [nzLabel]="o.type"
-                                [nzValue]="o.id"></nz-option>
+                            [nzDisabled]="!documentsForm.value.patientID" nzCustomContent="true">
+                            <nz-option *ngFor="let encounters of listPatientEncounters" [nzValue]="encounters.id"
+                                nzCustomContent="true"
+                                [nzLabel]="encounters.period.end |  date:'medium'">{{encounters.type | truncate:15}} -
+                                {{encounters.period.start | date:'short'}}</nz-option>
                         </nz-select>
                         <div class="create-obj-box">
                             <span>Visit by patient </span>
