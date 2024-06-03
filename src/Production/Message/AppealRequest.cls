@@ -7,6 +7,8 @@ Property DenialText As %String(MAXLEN = "");
 
 Property Encounter As %String;
 
+Property PatientName As %String(MAXLEN = 100);
+
 Storage Default
 {
 <Data name="AppealRequestDefaultData">
@@ -22,6 +24,9 @@ Storage Default
 </Value>
 <Value name="4">
 <Value>Encounter</Value>
+</Value>
+<Value name="5">
+<Value>PatientName</Value>
 </Value>
 </Data>
 <DefaultData>AppealRequestDefaultData</DefaultData>

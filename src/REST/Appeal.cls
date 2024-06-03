@@ -190,6 +190,7 @@ ClassMethod Upload() As %Status
         set requestDoc.DenialText = data.text
         set requestDoc.Package = data.package
         set requestDoc.Encounter = data.encounter
+        set requestDoc.PatientName = data.patientName
 
         // Start production, if the it is not running
         do ##class(Production.Utils).StartProduction("Production.AppealAIApp")
