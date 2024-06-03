@@ -1,13 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  map,
-  shareReplay,
-  switchMap,
-  take,
-  tap,
-  timer,
-} from 'rxjs';
+import { Observable, map, shareReplay, take, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IAppealLetter, IDenialLetter } from '../interface/interfaces';
@@ -28,38 +20,28 @@ export class LetterService {
   getListDenialLettersForPackage(
     packageId: string
   ): Observable<IDenialLetter[]> {
-    return timer(0, this.intervalMin).pipe(
-      switchMap(() =>
-        this.http
-          .get<{ denials: IDenialLetter[] }>(
-            `${environment.apiUrl}/appeal/denial/${packageId}`
-          )
-          .pipe(
-            take(5),
-            map((response) => response.denials),
-            tap(() => console.log('request updated')),
-            shareReplay()
-          )
+    return this.http
+      .get<{ denials: IDenialLetter[] }>(
+        `${environment.apiUrl}/appeal/denial/${packageId}`
       )
-    );
+      .pipe(
+        map((response) => response.denials),
+        tap(() => console.log('request updated')),
+        shareReplay()
+      );
   }
 
   /*get appeal letters of package  */
   getAppealAnswersForPackage(packageId: string): Observable<IAppealLetter[]> {
-    return timer(0, this.intervalMin).pipe(
-      switchMap(() =>
-        this.http
-          .get<{ appealLetters: IAppealLetter[] }>(
-            `${environment.apiUrl}/appeal/letter/${packageId}`
-          )
-          .pipe(
-            take(5),
-            map((response) => response.appealLetters),
-            tap(() => console.log('request updated')),
-            shareReplay()
-          )
+    return this.http
+      .get<{ appealLetters: IAppealLetter[] }>(
+        `${environment.apiUrl}/appeal/letter/${packageId}`
       )
-    );
+      .pipe(
+        map((response) => response.appealLetters),
+        tap(() => console.log('request updated')),
+        shareReplay()
+      );
   }
 
   /*get denial letters for all cases */

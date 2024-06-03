@@ -1,5 +1,14 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  map,
+  of,
+  switchMap,
+  tap,
+  throwError,
+  timer,
+} from 'rxjs';
 import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
@@ -87,6 +96,13 @@ export class LetterPageComponent {
             nzContent:
               'In a few minutes, the uploaded email and response will appear on this page',
           });
+        }),
+        switchMap(() => timer(5 * 60 * 1000)), // 5 minutes delay
+        switchMap(() => {
+          this.getListDenialLetters(info.package.id);
+          this.getAllListAppealsFromAI();
+          this.getAllListDenialLetters();
+          return of(true);
         }),
 
         catchError((error: any) => {
