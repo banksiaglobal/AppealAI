@@ -120,6 +120,7 @@ export class LetterPageViewComponent {
   });
 
   submitForm() {
+    console.log(this.documentsForm.value);
     this.onUploadDenialLetter.emit(this.documentsForm.value);
   }
 
@@ -166,7 +167,5 @@ export class LetterPageViewComponent {
     }
   }
 
-  searchEncounter(value: string) {
-    console.log(value);
-  }
+  searchEncounter(value: IPatientVisit) {}
 }

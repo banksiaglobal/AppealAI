@@ -49,9 +49,9 @@
                             formControlName="patientEncounter" nzAllowClear [nzShowArrow]="false"
                             [nzFilterOption]="nzFilterOption" (ngModelChange)="searchEncounter($event)"
                             [nzDisabled]="!documentsForm.value.patientID" nzCustomContent="true">
-                            <nz-option *ngFor="let encounters of listPatientEncounters" [nzValue]="encounters.id"
-                                nzCustomContent="true" [nzLabel]="encounters.period.end |  date:'medium'">
-                                {{encounters.period.start | date:'MM/dd/yyyy HH:mm'}}, {{encounters.type | truncate:15}}
+                            <nz-option *ngFor="let encounter of listPatientEncounters" [nzValue]="encounter"
+                                nzCustomContent="true" [nzLabel]="encounter.period.end |  date:'medium'">
+                                {{encounter.period.start | date:'MM/dd/yyyy HH:mm'}}, {{encounter.type | truncate:15}}
                             </nz-option>
                         </nz-select>
                         <div class="create-obj-box">
@@ -59,7 +59,7 @@
                         </div>
                     </nz-form-item>
                 </div>
-                <div class="list-docs-box" *ngIf="documentsForm.value.patientEncounter">
+                <div class="list-docs-box" *ngIf="documentsForm.value.patientID">
                     <div class="right-side">
                         <nz-form-item class="nz-form-item-download download" nz-button nzType="primary"
                             *ngIf="documentsForm.value.package">

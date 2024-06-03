@@ -10,9 +10,12 @@ import { IAppealLetter, IDenialLetter } from '../interface/interfaces';
 export class LetterService {
   constructor(private http: HttpClient) {}
 
-  private intervalMin = 50000;
-
-  addnewFile(body: { text: string; package: string }): Observable<any> {
+  addnewFile(body: {
+    text: string;
+    package: string;
+    patientName: string;
+    encounter: string;
+  }): Observable<any> {
     return this.http.post(`${environment.apiUrl}/appeal/upload`, body);
   }
 
