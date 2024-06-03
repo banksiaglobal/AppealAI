@@ -1,5 +1,14 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  map,
+  of,
+  switchMap,
+  tap,
+  throwError,
+  timer,
+} from 'rxjs';
 import { ICompany } from '../../../interface/company.interface';
 import { CompanyService } from '../../../service/company.service';
 import { PackageService } from '../../../service/package.service';
@@ -15,7 +24,7 @@ import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { LetterPageViewComponent } from '../letter-page-view/letter-page-view.component';
 import { PatientService } from '../../../service/patient.service';
-import { IPatient } from '../../../interface/patient.interface';
+import { IPatient, IPatientVisit } from '../../../interface/patient.interface';
 
 @Component({
   selector: 'app-letter-page',
@@ -70,7 +79,7 @@ export class LetterPageComponent {
 
   public listPatients$: Observable<IPatient[]>;
 
-  public listPatientEncounters$: Observable<any[]>;
+  public listPatientEncounters$: Observable<IPatientVisit[]>;
 
   onUploadDenialLetter(info: any) {
     const body = {
@@ -87,6 +96,13 @@ export class LetterPageComponent {
             nzContent:
               'In a few minutes, the uploaded email and response will appear on this page',
           });
+        }),
+        switchMap(() => timer(5 * 60 * 1000)), // 5 minutes delay
+        switchMap(() => {
+          this.getListDenialLetters(info.package.id);
+          this.getAllListAppealsFromAI();
+          this.getAllListDenialLetters();
+          return of(true);
         }),
 
         catchError((error: any) => {
@@ -231,21 +247,12 @@ export class LetterPageComponent {
       .pipe(
         map((data) => {
           return data;
-        }),
-        tap((data) => {
-          if (data) {
-            this.getAllListAppealsFromAI();
-          }
         })
       );
   }
 
   getAllListAppealsFromAI() {
-    this.listALLAnswersAI$ = this.letterService.getAllAppealAnswers().pipe(
-      map((data) => {
-        return data;
-      })
-    );
+    this.listALLAnswersAI$ = this.letterService.getAllAppealAnswers();
   }
 
   /*deleting files from server*/

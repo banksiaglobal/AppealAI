@@ -1,25 +1,13 @@
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  catchError,
-  map,
-  of,
-  shareReplay,
-  switchMap,
-  take,
-  tap,
-  timer,
-} from 'rxjs';
+import { Observable, map, shareReplay, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { IDoc } from '../interface/docs.interface';
-import { IDenialLetter } from '../interface/interfaces';
 @Injectable({
   providedIn: 'root',
 })
 export class DocsService {
   constructor(private http: HttpClient) {}
-  private intervalMin = 10000;
 
   addDocumentForPackage(formData: FormData) {
     return this.http.post(`${environment.apiUrl}/document/upload`, formData);

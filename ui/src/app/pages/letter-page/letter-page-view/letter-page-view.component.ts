@@ -27,7 +27,8 @@ import { IAppealLetter, IDenialLetter } from '../../../interface/interfaces';
 import { IResponseAddPackage } from '../../../interface/package.interface';
 import { SessionStorageService } from '../../../service/localStorage.service';
 import { NzListModule } from 'ng-zorro-antd/list';
-import { IPatient } from '../../../interface/patient.interface';
+import { IPatient, IPatientVisit } from '../../../interface/patient.interface';
+import { TruncatePipe } from '../../../pipes/truncate-doc.pipe';
 
 @Component({
   selector: 'app-letter-page-view',
@@ -51,6 +52,7 @@ import { IPatient } from '../../../interface/patient.interface';
     ListAnswerAiComponent,
     NzCollapseModule,
     NzListModule,
+    TruncatePipe,
   ],
   templateUrl: './letter-page-view.component.html',
   styleUrl: './letter-page-view.component.scss',
@@ -76,7 +78,7 @@ export class LetterPageViewComponent {
 
   @Input() listPatients: IPatient[] | null = [];
 
-  @Input() listPatientEncounters: any[] | null = [];
+  @Input() listPatientEncounters: IPatientVisit[] | null = [];
 
   @Output() onSelectCompany = new EventEmitter<ICompany>();
 
@@ -131,7 +133,7 @@ export class LetterPageViewComponent {
   }
 
   public selectPackage(e: any) {
-    this.packageName = this.documentsForm.value.package.name;
+    this.packageName = this.documentsForm.value.package;
     this.onSelectPackage.emit(this.documentsForm.value.package);
     this.deleteInfoItem('letter');
   }
@@ -156,7 +158,7 @@ export class LetterPageViewComponent {
       this.filteredPeople = [];
     } else if (this.listPatients) {
       this.filteredPeople = this.listPatients.filter((person) =>
-        person.id.includes(value)
+        person.id.startsWith(value)
       );
     }
     if (value !== null && this.documentsForm.value.patientID) {
@@ -164,5 +166,7 @@ export class LetterPageViewComponent {
     }
   }
 
-  searchEncounter(value: string) {}
+  searchEncounter(value: string) {
+    console.log(value);
+  }
 }
