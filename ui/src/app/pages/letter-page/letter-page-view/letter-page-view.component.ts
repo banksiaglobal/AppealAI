@@ -92,8 +92,6 @@ export class LetterPageViewComponent {
 
   @Output() onUploadDenialLetter = new EventEmitter<any>();
 
-  @Output() saveDocument = new EventEmitter<any>();
-
   @Output() showListEncounters = new EventEmitter<any>();
 
   packageName: string;
@@ -120,7 +118,6 @@ export class LetterPageViewComponent {
   });
 
   submitForm() {
-    console.log(this.documentsForm.value);
     this.onUploadDenialLetter.emit(this.documentsForm.value);
   }
 

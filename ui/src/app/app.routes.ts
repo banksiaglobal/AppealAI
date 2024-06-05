@@ -36,13 +36,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'answer',
-    loadComponent: () =>
-      import('./pages/ai-page/ai/ai.component').then((m) => m.AiComponent),
-    title: 'AI',
-    pathMatch: 'full',
-  },
-  {
     path: '**',
     redirectTo: 'welcome',
   },
