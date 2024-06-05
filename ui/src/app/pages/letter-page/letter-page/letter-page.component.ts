@@ -82,7 +82,6 @@ export class LetterPageComponent {
   public listPatientEncounters$: Observable<IPatientVisit[]>;
 
   onUploadDenialLetter(info: any) {
-    console.log(info);
     const body = {
       text: info.text,
       package: info.package.id,
@@ -105,6 +104,10 @@ export class LetterPageComponent {
           this.getListDenialLetters(info.package.id);
           this.getAllListAppealsFromAI();
           this.getAllListDenialLetters();
+          this.modal.success({
+            nzTitle: 'Great, the document was uploaded.',
+            nzContent: 'All the information you need can be found below',
+          });
           return of(true);
         }),
 
@@ -164,35 +167,6 @@ export class LetterPageComponent {
     this.messageService.success(`The ${type} ${action}.`, {
       nzDuration: 2000,
     });
-  }
-
-  saveDocument(documentInfo: IDoc) {
-    this.docsService
-      .downloadDocument(documentInfo.name)
-      .pipe(
-        map((result: any) => {
-          console.log(result);
-          return result;
-        }),
-        tap(() => {
-          this.createSuccessMessage('document', 'was saved');
-          this.getAllDocsForCurrentPackage(documentInfo.packageId);
-        }),
-        catchError((error: any) => {
-          this.createErrorMessage('document', "wasn't saved. Smth went wrong");
-          console.error(error);
-
-          alert(
-            'Problem while downloading the file.\n' +
-              '[' +
-              error.status +
-              '] ' +
-              error.statusText
-          );
-          return throwError(() => error);
-        })
-      )
-      .subscribe();
   }
 
   getListPatients() {
