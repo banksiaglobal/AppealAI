@@ -99,7 +99,7 @@ export class LetterPageComponent {
               'In a few minutes, the uploaded email and response will appear on this page',
           });
         }),
-        switchMap(() => timer(5 * 60 * 10)), // 5 minutes delay
+        switchMap(() => timer(5 * 60 * 1000)), // 5 minutes delay
         switchMap(() => {
           this.getListDenialLetters(info.package.id);
           this.getAllListAppealsFromAI();
