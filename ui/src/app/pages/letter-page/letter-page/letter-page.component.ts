@@ -196,6 +196,7 @@ export class LetterPageComponent {
       .getListDenialLettersForPackage(packageId)
       .pipe(
         map((data) => {
+          this.sortArrayDate(data);
           return data;
         }),
         tap((data) => {
@@ -211,6 +212,7 @@ export class LetterPageComponent {
       .getAppealAnswersForPackage(packageId)
       .pipe(
         map((data) => {
+          this.sortArrayDate(data);
           return data;
         })
       );
@@ -290,5 +292,13 @@ export class LetterPageComponent {
         })
       )
       .subscribe();
+  }
+
+  sortArrayDate(array: any[]) {
+    array.sort((a, b) => {
+      const dateA = new Date(a.createdDateTime).getTime();
+      const dateB = new Date(b.createdDateTime).getTime();
+      return dateB - dateA;
+    });
   }
 }
