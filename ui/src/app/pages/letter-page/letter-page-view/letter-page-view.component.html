@@ -68,7 +68,7 @@
                             <div class="btn-box" nz-flex [nzAlign]="'center'">
                                 <button class="btn-submit" type="submit" nz-button nzType="primary"
                                     [disabled]="!documentsForm.valid" (click)="submitForm()">
-                                    Search
+                                    Generate
                                 </button>
                             </div>
                         </nz-form-item>
@@ -86,7 +86,7 @@
                         </div>
                         }
                         <nz-collapse>
-                            <nz-collapse-panel nzHeader="Letters of denial" nzActive="false">
+                            <nz-collapse-panel nzHeader="Denial letters" nzActive="false">
                                 <app-list-denial-letters [listDenialLetters]="listDenialLetters"
                                     (deleteLetter)="deleteLetter.emit($event)" />
                             </nz-collapse-panel>
@@ -106,13 +106,13 @@
                 </p>
 
                 <nz-collapse>
-                    <nz-collapse-panel nzHeader="All list of denial letters" nzActive="false">
+                    <nz-collapse-panel nzHeader="List of all denial letters" nzActive="false">
                         <app-list-denial-letters [listDenialLetters]="listALLDenialLetters"
                             (deleteLetter)="deleteLetter.emit($event)" />
                     </nz-collapse-panel>
                 </nz-collapse>
                 <nz-collapse>
-                    <nz-collapse-panel nzHeader="All list of appeal letters" nzActive="false">
+                    <nz-collapse-panel nzHeader="List of all appeal letters" nzActive="false">
                         <app-list-answer-ai [listAnswersAI]="listALLAnswersAI"
                             (deleteAnswerAI)="deleteAnswerAI.emit($event)" />
                     </nz-collapse-panel>
