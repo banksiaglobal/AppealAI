@@ -94,9 +94,9 @@ export class LetterPageComponent {
         tap(() => {
           this.getListDenialLetters(info.package.id);
           this.modal.success({
-            nzTitle: 'Great, the document is currently being uploaded.',
+            nzTitle: 'Great!',
             nzContent:
-              'In a few minutes, the uploaded email and response will appear on this page',
+              'In 5 minutes, the uploaded denial letter and response will appear in the document list.',
           });
         }),
         switchMap(() => timer(5 * 60 * 1000)), // 5 minutes delay
@@ -105,7 +105,7 @@ export class LetterPageComponent {
           this.getAllListAppealsFromAI();
           this.getAllListDenialLetters();
           this.modal.success({
-            nzTitle: 'Great, the document was uploaded.',
+            nzTitle: 'Great! Your response is ready now!',
             nzContent: 'All the information you need can be found below',
           });
           return of(true);
