@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
+import { provideMarkdown } from 'ngx-markdown';
 
 registerLocaleData(en);
 
@@ -22,5 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideAnimations(),
     provideHttpClient(),
+    provideMarkdown(),
   ],
 };

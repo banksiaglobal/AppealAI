@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IAppealLetter } from '../../interface/interfaces';
 import { CommonModule } from '@angular/common';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-list-answer-ai',
   standalone: true,
-  imports: [NzListModule, CommonModule],
+  imports: [NzListModule, CommonModule, MarkdownModule],
   templateUrl: './list-answer-ai.component.html',
   styleUrl: './list-answer-ai.component.scss',
 })

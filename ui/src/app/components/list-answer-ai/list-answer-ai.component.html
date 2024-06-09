@@ -5,7 +5,8 @@
         <div class="list-docs-item">
             <div nz-typography> <b>{{i+1}}).&nbsp;</b> <b><span *ngIf="isImpossibleAppeal(item.appeal)">It's
                         impossible appeal.</span>
-                </b> {{item.appeal}}
+                </b>
+                <markdown [data]="item.appeal"></markdown>
             </div>
             <div class="bottom-side-item-cell">
                 <div nz-typography> {{ item.createdDateTime | date:"MMM dd, yy 'at' hh:mm a"}}</div>

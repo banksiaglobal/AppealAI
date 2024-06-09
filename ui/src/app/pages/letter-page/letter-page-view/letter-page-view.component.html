@@ -45,13 +45,13 @@
                         </div>
                     </nz-form-item>
                     <nz-form-item>
-                        <nz-select nzShowSearch nzServerSearch nzPlaceHolder="patient's visit"
+                        <nz-select class="visit" nzShowSearch nzServerSearch nzPlaceHolder="patient's visit"
                             formControlName="patientEncounter" nzAllowClear [nzShowArrow]="false"
                             [nzFilterOption]="nzFilterOption" (ngModelChange)="searchEncounter($event)"
                             [nzDisabled]="!documentsForm.value.patientID" nzCustomContent="true">
                             <nz-option *ngFor="let encounter of listPatientEncounters" [nzValue]="encounter"
                                 nzCustomContent="true" [nzLabel]="encounter.period.end |  date:'medium'">
-                                {{encounter.period.start | date:'MM/dd/yyyy HH:mm'}}, {{encounter.type | truncate:15}}
+                                {{encounter.period.start | date:'MM/dd/yyyy HH:mm'}}, {{encounter.type | truncate:45}}
                             </nz-option>
                         </nz-select>
                         <div class="create-obj-box">

@@ -20,7 +20,9 @@
     "@angular/router": "^17.0.0",
     "@ant-design/icons": "^5.3.6",
     "file-saver": "^2.0.5",
+    "marked": "^12.0.2",
     "ng-zorro-antd": "^17.4.0",
+    "ngx-markdown": "^17.2.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

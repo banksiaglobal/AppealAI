@@ -21,6 +21,9 @@
 
 nz-select {
   width: 250px;
+  &.visit {
+    width: 640px;
+  }
 }
 
 nz-form-item {
