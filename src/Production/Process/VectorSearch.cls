@@ -66,7 +66,7 @@ import os
 <assign property="context.patientData" value="callresponse.Result" action="set" languageOverride="" />
 </response>
 </call>
-<assign name="Add patient data" property="context.patientData" value="&quot;to compensate for medical services provided to &quot;_request.PatientName_&quot;  &quot;_context.patientData" action="set" languageOverride="objectscript" xpos='335' ypos='500' />
+<assign name="Add patient data" property="context.patientData" value="&quot; to compensate for medical services provided to the patient defined with following FHIR  object &quot;_request.PatientName_&quot;  &quot;_context.patientData" action="set" languageOverride="objectscript" xpos='335' ypos='500' />
 </true>
 </if>
 <code name='Get vector rejection file' languageOverride='python' xpos='200' ypos='700' >
