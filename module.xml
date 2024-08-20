@@ -27,7 +27,7 @@
 
       <SystemSetting Name="CSP.DefaultFileCharset" Value="UTF-8"/>
       <CSPApplication Url="/appealai" SourcePath="/dist/ui/browser" DeployPath="{$cspdir}/appealai" ServeFiles="1" Recurse="1" CookiePath="/appealai"/>      
-      <SystemRequirements Interoperability="enabled" />
+      <SystemRequirements Interoperability="enabled" Health="true"/>
       <Dependencies>
         <ModuleReference>
           <Name>bg-openai</Name>
