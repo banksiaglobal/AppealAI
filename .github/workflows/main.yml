@@ -26,7 +26,7 @@ jobs:
           username: ec2-user
           key: ${{ secrets.KEY }}
           script: |
-            docker login ghcr.io -u USERNAME -p ${{ secrets.GITHUB_TOKEN }};
-            docker-compose pull;
-            docker-compose up -d;
-            docker system prune -f
+            sudo docker login ghcr.io -u USERNAME -p ${{ secrets.GITHUB_TOKEN }};
+            sudo docker-compose pull;
+            sudo docker-compose up -d;
+            sudo docker system prune -f
